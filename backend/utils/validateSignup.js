@@ -1,11 +1,8 @@
-const express = require('express');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('./validation');
-const { User } = require('../../db/models');
-const expressValidator = require('express-validator');
-console.log(expressValidator)
+const { User } = require('../db/models/user');
 
-export const validateSignup = [
+const validateSignup = [
     check('email')
         .exists({ checkFalsy: true })
         .isEmail()
@@ -58,4 +55,5 @@ export const validateSignup = [
     handleValidationErrors
 ];
 
-  export default validateSignup;
+
+module.exports = validateSignup;
