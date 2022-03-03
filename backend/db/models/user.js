@@ -24,10 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     imageUrl: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        
-      }
+      allowNull: false
     },
     hashedPassword: {
       type: DataTypes.STRING.BINARY,
