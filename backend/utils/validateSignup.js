@@ -9,8 +9,8 @@ export const validateSignup = [
     check('email')
         .exists({ checkFalsy: true })
         .isEmail()
-        .withMessage('Please provide a valid email.'),
-    check('email')
+        .withMessage('Please provide a valid email.')
+        .bail()
         .custom((value, { req }) => {
             return new Promise((resolve, reject) => {
                 User.findOne({ where: { email: req.body.email } })
@@ -28,14 +28,14 @@ export const validateSignup = [
             });
         }),
     check('username')
-      .exists({ checkFalsy: true })
-      .isLength({ min: 4 })
-      .withMessage('Please provide a username with at least 4 characters.'),
-    check('username')
-      .not()
-      .isEmail()
-      .withMessage('Username cannot be an email.'),
-    check('username')
+        .exists({ checkFalsy: true })
+        .isLength({ min: 4 })
+        .withMessage('Please provide a username with at least 4 characters.')
+        .bail()
+        .not()
+        .isEmail()
+        .withMessage('Username cannot be an email.')
+        .bail()
         .custom((value, { req }) => {
             return new Promise((resolve, reject) => {
                 User.findOne({ where: { username: req.body.username } })
