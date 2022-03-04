@@ -1,0 +1,21 @@
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+.authWrapper {
+    background-image: url('../../../public//images/user-auth-bg.jpg');
+    overflow: hidden;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.logoBtn {
+    background: none;
+    border: none;
+    background-image: url('../../../public/brand-assets/Shuttr\ logo\ -\ gradient\ and\ white.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 100px;
+    height: 33px;
+}

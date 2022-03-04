@@ -38,8 +38,8 @@ const WelcomeNav = styled.nav`
 `;
 
 const LogoButton = styled.button`
-    width: 150px;
-    height: 75%;
+    width: 100px;
+    height: 33px;
 `;
 
 
@@ -64,7 +64,9 @@ const WelcomePage = () => {
     return (
         <WelcomeWrapper className='wlc-background'>
             <WelcomeNav>
-                <LogoButton className='wlc-logo-btn' />
+                <LogoButton className='wlc-logo-btn'>
+                    <NavLink to='/login' className='wlc-logo-link' />
+                </LogoButton>
                 <Searchbar />
                 <NavLink className='wlc-login-btn' to='/login'>Log In</NavLink>
                 <NavLink className='wlc-signup-btn'to='/signup'>Sign Up</NavLink>

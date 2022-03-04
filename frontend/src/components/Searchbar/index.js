@@ -45,7 +45,7 @@ const Searchbar = () => {
 
     const handleSearch = (e) => {
         e.preventDefault();
-        const searchUrl = `/api/search/?text=${e.target.value}`;
+        const searchUrl = `/api/search/${e.target.value}`;
 
         return (
             <Redirect to={searchUrl} />

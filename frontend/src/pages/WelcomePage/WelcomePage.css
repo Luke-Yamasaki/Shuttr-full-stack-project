@@ -7,7 +7,8 @@ body {
     background-image: url('../../../public/images/pexels-ezra-comeau-2387418.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    filter: brightness(80%)
+    filter: brightness(80%);
+    overflow: hidden;
 }
 
 .wlc-logo-btn {
@@ -16,7 +17,12 @@ body {
     background-image: url('../../../public/brand-assets/Shuttr\ logo\ -\ gradient\ and\ white.png');
     background-size: contain;
     background-repeat: no-repeat;
+}
 
+.wlc-logo-link {
+    width: 100px;
+    height: 33px;
+    cursor: pointer;
 }
 
 .wlc-start-btn {

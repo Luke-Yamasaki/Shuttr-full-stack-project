@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import WelcomePage from './pages/WelcomePage';
 import Homepage from './pages/Homepage';
+import AuthenticationPage from './pages/AuthenticationPage';
 
 function App() {
   return (
@@ -13,10 +14,13 @@ function App() {
         <WelcomePage />
       </Route>
       <Route path="/login">
-        <WelcomePage />
+        <AuthenticationPage mode={'login'} />
       </Route>
       <Route path="/signup">
-        <WelcomePage />
+      <AuthenticationPage mode={'signup'} />
+      </Route>
+      <Route>
+        <p>404 Page Not Found.</p>
       </Route>
     </Switch>
   );
