@@ -5,7 +5,7 @@ body {
 
 .wlc-background {
     background-image: url('../../../public/images/pexels-ezra-comeau-2387418.jpg');
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
 }
 
@@ -16,4 +16,18 @@ body {
     background-size: contain;
     background-repeat: no-repeat;
 
+}
+
+.wlc-start-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 23px;
+    width: 200px;
+    height: 64px;
+    background-color: white;
+    color:black;
+    text-decoration: none;
+    border-radius: 2px;
 }
