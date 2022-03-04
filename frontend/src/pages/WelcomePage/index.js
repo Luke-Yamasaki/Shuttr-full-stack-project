@@ -4,6 +4,7 @@ import { Redirect, Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import LoginForm from '../../components/Forms/UserForms/LoginForm';
 import SignupForm from '../../components/Forms/UserForms/SignupForm';
+import Searchbar from '../../components/Searchbar';
 import './WelcomePage.css';
 
 const WelcomeWrapper= styled.div`
@@ -32,13 +33,15 @@ const WelcomeNav = styled.nav`
     background-color: rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: space-around;
+    align-items: center;
 `;
 
 const LogoButton = styled.button`
     width: 150px;
     height: 75%;
-`
+`;
+
 
 const Footer = styled.footer`
     display: flex;
@@ -62,9 +65,9 @@ const WelcomePage = () => {
         <WelcomeWrapper className='wlc-background'>
             <WelcomeNav>
                 <LogoButton className='wlc-logo-btn' />
-                <div>search bar</div>
-                <NavLink to='/login'>Log In</NavLink>
-                <NavLink to='/signup'>Sign Up</NavLink>
+                <Searchbar />
+                <NavLink className='wlc-login-btn' to='/login'>Log In</NavLink>
+                <NavLink className='wlc-signup-btn'to='/signup'>Sign Up</NavLink>
             </WelcomeNav>
             <WelcomeSection>
                 <h1 style={{fontSize: '50px'}}>Find your inspiration.</h1>
@@ -73,9 +76,16 @@ const WelcomePage = () => {
                     Start for free
                 </Link>
             </WelcomeSection>
-            <h5>Photo title</h5>
-            <h5>by uploader</h5>
-            <Footer />
+            <h5 className='wlc-photo-title'>Photo title</h5>
+            <h5 className='wlc-user-info'>by uploader</h5>
+            <Footer>
+                <Link className='wlc-footer-text' to='/about'>About</Link>
+                <Link className='wlc-footer-text' to='/services/designer'>Designers</Link>
+                <Link className='wlc-footer-text' to='/services/developer'>Developers</Link>
+                <a href='https://github.com/Luke-Yamasaki/Shuttr-full-stack-project' className='wlc-footer-text'>GitHub</a>
+                <a href='https://www.linkedin.com/in/lukeyamasaki/' className='wlc-footer-text'>LinkedIn</a>
+                <a href='https://www.behance.net/lukeyamasac140' className='wlc-footer-text'>Behance</a>
+            </Footer>
         </WelcomeWrapper>
 
 

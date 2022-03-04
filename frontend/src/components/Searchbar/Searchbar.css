@@ -1,0 +1,26 @@
+searchInput {
+    -webkit-appearance: none;
+    box-shadow: none !important;
+    width: 58vw;
+    height: 33px;
+    padding: 0px;
+    margin: 0px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0);
+    font-size: 14px;
+}
+
+SearchInput:-webkit-autofill {
+    color: #fff !important;
+}
+
+searchInput:focus {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 58vw;
+    height: 3vh;
+    padding: 0px;
+    margin: 0px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0)
+}
