@@ -1,0 +1,19 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.wlc-background {
+    background-image: url('../../../public/images/pexels-ezra-comeau-2387418.jpg');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.wlc-logo-btn {
+    background: none;
+    border: none;
+    background-image: url('../../../public/brand-assets/Shuttr\ logo\ -\ gradient\ and\ white.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+
+}
