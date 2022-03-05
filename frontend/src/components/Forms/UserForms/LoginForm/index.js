@@ -4,7 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import {FormWrapper, FormContent, Form, FormLogo} from '../index';
+import {FormWrapper, FormContent, Form} from '../index';
+import './LoginForm.css';
+
+const FormLogo = styled.div`
+  width: 50px;
+  height: 50px;
+`;
 
 const LoginForm = () => {
     const dispatch = useDispatch();
@@ -39,10 +45,10 @@ const LoginForm = () => {
   }
 
     return (
-        <FormWrapper>
+        <FormWrapper className='lgn-form-wrapper'>
           <FormContent>
             <FormLogo className='lgn-form-logo'/>
-            <h6>Log in to Shuttr</h6>
+            <h6 className='login-text'>Log in to Shuttr</h6>
             <Form onSubmit={handleSubmit}>
               <input placeholder='Email address' value={credential} onChange={(e) => setCredential(e.target.value)}></input>
               <button onClick={handleClick}>Next</button>

@@ -5,7 +5,11 @@ export const FormWrapper = styled.div`
   min-height: 285px;
   border-radius: 0.25rem;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  background-color: #b3d4fc;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const FormContent = styled.div`
@@ -13,23 +17,15 @@ export const FormContent = styled.div`
   min-height: 237px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 `;
 
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  width: 352px;
+  width: 304px;
   min-height: 128px;
-`;
-
-export const FormLogo = styled.div`
-  background-image: url('../../../../../public/brand-assets/Shuttr\ favicon\ -\ gradient.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  width: 60px;
-  height: 60px;
 `;
