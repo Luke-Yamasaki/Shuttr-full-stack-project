@@ -86,18 +86,40 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
 
-  User.signup = async function ({ username, email, password }) {
+  User.signup = async function ({ username, email, password, imageUrl }) {
+    let profilePic;
+    !imageUrl ? profilePic = '/public/images/user-icon-blue.png' : profilePic = imageUrl;
     const hashedPassword = bcrypt.hashSync(password);
     const user = await User.create({
       username,
       email,
-      hashedPassword
+      hashedPassword,
+      imageUrl: profilePic
     });
     return await User.scope('currentUser').findByPk(user.id);
   };
 
-  //TODO
-  // User.update and User.remove
+  User.remove = async function ({ username, email, password }) {
+    const { Op } = require('sequelize');
+    const user = await User.scope('loginUser').findOne({
+      where: {
+        [Op.or]: {
+          username: username,
+          email: email
+        }
+      }
+    });
+    if (user && user.validatePassword(password)) {
+      const hashedPassword = bcrypt.hashSync(password);
+      return User.destroy({
+        where: {
+          username: username,
+          email: email,
+          hashedPassword: hashedPassword
+        }
+      })
+    }
+  };
 
   return User;
 };
