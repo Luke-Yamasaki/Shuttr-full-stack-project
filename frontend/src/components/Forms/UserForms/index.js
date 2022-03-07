@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const FormWrapper = styled.div`
   width: 352px;
   min-height: 285px;
+  padding: 15px 0px 15px 0px;
   border-radius: 0.25rem;
   border: 1px solid rgba(0, 0, 0, 0.2);
   background-color: white;
@@ -13,7 +14,7 @@ export const FormWrapper = styled.div`
 `;
 
 export const FormContent = styled.div`
-  width: 304px;
+  width: 305px;
   min-height: 237px;
   display: flex;
   flex-direction: column;
@@ -26,6 +27,6 @@ export const Form = styled.form`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  width: 304px;
+  width: 305px;
   min-height: 128px;
 `;
