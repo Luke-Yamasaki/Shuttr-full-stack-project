@@ -1,6 +1,7 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { Redirect } from 'react-router-dom';
+import { logout } from '../../store/session';
 import styled from 'styled-components';
 
 const HomeWrapper = styled.div`
@@ -10,10 +11,19 @@ const HomeWrapper = styled.div`
 
 const Homepage = () => {
     const sessionUser = useSelector(state => state.session.user);
+    const dispatch = useDispatch();
 
     if (!sessionUser) return (
       <Redirect to="/welcome" />
     );
+
+    const handleLogout = () => {
+        if (sessionUser) {
+          dispatch(logout());
+        } else {
+          <Redirect to='/' />
+        }
+      };
 
     return (
         <div>
@@ -26,6 +36,7 @@ const Homepage = () => {
                     <li>Upload</li>
                     <li>Notification</li>
                     <li>User Icon</li>
+                    <button onClick={handleLogout}>Log out</button>
                 </ul>
             </nav>
             <div>
