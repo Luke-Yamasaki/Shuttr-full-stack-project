@@ -14,10 +14,12 @@ const FormLogo = styled.div`
 
 const FormInput = styled.input`
   background-color: transparent;
-  border: none;
+  border-color: rgba(0, 0, 0, 0);
   color: #212124;
   cursor: text;
-  width: 302px;
+  width: 291px;
+  padding-left: 10px;
+  margin-left: -1px;
 `;
 
 const ErrorUl = styled.ul`
@@ -116,7 +118,8 @@ const LoginForm = () => {
   }
 
   const userInputBlur = (e) => {
-    const inputDiv = document.getElementsByClassName('input-container')[0];
+    if(!credential.length) {
+      const inputDiv = document.getElementsByClassName('input-container')[0];
     const inputLabel = document.getElementsByTagName('label')[0];
     const inputField = document.getElementsByClassName('sc-eCImPb bdKjVM')[0];
     inputDiv.style.border = '1px solid grey'
@@ -124,6 +127,7 @@ const LoginForm = () => {
     inputLabel.style.fontSize = '16px';
     inputLabel.style.color = '#212124';
     inputLabel.style.borderColor = 'grey';
+    }
   }
   const pwrdInputClick = (e) => {
     const inputDiv = document.getElementsByClassName('input-container')[1];
@@ -137,14 +141,16 @@ const LoginForm = () => {
   }
 
   const pwrdInputBlur = (e) => {
-    const inputDiv = document.getElementsByClassName('input-container')[1];
-    const inputLabel = document.getElementsByTagName('label')[1];
-    const inputField = document.getElementsByClassName('sc-eCImPb bdKjVM')[1];
-    inputDiv.style.border = '1px solid grey'
-    inputField.style.height = '15px';
-    inputLabel.style.fontSize = '16px';
-    inputLabel.style.color = '#212124';
-    inputLabel.style.borderColor = 'grey';
+    if(!password.length) {
+      const inputDiv = document.getElementsByClassName('input-container')[1];
+      const inputLabel = document.getElementsByTagName('label')[1];
+      const inputField = document.getElementsByClassName('sc-eCImPb bdKjVM')[1];
+      inputDiv.style.border = '1px solid grey'
+      inputField.style.height = '15px';
+      inputLabel.style.fontSize = '16px';
+      inputLabel.style.color = '#212124';
+      inputLabel.style.borderColor = 'grey';
+    }
   }
 
   return (

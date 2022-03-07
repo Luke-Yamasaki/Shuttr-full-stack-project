@@ -63,3 +63,13 @@ body {
     font-size: 14px;
     color: white;
 }
+
+.wlc-photo-title {
+    font-family: sans-serif;
+    color: white;
+}
+
+.wlc-user-info {
+    font-family: sans-serif;
+    color: white;
+}
