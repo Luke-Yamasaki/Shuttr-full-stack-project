@@ -1,70 +1,49 @@
 {
     firstName: 'Demo',
     lastName: 'User',
-    email: 'demo@user.io',
-    age: '27',
-    profileImageUrl: 'https://cdn.pixabay.com/photo/2017/07/18/23/23/user-2517433_1280.png',
-    hashedPassword: bcrypt.hashSync('demoPassword247!')
-},
-{
-    firstName: 'Demo',
-    lastName: 'User',
     userName: 'Demo-user',
     email: 'demo@user.io',
     age: '27',
     profileImageUrl: 'https://cdn.pixabay.com/photo/2017/07/18/23/23/user-2517433_1280.png',
-    hashedPassword: bcrypt.hashSync('demoPassword247!')
-}
+    hashedPassword: bcrypt.hashSync('password1')
+},
+{
+    firstName: 'Cody',
+    lastName: 'Baker',
+    userName: 'codyb6500',
+    email: 'codyb6500@test.io',
+    age: '36',
+    profileImageUrl: 'https://combo.staticflickr.com/pw/images/buddyicon02.png',
+    hashedPassword: bcrypt.hashSync('password2')
+},
+{
+    firstName: 'James',
+    lastName: 'Wright',
+    userName: 'Writrix',
+    email: 'writrix@test.io',
+    age: '46',
+    profileImageUrl: 'https://farm3.staticflickr.com/2919/buddyicons/62208072@N08.jpg',
+    hashedPassword: bcrypt.hashSync('password3')
+},
+{
+    firstName: 'Lauren',
+    lastName: 'Taylor',
+    userName: 'laurentaylor',
+    email: 'lrnrtaylor@test.io',
+    age: '32',
+    profileImageUrl: 'https://farm66.staticflickr.com/65535/buddyicons/168029468@N08.jpg',
+    hashedPassword: bcrypt.hashSync('password4')
+},
+{
+    firstName: 'Lauren',
+    lastName: 'Taylor',
+    userName: 'laurentaylor',
+    email: 'lrnrtaylor@test.io',
+    age: '32',
+    profileImageUrl: 'https://farm66.staticflickr.com/65535/buddyicons/168029468@N08.jpg',
+    hashedPassword: bcrypt.hashSync('password4')
+},
 
-<entry>
-    <title>opera_GtfIJ44uZI</title>
-    <link rel="alternate" type="text/html" href="https://www.flickr.com/photos/193326662@N04/51923968677/"/>
-    <id>tag:flickr.com,2005:/photo/51923968677</id>
-    <published>2022-03-08T00:13:16Z</published>
-    <updated>2022-03-08T00:13:16Z</updated>
-    <flickr:date_taken>2022-03-07T16:13:16-08:00</flickr:date_taken>
-    <dc:date.Taken>2022-03-07T16:13:16-08:00</dc:date.Taken>
-    <content type="html">			&lt;p&gt;&lt;a href=&quot;https://www.flickr.com/people/193326662@N04/&quot;&gt;codyb6500&lt;/a&gt; posted a photo:&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.flickr.com/photos/193326662@N04/51923968677/&quot; title=&quot;opera_GtfIJ44uZI&quot;&gt;&lt;img src=&quot;https://live.staticflickr.com/65535/51923968677_52f3af353b_m.jpg&quot; width=&quot;136&quot; height=&quot;240&quot; alt=&quot;opera_GtfIJ44uZI&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-</content>
-    <author>
-      <name>codyb6500</name>
-      <uri>https://www.flickr.com/people/193326662@N04/</uri>
-      <flickr:nsid>193326662@N04</flickr:nsid>
-      <flickr:buddyicon>https://combo.staticflickr.com/pw/images/buddyicon02.png#193326662@N04</flickr:buddyicon>
-    </author>
-    <link rel="enclosure" type="image/jpeg" href="https://live.staticflickr.com/65535/51923968677_52f3af353b_z.jpg" />
-    <category term="" scheme="https://www.flickr.com/photos/tags/" />
-    <displaycategories>
-            </displaycategories>
-    </entry>
-
-<entry>
-    <title>It’s leather night.</title>
-    <link rel="alternate" type="text/html" href="https://www.flickr.com/photos/62208072@N08/51923968722/"/>
-    <id>tag:flickr.com,2005:/photo/51923968722</id>
-    <published>2022-03-08T00:13:18Z</published>
-    <updated>2022-03-08T00:13:18Z</updated>
-    <flickr:date_taken>2022-03-07T19:12:12-08:00</flickr:date_taken>
-    <dc:date.Taken>2022-03-07T19:12:12-08:00</dc:date.Taken>
-    <content type="html">			&lt;p&gt;&lt;a href=&quot;https://www.flickr.com/people/62208072@N08/&quot;&gt;Writrix&lt;/a&gt; posted a photo:&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.flickr.com/photos/62208072@N08/51923968722/&quot; title=&quot;It’s leather night.&quot;&gt;&lt;img src=&quot;https://live.staticflickr.com/65535/51923968722_3f91808608_m.jpg&quot; width=&quot;180&quot; height=&quot;240&quot; alt=&quot;It’s leather night.&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;If I teach in a glassed-in room, I wear costumes.&lt;/p&gt;</content>
-    <author>
-      <name>Writrix</name>
-      <uri>https://www.flickr.com/people/62208072@N08/</uri>
-      <flickr:nsid>62208072@N08</flickr:nsid>
-      <flickr:buddyicon>https://farm3.staticflickr.com/2919/buddyicons/62208072@N08.jpg?1402664218#62208072@N08</flickr:buddyicon>
-    </author>
-    <link rel="enclosure" type="image/jpeg" href="https://live.staticflickr.com/65535/51923968722_3f91808608_b.jpg" />
-    <category term="" scheme="https://www.flickr.com/photos/tags/" />
-    <displaycategories>
-            </displaycategories>
-    </entry>
 
 <entry>
     <title>Always remembered and loved.</title>

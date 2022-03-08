@@ -1,0 +1,57 @@
+Users:
+Cody
+Baker
+codyb6500
+codyb6500@test.io
+https://combo.staticflickr.com/pw/images/buddyicon02.png
+
+James
+Wright
+Writrix
+writrix@test.io
+https://combo.staticflickr.com/pw/images/buddyicon02.png
+
+Cody
+Baker
+codyb6500
+codyb6500@test.io
+https://combo.staticflickr.com/pw/images/buddyicon02.png
+
+
+images:
+
+userId: 2
+title: opera_GtfIJ44uZI
+imageUrl: https://live.staticflickr.com/65535/51923968677_52f3af353b_z.jpg
+createdAt: 2022-03-08T00:13:16Z
+updatedAt: 2022-03-08T00:13:16Z
+
+userId: 3
+title: It’s leather night.
+imageUrl: https://live.staticflickr.com/65535/51923968722_3f91808608_b.jpg
+createdAt: 2022-03-08T00:13:18Z
+updatedAt: 2022-03-08T00:13:18Z
+
+userId: 4
+title: Always remembered and loved.
+description: Always remembered and loved.
+imageUrl: https://live.staticflickr.com/65535/51923969332_5419d0b087_m.jpg
+createdAt: 2022-03-08T00:13:18Z
+updatedAt: 2022-03-08T00:13:18Z
+
+Tags:
+
+1
+title: firestorm
+
+2
+title: secondlife
+
+
+ImageTags:
+
+tagId: 1,
+imageId: 4
+
+tagId: 2,
+imageId: 4
