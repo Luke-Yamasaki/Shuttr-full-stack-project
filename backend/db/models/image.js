@@ -41,6 +41,11 @@ module.exports = (sequelize, DataTypes) => {
     Image.hasMany(models.ImageTag, { foreignKey: 'imageId' });
   };
 
+  Image.prototype.toSafeObject = function() { // remember, this cannot be an arrow function
+    const { id, title, description, imageUrl } = this; // context will be the User instance
+    return { id, title, description, imageUrl };
+  };
+
   Image.listAll = async function () {
     return await Image.findAll();
   };
@@ -72,14 +77,6 @@ module.exports = (sequelize, DataTypes) => {
     return await Image.findByPk(image.id)
   };
 
-  Image.delete = async function (imageId) {
-    const image= await Image.findByPk(imageId);
-    if (!image) throw new Error('Cannot find image.');
-
-    await Image.destroy({ where: { id: image.id }});
-    return image.id;
-  }
-
   Image.update = async function ({ id, title, description, imageUrl }) {
     const imageId = id;
     delete id;
@@ -90,14 +87,19 @@ module.exports = (sequelize, DataTypes) => {
       {
         where: {
           id: imageId
-         }
+        }
       }
     );
     return await Item.findByPk(id);
-  }
+  };
 
+  Image.delete = async function (imageId) {
+    const image = await Image.findByPk(imageId);
+    if (!image) throw new Error('Cannot find image.');
 
-
+    await Image.destroy({ where: { id: image.id }});
+    return image.id;
+  };
 
   return Image;
 };

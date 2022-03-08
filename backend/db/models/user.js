@@ -107,8 +107,8 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   User.prototype.toSafeObject = function() { // remember, this cannot be an arrow function
-    const { id, firstName, lastName, username, email } = this; // context will be the User instance
-    return { id, firstName, lastName, username, email };
+    const { id, firstName, lastName, username, age, email } = this; // context will be the User instance
+    return { id, firstName, lastName, username, age, email };
   };
 
   User.prototype.validatePassword = function (password) {
@@ -123,14 +123,11 @@ module.exports = (sequelize, DataTypes) => {
   return await User.scope('currentUser').findByPk(id);
   };
 
-  User.login = async function ({ credential, password }) {
+  User.login = async function ({ email, password }) {
     const { Op } = require('sequelize');
     const user = await User.scope('currentUser').findOne({
       where: {
-        [Op.or]: {
-          username: credential,
-          email: credential
-        }
+        email: email
       }
     });
     if (user && user.validatePassword(password)) {
@@ -206,23 +203,30 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
 
-  User.delete = async function ({ credential, password }) {
+  User.delete = async function ({ email, password }) {
     const { Op } = require('sequelize');
+    const hashedPassword = bcrypt.hashSync(password);
+
     const user = await User.scope('loginUser').findOne({
       where: {
-        [Op.or]: {
-          email: credential,
-          username: credential
-        }
+        [Op.and]: [
+          {
+            email: email,
+          },
+          {
+            hashedPassword: hashedPassword
+          }
+        ]
       }
     });
 
     if (user && user.validatePassword(password)) {
-      return await User.destroy({
+      await User.destroy({
         where: {
           id: user.id
         }
       })
+      return user.id
     }
   }
 
