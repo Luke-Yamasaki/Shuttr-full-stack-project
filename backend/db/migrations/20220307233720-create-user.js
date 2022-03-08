@@ -31,7 +31,7 @@ module.exports = {
         allowNull: false
       },
       profileImageUrl: {
-        type: Sequelize.STRING(1024),
+        type: Sequelize.STRING(2048),
         allowNull: false,
         defaultValue: "https://combo.staticflickr.com/pw/images/buddyicon02.png"
       },

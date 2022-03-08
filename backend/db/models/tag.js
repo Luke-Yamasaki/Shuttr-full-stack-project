@@ -1,4 +1,6 @@
 'use strict';
+const { Validator } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   const Tag = sequelize.define('Tag', {
     title: DataTypes.STRING

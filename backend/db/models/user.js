@@ -1,4 +1,7 @@
 'use strict';
+const { Validator } = require('sequelize');
+const bcrypt = require('bcryptjs');
+
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     firstName: {
@@ -28,9 +31,8 @@ module.exports = (sequelize, DataTypes) => {
     username: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
       validate: {
-        len: [2, 50],
+        len: [6, 50],
         isNotEmail(value) {
           if (Validator.isEmail(value)) {
             throw new Error('Cannot be an email.')
@@ -41,7 +43,6 @@ module.exports = (sequelize, DataTypes) => {
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
       validate: {
         len: [3, 256],
         isEmail(value) {
@@ -55,6 +56,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
+        min: 12,
+        max: 130,
         isInt(value) {
           if(Validator.isInt(value) === false) {
             throw new Error('Age must be a number.')
@@ -112,15 +115,22 @@ module.exports = (sequelize, DataTypes) => {
     return bcrypt.compareSync(password, this.hashedPassword.toString());
   };
 
-  User.getCurrentUserById = async function (id) {
+  User.listAll = async function () {
+    return await User.findAll();
+  }
+
+  User.listOne = async function (id) {
   return await User.scope('currentUser').findByPk(id);
   };
 
-  User.login = async function ({ email, password }) {
-    // const { Op } = require('sequelize');
-    const user = await User.scope('loginUser').findOne({
+  User.login = async function ({ credential, password }) {
+    const { Op } = require('sequelize');
+    const user = await User.scope('currentUser').findOne({
       where: {
-        email: email
+        [Op.or]: {
+          username: credential,
+          email: credential
+        }
       }
     });
     if (user && user.validatePassword(password)) {
@@ -129,9 +139,17 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   User.signup = async function ({ firstName, lastName, age, email, password }) {
-    const username = firstName.concat(lastName);
     const profileImageUrl = 'https://combo.staticflickr.com/pw/images/buddyicon02.png';
     const hashedPassword = bcrypt.hashSync(password);
+
+    let username;
+    if(firstName.length + lastName.length >= 6) {
+      username = firstName.concat(lastName).toLowerCase();
+    } else {
+      const randomNumber = Math.floor(Math.random()*1000).toString();
+      username = firstName.concat(lastName, randomNumber).toLowerCase();
+    }
+
     const user = await User.create({
       firstName,
       lastName,
@@ -144,24 +162,52 @@ module.exports = (sequelize, DataTypes) => {
     return await User.scope('currentUser').findByPk(user.id);
   };
 
-  User.edit = async function ({ firstName, lastName, username, email, age, profileImageUrl, password  }) {
-    const hashedPassword = bcrypt.hashSync(password);
-    const user = await User.create({
-      firstName,
-      lastName,
-      username,
-      age,
-      email,
-      profileImageUrl,
-      hashedPassword
-    });
+  User.editInfo = async function ({ firstName, lastName, username, email, profileImageUrl }) {
+    const { Op } = require('sequelize');
+    const user = await User.scope('currentUser').update(
+      {
+        firstName: firstName,
+        lastName, lastName,
+        username: username,
+        email: email,
+        profileImageUrl: profileImageUrl
+      },
+      {
+      where: {
+        [Op.or]: {
+          email: credential,
+          username: credential
+        }
+      }
+      }
+    );
+
     return await User.scope('currentUser').findByPk(user.id);
+  }
+
+  User.editPassword = async function ({ password, newPassword, confirmedPwrd }) {
+    if(newPassword !== confirmedPwrd) throw new Error('The new passwords do not match.');
+    const hashedOldPassword = bcrypt.hashSync(password);
+    const hashedNewPassword = bcrypt.hashSync(confirmedPwrd);
+
+    const user = await User.scope('loginUser').update(
+      {
+        hashedPassword: hashedNewPassword
+      },
+      {
+        where: {
+          hashedPassword: hashedOldPassword
+        }
+      }
+    );
+
+    if (user && user.validatePassword(confirmedPwrd)) {
+      return await User.scope('currentUser').findByPk(user.id);
+    }
   }
 
   User.delete = async function ({ credential, password }) {
     const { Op } = require('sequelize');
-    const hashedPassword = bcrypt.hashSync(password);
-
     const user = await User.scope('loginUser').findOne({
       where: {
         [Op.or]: {
