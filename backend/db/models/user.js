@@ -1,125 +1,17 @@
 'use strict';
-const { Validator } = require('sequelize');
-const bcrypt = require('bcryptjs');
-
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
-    username: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-      validate: {
-        len: [3, 30],
-        isNotEmail(value) {
-          if (Validator.isEmail(value)) {
-            throw new Error('Cannot be an email.');
-          }
-        }
-      }
-    },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-      validate: {
-        len: [3, 256]
-      }
-    },
-    imageUrl: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      defaultValue: '/public/images/user-icon-blue.png'
-    },
-    hashedPassword: {
-      type: DataTypes.STRING.BINARY,
-      allowNull: false,
-      validate: {
-        len: [60, 60]
-      }
-    }
-  },
-  {
-    defaultScope: {
-      attributes: {
-        exclude: ['hashedPassword', 'email', 'createdAt', 'updatedAt']
-      }
-    },
-    scopes: {
-      currentUser: {
-        attributes: { exclude: ['hashedPassword'] }
-      },
-      loginUser: {
-        attributes: {}
-      }
-    }
-  });
-
+    firstName: DataTypes.STRING,
+    lastName: DataTypes.STRING,
+    email: DataTypes.STRING,
+    age: DataTypes.INTEGER,
+    profileImageUrl: DataTypes.STRING,
+    hashedPassword: DataTypes.STRING
+  }, {});
   User.associate = function(models) {
     // associations can be defined here
+    User.hasMany(models.Image, { foreignKey: 'userId' });
+    User.hasMany(models.Comment, { foreignKey: 'userId' })
   };
-
-  User.prototype.toSafeObject = function() { // remember, this cannot be an arrow function
-    const { id, username, email } = this; // context will be the User instance
-    return { id, username, email };
-  };
-
-  User.prototype.validatePassword = function (password) {
-    return bcrypt.compareSync(password, this.hashedPassword.toString());
-  };
-
-  User.getCurrentUserById = async function (id) {
-    return await User.scope('currentUser').findByPk(id);
-  };
-
-  User.login = async function ({ credential, password }) {
-    const { Op } = require('sequelize');
-    const user = await User.scope('loginUser').findOne({
-      where: {
-        [Op.or]: {
-          username: credential,
-          email: credential
-        }
-      }
-    });
-    if (user && user.validatePassword(password)) {
-      return await User.scope('currentUser').findByPk(user.id);
-    }
-  };
-
-  User.signup = async function ({ username, email, password, imageUrl }) {
-    let profilePic;
-    !imageUrl ? profilePic = '/public/images/user-icon-blue.png' : profilePic = imageUrl;
-    const hashedPassword = bcrypt.hashSync(password);
-    const user = await User.create({
-      username,
-      email,
-      hashedPassword,
-      imageUrl: profilePic
-    });
-    return await User.scope('currentUser').findByPk(user.id);
-  };
-
-  User.remove = async function ({ username, email, password }) {
-    const { Op } = require('sequelize');
-    const user = await User.scope('loginUser').findOne({
-      where: {
-        [Op.or]: {
-          username: username,
-          email: email
-        }
-      }
-    });
-    if (user && user.validatePassword(password)) {
-      const hashedPassword = bcrypt.hashSync(password);
-      return User.destroy({
-        where: {
-          username: username,
-          email: email,
-          hashedPassword: hashedPassword
-        }
-      })
-    }
-  };
-
   return User;
 };

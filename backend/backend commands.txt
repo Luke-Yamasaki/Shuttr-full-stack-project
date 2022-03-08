@@ -1,0 +1,5 @@
+npx sequelize model:generate --name User --attributes firstName:string,lastName:string,email:string,age:integer,profileImageUrl:string,hashedPassword:string --force
+npx sequelize model:generate --name Image --attributes userId:integer,title:string,description:string,imageUrl:string
+npx sequelize model:generate --name Comment --attributes userId:integer,imageId:integer,content:text
+npx sequelize model:generate --name Tag --attributes title:string
+npx sequelize model:generate --name ImageTag --attributes imageId:integer,userId:integer
