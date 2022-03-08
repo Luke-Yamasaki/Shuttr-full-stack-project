@@ -17,7 +17,7 @@ module.exports = {
         allowNull: false
       },
       username: {
-        type: Sequelize.STRING(50),
+        type: Sequelize.STRING(30),
         allowNull: false,
         unique: true
       },
@@ -27,10 +27,13 @@ module.exports = {
         unique: true
       },
       age: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false
       },
       profileImageUrl: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(1024),
+        allowNull: false,
+        defaultValue: "https://combo.staticflickr.com/pw/images/buddyicon02.png"
       },
       hashedPassword: {
         type: Sequelize.STRING.BINARY,

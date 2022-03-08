@@ -14,11 +14,11 @@ module.exports = {
         references: { model: "Users" }
       },
       title: {
-        type: Sequelize.STRING(256),
+        type: Sequelize.STRING(50),
         allowNull: false
       },
       description: {
-        type: Sequelize.STRING(256)
+        type: Sequelize.STRING(300)
       },
       imageUrl: {
         type: Sequelize.STRING(1024),

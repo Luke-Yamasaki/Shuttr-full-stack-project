@@ -19,7 +19,7 @@ module.exports = {
         references: { model: "Images" }
       },
       content: {
-        type: Sequelize.TEXT,
+        type: Sequelize.STRING(300),
         allowNull: false
       },
       createdAt: {
