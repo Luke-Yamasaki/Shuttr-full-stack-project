@@ -36,10 +36,25 @@ module.exports = (sequelize, DataTypes) => {
             throw new Error('Cannot be an email.')
           }
         }
-
+      }
     },
-    email: DataTypes.STRING,
-    age: DataTypes.INTEGER,
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        isEmail(value) {
+          if(Validator.isNotEmail(value)) {
+            throw new Error('Invalid email address.')
+          }
+        }
+      }
+    },
+    age: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      
+    }
     profileImageUrl: DataTypes.STRING,
     hashedPassword: DataTypes.STRING
   }, {});
