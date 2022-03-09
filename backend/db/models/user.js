@@ -115,6 +115,10 @@ module.exports = (sequelize, DataTypes) => {
     return bcrypt.compareSync(password, this.hashedPassword.toString());
   };
 
+  User.getCurrentUserById = async function (id) {
+    return await User.scope('currentUser').findByPk(id);
+   };
+
   User.listAll = async function () {
     return await User.findAll();
   }
@@ -124,7 +128,7 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   User.login = async function ({ email, password }) {
-    const user = await User.scope('currentUser').findOne({
+    const user = await User.scope('loginUser').findOne({
       where: {
         email: email
       }

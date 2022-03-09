@@ -3,7 +3,7 @@ const asyncHandler = require('express-async-handler');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const validateSignup = require('../../utils/validateSignup');
 const validateUpdate = require('../../utils/validateUpdate');
-const { User } = require('../../db/models/user');
+const { User } = require('../../db/models/user.js');
 
 const router = express.Router();
 
@@ -18,6 +18,7 @@ router.get(
 router.get(
     '/:id',
     asyncHandler(async (req, res) => {
+        console.log(req.params)
         const user = await User.listOne(req.params.id);
         return res.json(user)
     })
