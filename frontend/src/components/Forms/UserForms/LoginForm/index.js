@@ -63,9 +63,9 @@ const DemoButton = styled.button`
 const LoginForm = () => {
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
-  const [credential, setCredential] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [userErrors, setUserErrors] = useState([]);
+  const [emailErrors, setEmailErrors] = useState([]);
   const [pwrdErrors, setPwrdErrors] = useState([]);
 
   if (sessionUser) return (
@@ -74,32 +74,32 @@ const LoginForm = () => {
 
   const handleSubmit = (e) => {
       e.preventDefault();
-      setUserErrors([]);
+      setEmailErrors([]);
       setPwrdErrors([]);
-      return dispatch(sessionActions.login({ credential, password }))
+      return dispatch(sessionActions.login({ email, password }))
         .catch(async (res) => {
           const data = await res.json();
           const userEmailErrors = [];
           const userPwrdErrors = [];
           if (data && data.errors) {
             data.errors.map((error) => {
-              if(error.toLowerCase().includes("username")) {
+              if(error.toLowerCase().includes("email")) {
                 return userEmailErrors.push(error)
               } else if(error.toLowerCase().includes("password")) {
                 return userPwrdErrors.push(error)
               } else return null;
         })
         }
-        setUserErrors(userEmailErrors);
+        setEmailErrors(userEmailErrors);
         setPwrdErrors(userPwrdErrors);
         });
   }
 
   const handleDemo = (e) => {
     e.preventDefault();
-    const credential = "Demo-lition";
-    const password = "password"
-    return dispatch(sessionActions.login({credential, password}))
+    const email = "demo@user.com";
+    const password = "password123!"
+    return dispatch(sessionActions.login({email, password}))
       .catch(async (res) => {
         const data = await res.json();
       })
@@ -118,7 +118,7 @@ const LoginForm = () => {
   }
 
   const userInputBlur = (e) => {
-    if(!credential.length) {
+    if(!email.length) {
       const inputDiv = document.getElementsByClassName('input-container')[0];
     const inputLabel = document.getElementsByTagName('label')[0];
     const inputField = document.getElementsByClassName('sc-eCImPb bdKjVM')[0];
@@ -162,21 +162,21 @@ const LoginForm = () => {
           <h6 className='login-text'>Log in to Shuttr</h6>
           <Form onSubmit={handleSubmit}>
             <div className='input-wrapper'>
-              {userErrors && (
+              {emailErrors && (
                 <ErrorUl>
-                  {userErrors.map(error =>
+                  {emailErrors.map(error =>
                   <ErrorLi key={error} style={{listStyle: 'none', color: 'red'}}>{error}</ErrorLi>)
                   }
                 </ErrorUl>
               )
               }
               <div className='input-container'>
-                <label className='input-label'>Username or email</label>
+                <label className='input-label'>Email</label>
                 <FormInput
                   className='sc-eCImPb bdKjVM user-input-field'
                   type='text'
-                  value={credential}
-                  onChange={(e) => setCredential(e.target.value)}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   onClick={userInputClick}
                   onBlur={userInputBlur}
                 ></FormInput>

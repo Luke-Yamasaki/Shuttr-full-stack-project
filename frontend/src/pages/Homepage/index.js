@@ -1,10 +1,34 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, NavLink } from 'react-router-dom';
 import { logout } from '../../store/session';
 import styled from 'styled-components';
+import styles from './Homepage.module.css';
 
 const HomeWrapper = styled.div`
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: space-between;
+`;
+
+const Nav = styled.nav`
+    height: 5vh;
+    width: 100vw;
+    background-color: #212124;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+`;
+
+const NavUl = styled.ul`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 `;
 
 
@@ -23,10 +47,10 @@ const Homepage = () => {
         } else {
           <Redirect to='/' />
         }
-      };
+    };
 
     return (
-        <div>
+        <HomeWrapper>
             <nav>
                 <ul>
                     <li>Logo</li>
@@ -113,7 +137,7 @@ const Homepage = () => {
 
 
             </div>
-        </div>
+        </HomeWrapper>
     )
 }
 
