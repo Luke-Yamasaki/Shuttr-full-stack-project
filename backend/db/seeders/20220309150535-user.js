@@ -3607,12 +3607,12 @@ up: (queryInterface, Sequelize) => {
       {
         firstName: "Demo",
         lastName: "User",
-        username: "Demo-user",
+        username: "Demo_User",
         email: "demo@user.com",
         age: 30,
         profileImageUrl: "https://picsum.photos/300/400",
-        hashedPassword: bcrypt.hashSync("password")
-      }
+        hashedPassword: bcrypt.hashSync("password123!")
+      },
     ], {});
   },
 
@@ -3621,7 +3621,6 @@ up: (queryInterface, Sequelize) => {
 
     return queryInterface.bulkDelete('Users', {
       username: { [Op.in]: [
-          "Demo-user",
           "cartersmith",
           "santiagojohnson",
           "addisonwilliams",
@@ -4021,7 +4020,8 @@ up: (queryInterface, Sequelize) => {
           "michellehjorth",
           "milahohlt",
           "nataliaholmen",
-          "nerolijostad"
+          "nerolijostad",
+          "Demo_User"
         ]}
     }, {});
     }
