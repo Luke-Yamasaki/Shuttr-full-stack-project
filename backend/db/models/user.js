@@ -107,8 +107,8 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   User.prototype.toSafeObject = function() { // remember, this cannot be an arrow function
-    const { id, firstName, lastName, username, age, email } = this; // context will be the User instance
-    return { id, firstName, lastName, username, age, email };
+    const { id, firstName, lastName, username, age, email, profileImageUrl } = this; // context will be the User instance
+    return { id, firstName, lastName, username, age, email, profileImageUrl };
   };
 
   User.prototype.validatePassword = function (password) {
@@ -124,7 +124,6 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   User.login = async function ({ email, password }) {
-    const { Op } = require('sequelize');
     const user = await User.scope('currentUser').findOne({
       where: {
         email: email
@@ -159,22 +158,19 @@ module.exports = (sequelize, DataTypes) => {
     return await User.scope('currentUser').findByPk(user.id);
   };
 
-  User.editInfo = async function ({ firstName, lastName, username, email, profileImageUrl }) {
-    const { Op } = require('sequelize');
-    const user = await User.scope('currentUser').update(
+  User.editInfo = async function ({ firstName, lastName, username, email, profileImageUrl, password }) {
+    const hashedPassword = bcrypt.hashSync(password);
+    const user = await User.scope('loginUser').update(
       {
-        firstName: firstName,
-        lastName, lastName,
-        username: username,
-        email: email,
-        profileImageUrl: profileImageUrl
+        firstName,
+        lastName,
+        username,
+        email,
+        profileImageUrl
       },
       {
       where: {
-        [Op.or]: {
-          email: credential,
-          username: credential
-        }
+        hashedPassword: hashedPassword
       }
       }
     );
@@ -182,26 +178,26 @@ module.exports = (sequelize, DataTypes) => {
     return await User.scope('currentUser').findByPk(user.id);
   }
 
-  User.editPassword = async function ({ password, newPassword, confirmedPwrd }) {
-    if(newPassword !== confirmedPwrd) throw new Error('The new passwords do not match.');
-    const hashedOldPassword = bcrypt.hashSync(password);
-    const hashedNewPassword = bcrypt.hashSync(confirmedPwrd);
+  // User.editPassword = async function ({ password, newPassword, confirmedPwrd }) {
+  //   if(newPassword !== confirmedPwrd) throw new Error('The new passwords do not match.');
+  //   const hashedOldPassword = bcrypt.hashSync(password);
+  //   const hashedNewPassword = bcrypt.hashSync(confirmedPwrd);
 
-    const user = await User.scope('loginUser').update(
-      {
-        hashedPassword: hashedNewPassword
-      },
-      {
-        where: {
-          hashedPassword: hashedOldPassword
-        }
-      }
-    );
+  //   const user = await User.scope('loginUser').update(
+  //     {
+  //       hashedPassword: hashedNewPassword
+  //     },
+  //     {
+  //       where: {
+  //         hashedPassword: hashedOldPassword
+  //       }
+  //     }
+  //   );
 
-    if (user && user.validatePassword(confirmedPwrd)) {
-      return await User.scope('currentUser').findByPk(user.id);
-    }
-  }
+  //   if (user && user.validatePassword(confirmedPwrd)) {
+  //     return await User.scope('currentUser').findByPk(user.id);
+  //   }
+  // }
 
   User.delete = async function ({ email, password }) {
     const { Op } = require('sequelize');

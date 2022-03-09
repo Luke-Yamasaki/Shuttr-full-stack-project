@@ -1,4 +1,6 @@
 'use strict';
+const { Validator } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   const Image = sequelize.define('Image', {
     userId: {
@@ -23,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         len: [2, 2048],
         isUrl(value) {
-          if(validator.isUrl(value) === false) {
+          if(Validator.isUrl(value) === false) {
             throw new Error('Invalid URL.')
           }
         }
@@ -74,20 +76,20 @@ module.exports = (sequelize, DataTypes) => {
     return await Image.findByPk(image.id)
   };
 
-  Image.update = async function ({ id, title, description, imageUrl }) {
+  Image.update = async function ({ imageId, title, description, imageUrl }) {
     // const imageId = id;
     // delete id;
-    await Item.update(
+    await Image.update(
       title,
       description,
       imageUrl,
       {
         where: {
-          id: id
+          id: imageId
         }
       }
     );
-    return await Item.findByPk(id);
+    return await Image.findByPk(id);
   };
 
   Image.delete = async function (imageId) {

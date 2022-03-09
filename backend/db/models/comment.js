@@ -1,4 +1,5 @@
 'use strict';
+
 module.exports = (sequelize, DataTypes) => {
   const Comment = sequelize.define('Comment', {
     userId: {
@@ -46,18 +47,23 @@ module.exports = (sequelize, DataTypes) => {
     return await Comment.findByPk(comment.id);
   };
 
-  Comment.update = async function ({ id, userId, imageId, content }) {
+  Comment.edit = async function ({ userId, imageId, content }) {
+    const { Op } = require('sequelize');
+
     // const commentId = id;
     // delete id;
-    await Comment.update(
+    const comment = await Comment.update(
       content,
       {
         where: {
-          id: id
+          [Op.and]: {
+            userId: userId,
+            imageId: imageId
+          }
         }
       }
     );
-    return await Comment.findByPk(commentId);
+    return await Comment.findByPk(comment.id);
   };
 
   Comment.delete = async function (commentId) {
