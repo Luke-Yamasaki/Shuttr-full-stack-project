@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       allowNull: false,
       validate: {
-        len: [3, 300]
+        len: [1, 300]
       }
     },
   }, {});
@@ -47,13 +47,13 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   Comment.update = async function ({ id, userId, imageId, content }) {
-    const commentId = id;
-    delete id;
+    // const commentId = id;
+    // delete id;
     await Comment.update(
       content,
       {
         where: {
-          id: commentId
+          id: id
         }
       }
     );

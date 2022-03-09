@@ -9,15 +9,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [3, 50]
+        len: [1, 100]
       }
     },
     description: {
       type: DataTypes.STRING,
-      allowNull: true,
-      validate: {
-        len: [3, 300]
-      }
+      allowNull: true
     },
 
     imageUrl: {
@@ -78,15 +75,15 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   Image.update = async function ({ id, title, description, imageUrl }) {
-    const imageId = id;
-    delete id;
+    // const imageId = id;
+    // delete id;
     await Item.update(
       title,
       description,
       imageUrl,
       {
         where: {
-          id: imageId
+          id: id
         }
       }
     );

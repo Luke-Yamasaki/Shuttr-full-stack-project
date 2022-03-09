@@ -752,10 +752,10 @@ up: (queryInterface, Sequelize) => {
         hashedPassword: bcrypt.hashSync("OpJNNzBZ$Qa602_ao")
       },
       {
-        firstNamefirstName,
+        firstName: "James",
         lastName: "Wood",
-        username: "firstnamewood",
-        email: "firstnamewood7984@testeremail.com",
+        username: "jamesnamewood",
+        email: "jameswood7984@testeremail.com",
         age: 79,
         profileImageUrl: "https://picsum.photos/300/400",
         hashedPassword: bcrypt.hashSync("?fDlpWB$dc6^_lB?")

@@ -1,13 +1,19 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const ImageTag = sequelize.define('ImageTag', {
-    imageId: DataTypes.INTEGER,
-    userId: DataTypes.INTEGER
+    imageId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    tagId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    }
   }, {});
   ImageTag.associate = function(models) {
     // associations can be defined here
-    ImageTag.belongsTo(models.Image, { foreignKey: imageId });
-    ImageTag.belongsTo(models.Tag, { foreignKey: tagId});
+    ImageTag.belongsTo(models.Image, { foreignKey: 'imageId' });
+    ImageTag.belongsTo(models.Tag, { foreignKey: 'tagId' });
   };
 
   ImageTag.prototype.toSafeObject = function() { // remember, this cannot be an arrow function
@@ -50,6 +56,6 @@ module.exports = (sequelize, DataTypes) => {
     });
     return tag.id
   }
-  
+
   return ImageTag;
 };

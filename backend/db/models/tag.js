@@ -7,13 +7,13 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [3, 50]
+        len: [1, 50]
       }
     }
   }, {});
   Tag.associate = function(models) {
     // associations can be defined here
-    Tag.hasMany(models.ImageTag, { foreignKey: tagId });
+    Tag.hasMany(models.ImageTag, { foreignKey: 'tagId' });
   };
 
   Tag.prototype.toSafeObject = function() { // remember, this cannot be an arrow function
