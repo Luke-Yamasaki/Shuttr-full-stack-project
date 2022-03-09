@@ -38,8 +38,8 @@ router.put(
     '/:id',
     validateUpdate,
     asyncHandler(async (req, res) => {
-        const { firstName, lastName, username, email, profileImageUrl, password } = req.body;
-        const user = await User.editInfo({ firstName, lastName, username, email, profileImageUrl, password });
+        const { firstName, lastName, username, email, profileImageUrl, password } = req.body
+        const user = await User.editInfo({ firstName, lastName, username, email, profileImageUrl, password })
         await setTokenCookie(res, user);
 
         return res.json({ user });

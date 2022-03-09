@@ -21,20 +21,24 @@ module.exports = (sequelize, DataTypes) => {
     return { id, imageId, tagId };
   };
 
+  ImageTag.listAll = async function () {
+    return await ImageTag.findAll();
+  }
+
   ImageTag.listAllImages = async function (tagId) {
-    return ImageTag.findAll({ where:{ tagId: tagId }});
+    return await ImageTag.findAll({ where:{ tagId: tagId }});
   };
 
   ImageTag.listAllTags = async function (imageId) {
-    return ImageTag.findAll({where:{ imageId: imageId }})
+    return await ImageTag.findAll({where:{ imageId: imageId }})
   };
 
   ImageTag.countImages = async function (tagId) {
-    return ImageTag.count({where: { tagId: tagId }})
+    return await ImageTag.count({where: { tagId: tagId }})
   };
 
   ImageTag.countTags = async function (imageId) {
-    return ImageTag.count({where: { imageId: imageId }})
+    return await ImageTag.count({where: { imageId: imageId }})
   };
 
   ImageTag.post = async function ({ imageId, tagId }) {

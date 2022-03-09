@@ -30,8 +30,8 @@ module.exports = (sequelize, DataTypes) => {
     return { id, title, description, commentUrl };
   };
 
-  Comment.listAll = async function () {
-    return await Comment.findAll();
+  Comment.listAll = async function (id) {
+    return await Comment.findAll({where:{imageId: id}});
   };
 
   Comment.listOne = async function (id) {
@@ -73,8 +73,6 @@ module.exports = (sequelize, DataTypes) => {
     await Comment.destroy({ where: { id: comment.id }});
     return comment.id;
   };
-
-
 
   return Comment;
 };

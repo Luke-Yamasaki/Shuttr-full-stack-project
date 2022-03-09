@@ -1,8 +1,9 @@
 const express = require('express');
-const { check } = require('express-validator');
 const asyncHandler = require('express-async-handler');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { Image } = require('../../db/models/image');
+const { Comment } = require('../../db/models/comment');
+const { ImageTag } = require('../../db/models/tag');
 const validateImage = require('../../utils/validateImage');
 
 const router = express.Router();
@@ -18,8 +19,13 @@ router.get(
 router.get(
     '/:id',
     asyncHandler(async (req, res) => {
-        const Image = await Image.listOne(req.params.id);
-        return res.json(Image)
+        const id = req.params.id;
+        const image = await Image.listOne(id);
+        const comments = await Comment.findAll(id);
+        // const imageTags = await ImageTag.listAllTags(id);
+        // const tags = [];
+        // imageTags.forEach((imageTag) => tags.push(imageTag[]) )
+        return res.json(image, comments)
     })
 )
 
