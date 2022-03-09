@@ -8,6 +8,16 @@ const { User } = require('../../db/models');
 
 const router = express.Router();
 
+router.get('/', asyncHandler(async (req, res) => {
+        const users = await User.listAll();
+        return res.json(users);
+}))
+
+router.get('/:id', asyncHandler(async (req, res) => {
+    const user = await User.listOne(req.params.id);
+    return res.json(user)
+}))
+
 router.post(
 '/',
 validateSignup,
@@ -22,6 +32,10 @@ asyncHandler(async (req, res) => {
     });
 }),
 );
+
+router.put('/:id', asyncHandler(async (req, res) => {
+    
+}))
 
 
 
