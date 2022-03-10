@@ -21,11 +21,11 @@ router.get(
     asyncHandler(async (req, res) => {
         const id = req.params.id;
         const image = await Image.listOne(id);
-        const comments = await Comment.findAll(id);
+        // const comments = await Comment.findAll(id);
         // const imageTags = await ImageTag.listAllTags(id);
         // const tags = [];
         // imageTags.forEach((imageTag) => tags.push(imageTag[]) )
-        return res.json(image, comments)
+        return res.json(image)
     })
 )
 

@@ -77,27 +77,21 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   Image.update = async function ({ imageId, title, description, imageUrl }) {
-    // const imageId = id;
-    // delete id;
-    await Image.update(
+    const image = await Image.findByPk(imageId)
+    await image.update(
       title,
       description,
-      imageUrl,
-      {
-        where: {
-          id: imageId
-        }
-      }
+      imageUrl
     );
-    return await Image.findByPk(id);
+    return image;
   };
 
   Image.delete = async function (imageId) {
     const image = await Image.findByPk(imageId);
     if (!image) throw new Error('Cannot find image.');
 
-    await Image.destroy({ where: { id: image.id }});
-    return image.id;
+    await image.destroy();
+    return image.id
   };
 
   return Image;

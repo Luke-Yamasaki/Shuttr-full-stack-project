@@ -1,5 +1,5 @@
 import React, {useState, useEffect } from 'react';
-import {Redirect, NavLink} from 'react-router-dom';
+import {useHistory, Redirect, NavLink, Link} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Searchbar from '../Searchbar';
@@ -54,19 +54,19 @@ const Navbar = () => {
     const userUrl = `/users/${sessionUser.id}`;
     const userImagesUrl = `/users/${sessionUser.id}/items`
     const [showAbout, setShowAbout] = useState(false);
+    const history = useHistory();
 
     const handleClick = (e) => {
-        e.preventDefault();
+        // e.preventDefault();
 
-        return <Redirect to='/'/>
+        return history.push('/')
     };
 
     return(
         <NavWrapper>
             <NavUl>
-                <LogoButton className={styles.logoBtn} onClick={handleClick}>
-                    <NavLink to='/' className={styles.logoLink} />
-                </LogoButton>
+                <div className={styles.logoBtn} onClick={handleClick}>
+                </div>
                 <NavLink to={userUrl} className={styles.navItem} >You</NavLink>
                 {showAbout &&
                 <AboutPopup>

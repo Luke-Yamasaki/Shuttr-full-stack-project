@@ -5,13 +5,3 @@
     background-color: lightblue;
     clip-path: path("M 0,100 Q 15,15 500,50 t 500,0 Q 1000,25 1500,50 t 500,0 Q 2000,25 2500,50 t 500,0 L 3000,200 t -3000,200 z")
 }
-
-.notFoundWrapper {
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    overflow: hidden;
-    background: linear-gradient(pink, blue, white, white)
-}

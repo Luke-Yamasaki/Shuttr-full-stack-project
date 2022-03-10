@@ -4,7 +4,8 @@
 }
 
 .logoBtn {
-    background: none;
+    width: 100px;
+    height: 30px;
     background-color: none;
     border: none;
     background-image: url('../../../public/brand-assets/Shuttr\ logo\ -\ gradient\ and\ white.png');
@@ -12,9 +13,6 @@
     background-repeat: no-repeat;
 }
 
-.logoLink {
-
-}
 
 .aboutBox {
     width: 50px;
