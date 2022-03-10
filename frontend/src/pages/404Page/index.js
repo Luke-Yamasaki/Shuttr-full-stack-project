@@ -18,14 +18,14 @@ const NotFoundPage = () => {
             {loggedIn &&
                 <Navbar></Navbar>
             }
-            <h1>404 Not Found</h1>
-            <svg viewbox="0 0 2500 2000" className={styles.svg}>
+            <h1 style={{marginTop: '50px'}}>404 Not Found</h1>
+            <svg viewBox="0 0 2500 200" className={styles.svg}>
                 <defs>
                 <pattern id="img1" patternUnits="userSpaceOnUse" width="100" height="100">
                     <image href={sessionUser.profileImageUrl} x="0" y="0" width="100" height="100" />
                 </pattern>
                 </defs>
-                <path fill="url(#img1)" stroke="red"
+                <path fill="url(#img1)" stroke="yellow"
                     d="
                     M 0,100
                     Q 15,15 500,50
@@ -39,13 +39,13 @@ const NotFoundPage = () => {
                     z
                     " />
             </svg>
-            <svg viewbox="0 0 2500 2000" className={styles.svg}>
+            <svg viewBox="0 0 2500 2000" className={styles.svg}>
                 <defs>
                 <pattern id="img1" patternUnits="userSpaceOnUse" width="100" height="200">
                     <image href={sessionUser.profileImageUrl} x="0" y="0" width="100" height="100" />
                 </pattern>
                 </defs>
-                <path fill="url(#img1)" stroke="red"
+                <path fill="url(#img1)" stroke="yellow"
                     d="
                     M 0,100
                     Q 15,15 500,50
@@ -59,13 +59,13 @@ const NotFoundPage = () => {
                     z
                     " />
             </svg>
-            <svg viewbox="0 0 2500 2000" className={styles.svg}>
+            <svg viewBox="0 0 2500 2000" className={styles.svg}>
                 <defs>
                 <pattern id="img1" patternUnits="userSpaceOnUse" width="100" height="200">
                     <image href={sessionUser.profileImageUrl} x="0" y="0" width="100" height="100" />
                 </pattern>
                 </defs>
-                <path fill="url(#img1)" stroke="red"
+                <path fill="url(#img1)" stroke="yellow"
                     d="
                     M 0,100
                     Q 15,15 500,50
@@ -79,13 +79,13 @@ const NotFoundPage = () => {
                     z
                     " />
             </svg>
-            <svg viewbox="0 0 2500 2000" className={styles.svg}>
+            <svg viewBox="0 0 2500 2000" className={styles.svg}>
                 <defs>
                 <pattern id="img1" patternUnits="userSpaceOnUse" width="100" height="200">
                     <image href={sessionUser.profileImageUrl} x="0" y="0" width="100" height="100" />
                 </pattern>
                 </defs>
-                <path fill="url(#img1)" stroke="red"
+                <path fill="url(#img1)" stroke="yellow"
                     d="
                     M 0,100
                     Q 15,15 500,50
@@ -99,13 +99,13 @@ const NotFoundPage = () => {
                     z
                     " />
             </svg>
-            <svg viewbox="0 0 2500 2000" className={styles.svg}>
+            <svg viewBox="0 0 2500 2000" className={styles.svg}>
                 <defs>
                 <pattern id="img1" patternUnits="userSpaceOnUse" width="100" height="200">
                     <image href={sessionUser.profileImageUrl} x="0" y="0" width="100" height="100" />
                 </pattern>
                 </defs>
-                <path fill="url(#img1)" stroke="red"
+                <path fill="url(#img1)" stroke="yellow"
                     d="
                     M 0,100
                     Q 15,15 500,50
@@ -119,13 +119,13 @@ const NotFoundPage = () => {
                     z
                     " />
             </svg>
-            <svg viewbox="0 0 2500 2000" className={styles.svg}>
+            <svg viewBox="0 0 2500 2000" className={styles.svg}>
                 <defs>
                 <pattern id="img1" patternUnits="userSpaceOnUse" width="100" height="200">
                     <image href={sessionUser.profileImageUrl} x="0" y="0" width="100" height="100" />
                 </pattern>
                 </defs>
-                <path fill="url(#img1)" stroke="red"
+                <path fill="url(#img1)" stroke="yellow"
                     d="
                     M 0,100
                     Q 15,15 500,50
