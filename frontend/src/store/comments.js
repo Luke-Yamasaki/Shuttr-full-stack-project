@@ -1,7 +1,7 @@
 export const LOAD_COMMENTS = "comments/LOAD_COMMENTS";
-export const UPDATE_COMMENT = "comments/UPDATE_COMMENTS";
-export const REMOVE_COMMENT = "comments/REMOVE_COMMENTS";
-export const ADD_COMMENT = "comments/ADD_COMMENTS";
+export const UPDATE_COMMENT = "comments/UPDATE_COMMENT";
+export const REMOVE_COMMENT = "comments/REMOVE_COMMENT";
+export const ADD_COMMENT = "comments/ADD_COMMENT";
 
 const load = (comments, imageId) => ({
   type: LOAD_COMMENTS,
@@ -10,7 +10,7 @@ const load = (comments, imageId) => ({
 });
 
 const update = (comment) => ({
-  type: UPDATE_COMMENTS,
+  type: UPDATE_COMMENT,
   comment
 });
 
@@ -20,7 +20,7 @@ const add = (newComment) => ({
 });
 
 const remove = (commentId, imageId) => ({
-  type: REMOVE_COMMENTS,
+  type: REMOVE_COMMENT,
   commentId,
   imageId
 });

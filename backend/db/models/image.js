@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   Image.prototype.toSafeObject = function() { // remember, this cannot be an arrow function
-    const { id, title, description, imageUrl } = this; // context will be the User instance
+    const { id, title, description, imageUrl } = this; // context will be the Image instance
     return { id, title, description, imageUrl };
   };
 
@@ -78,11 +78,11 @@ module.exports = (sequelize, DataTypes) => {
 
   Image.update = async function ({ imageId, title, description, imageUrl }) {
     const image = await Image.findByPk(imageId)
-    await image.update(
+    await image.update({
       title,
       description,
       imageUrl
-    );
+    });
     return image;
   };
 

@@ -7,8 +7,8 @@ import commentsReducer from "./comments";
 const rootReducer = combineReducers({
   // add reducer functions here
   session: sessionReducer,
-  images: imagesReducer,
-  comments: commentsReducer
+  imagesState: imagesReducer,
+  commentsState: commentsReducer
 });
 
 let enhancer;

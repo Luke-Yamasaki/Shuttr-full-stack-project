@@ -162,24 +162,23 @@ module.exports = (sequelize, DataTypes) => {
     return await User.scope('currentUser').findByPk(user.id);
   };
 
-  User.editInfo = async function ({ firstName, lastName, username, email, profileImageUrl, password }) {
-    const hashedPassword = bcrypt.hashSync(password);
-    const user = await User.scope('loginUser').update(
-      {
-        firstName,
-        lastName,
-        username,
-        email,
-        profileImageUrl
-      },
-      {
-      where: {
-        hashedPassword: hashedPassword
-      }
-      }
-    );
+  User.editInfo = async function ({ userId, firstName, lastName, username, email, profileImageUrl, password }) {
+    const user = await User.scope('loginUser').findByPk(userId);
+    
+    if(user && user.validatePassword(password)) {
+      await user.update({
+      firstName,
+      lastName,
+      username,
+      email,
+      profileImageUrl
+    })
 
     return await User.scope('currentUser').findByPk(user.id);
+    }
+
+
+
   }
 
   // User.editPassword = async function ({ password, newPassword, confirmedPwrd }) {
@@ -204,31 +203,16 @@ module.exports = (sequelize, DataTypes) => {
   // }
 
   User.delete = async function ({ email, password }) {
-    const { Op } = require('sequelize');
-    const hashedPassword = bcrypt.hashSync(password);
-
     const user = await User.scope('loginUser').findOne({
       where: {
-        [Op.and]: [
-          {
-            email: email,
-          },
-          {
-            hashedPassword: hashedPassword
-          }
-        ]
+        email: email
       }
     });
-
     if (user && user.validatePassword(password)) {
-      await User.destroy({
-        where: {
-          id: user.id
-        }
-      })
+      await user.destroy();
       return user.id
     }
-  }
+  };
 
   return User;
 };

@@ -126,7 +126,7 @@ const Homepage = () => {
                         <button>View more</button>
                     </ImageSection>
                 </ActivityBox>
-                <aside>
+                {/* <aside>
                         <div>
                             <p>All-time views</p>
                             <button>Get daily stats with Shuttr Pro</button>
@@ -160,7 +160,7 @@ const Homepage = () => {
                                 </div>
                             </div>
                         </div>
-                    </aside>
+                    </aside> */}
             </HomeFeed>
         </HomeWrapper>
     )

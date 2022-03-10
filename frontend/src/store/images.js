@@ -1,144 +1,124 @@
 import { csrfFetch } from './csrf';
+import { useDispatch } from 'react-redux';
 
 const LOAD = 'images/LOAD';
-const LOAD_TAGS = 'images/LOAD_TAGS';
+const LOAD_COMMENTS = 'images/LOAD_COMMENTS'
 const ADD_ONE = 'images/ADD_ONE';
 
-const load = list => ({
+const load = images => ({
   type: LOAD,
-  list
-});
-
-const loadTAGS = TAGS => ({
-  type: LOAD_TAGS,
-  TAGS
-});
-
-const addOneimages = images => ({
-  type: ADD_ONE,
   images
 });
 
-export const getimages = () => async dispatch => {
-  const response = await fetch(`/api/images`);
+const loadComments = comments => ({
+  type: LOAD_COMMENTS,
+  comments
+})
+
+const addOneImage = image => ({
+  type: ADD_ONE,
+  image
+});
+
+export const getImages = () => async (dispatch, getState) => {
+  const response = await csrfFetch(`/api/images`);
   if (response.ok) {
-    const list = await response.json();
-    dispatch(load(list));
+    const dispatch = useDispatch();
+    const images = await response.json();
+    dispatch(load(images));
   }
+  return response
 };
 
-export const getOneimages = (id) => async dispatch => {
-  const response = await fetch(`/api/images/${id}`);
+export const getOneImage = (id) => async dispatch => {
+  const response = await csrfFetch(`/api/images/${id}`);
   if (response.ok) {
-    const oneimages = await response.json();
-    dispatch(addOneimages(oneimages));
+    const oneImage = await response.json();
+    dispatch(addOneImage(oneImage));
   }
 }
 
-export const createimages = (data) => async dispatch => {
-  const response = await fetch('/api/images', {
+export const createImage = ({userId, imageUrl, title, description}) => async (dispatch, getState) => {
+  const response = await csrfFetch('/api/images', {
     method: 'POST',
     headers: {'Content-Type':'application/json'},
-    body: JSON.stringify(data)
+    body: JSON.stringify({userId, imageUrl, title, description})
   })
-  const newimages = await response.json();
-  dispatch(addOneimages(newimages))
-  return newimages
+  const newImage = await response.json();
+  dispatch(addOneImage(newImage))
+  return newImage
 }
 
-export const getimagesTAGS = () => async dispatch => {
-  const response = await fetch(`/api/images/TAGS`);
+export const getImageComments = (imageId) => async dispatch => {
+  const response = await csrfFetch(`/api/images/${imageId}/comments`);
 
   if (response.ok) {
-    const TAGS = await response.json();
-    dispatch(loadTAGS(TAGS));
+    const comments = await response.json();
+    dispatch(loadComments(comments));
   }
 };
 
-export const editimages = (data) => async dispatch => {
-  const response = await fetch(`/api/images/${data.id}`, {
+export const editImage = ({imageId, imageUrl, title, description}) => async dispatch => {
+  const response = await csrfFetch(`/api/images/${imageId}`, {
     method: 'PUT',
     headers: {'Content-Type':'application/json'},
-    body: JSON.stringify(data)
+    body: JSON.stringify({imageId, imageUrl, title, description})
   })
-  const editimages = await response.json();
-  dispatch(addOneimages(editimages))
-  return editimages
+  const editedImage = await response.json();
+  dispatch(addOneImage(editedImage))
+  return editedImage
 }
 
-const initialState = {
-  list: [],
-  TAGS: []
-};
 
-const sortList = (list) => {
-  return list.sort((imagesA, imagesB) => {
-    return imagesA.number - imagesB.number;
-  }).map((images) => images.id);
+// const sortImages = (images) => {
+//   return images.sort((imageA, imageB) => {
+//     return imageA.number - imageB.number;
+//   }).map((image) => image.id);
+// };
+
+// const initialState = { user: null };
+
+// const sessionReducer = (state = initialState, action) => {
+//   let newState;
+//   switch (action.type) {
+//     case SET_USER:
+//       newState = Object.assign({}, state);
+//       newState.user = action.payload;
+//       return newState;
+//     case REMOVE_USER:
+//       newState = Object.assign({}, state);
+//       newState.user = null;
+//       return newState;
+//     default:
+//       return state;
+//   }
+// };
+
+const initialState = {
+  images: {}
 };
 
 const imagesReducer = (state = initialState, action) => {
+  let newState;
   switch (action.type) {
     case LOAD:
-      const allimages = {};
-      action.list.forEach(images => {
-        allimages[images.id] = images;
-      });
-      return {
-        ...allimages,
-        ...state,
-        list: sortList(action.list)
-      };
-    case LOAD_TAGS:
+      newState = {...state};
+      const images = {}
+      action.images.forEach((image) => images[image.id] = image)
+      newState.images = images;
+      return newState;
+    case LOAD_COMMENTS:
       return {
         ...state,
-        TAGS: action.TAGS
+        [action.imageId]: {
+          ...state[action.imageId],
+          // comments: action.comments.map(comment => comment.id)
+        }
       };
     case ADD_ONE:
-      if (!state[action.images.id]) {
-        const newState = {
-          ...state,
-          [action.images.id]: action.images
-        };
-        const imagesList = newState.list.map(id => newState[id]);
-        imagesList.push(action.images);
-        newState.list = sortList(imagesList);
-        return newState;
-      }
-      return {
-        ...state,
-        [action.images.id]: {
-          ...state[action.images.id],
-          ...action.images
-        }
-      };
-    case LOAD_ITEMS:
-      return {
-        ...state,
-        [action.imagesId]: {
-          ...state[action.imagesId],
-          items: action.items.map(item => item.id)
-        }
-      };
-    case REMOVE_ITEM:
-      return {
-        ...state,
-        [action.imagesId]: {
-          ...state[action.imagesId],
-          items: state[action.imagesId].items.filter(
-            (itemId) => itemId !== action.itemId
-          )
-        }
-      };
-    case ADD_ITEM:
-      console.log(action.item);
-      return {
-        ...state,
-        [action.item.imagesId]: {
-          ...state[action.item.imagesId],
-          items: [...state[action.item.imagesId].items, action.item.id]
-        }
-      };
+      newState = {...state}
+      newState.images = {...newState.images, [action.newImage.id]: action.newImage}
+      return newState;
     default:
       return state;
   }
