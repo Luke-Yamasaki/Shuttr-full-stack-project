@@ -2,3 +2,72 @@ body {
     margin: 0px;
     padding: 0px;
 }
+
+.selectActivity {
+    width: 100px;
+    background: none;
+    border: none;
+    font-family: sans-serif;
+    color: white;
+}
+
+.imageCardWrapper {
+    width: 45vw;
+    height: 50vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: blue;
+}
+
+.imageCardBox {
+    width: 21.5vw;
+    height: 15vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: red;
+}
+
+.userIcon {
+    width: 35px;
+    height: 35px;
+    border-radius: 100%;
+}
+
+.userInfoBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 15px;
+    width: 25vw;
+    height: 50px;
+    margin-top: 20px;
+}
+
+.userDetails {
+    display: flex;
+    flex-direction: column;
+}
+
+.userLink {
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: -15px;
+}
+
+.userInfoText {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.image {
+    width: 25vw;
+    height: 200px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}

@@ -59,23 +59,19 @@ const Navbar = () => {
         <NavWrapper>
             <NavUl>
                 <LogoButton className={styles.logoBtn}>
-                    <NavLink to='/login' className={styles.logoLink} />
+                    <NavLink to='/' className={styles.logoLink} />
                 </LogoButton>
-                <AboutWrapper>
-                    <div className={styles.aboutBox} onMouseEnter={()=>setShowAbout(true)} onMouseLeave={()=>setShowAbout(false)}>
-                    <NavLink to={userUrl} >You</NavLink>
-                    </div>
-                    {showAbout &&
-                    <AboutPopup>
-                        <NavLink to={userUrl} >About</NavLink>
-                        <NavLink to={userImagesUrl}>Your Images</NavLink>
-                    </AboutPopup>
+                <NavLink to={userUrl} className={styles.navItem} >You</NavLink>
+                {showAbout &&
+                <AboutPopup>
+                    <NavLink to={userUrl} >About</NavLink>
+                    <NavLink to={userImagesUrl}>Your Images</NavLink>
+                </AboutPopup>
                 }
-                </AboutWrapper>
-                <div>discover</div>
-                <div>search bar</div>
-                <div>upload</div>
-                <ProfileButton></ProfileButton>
+                <NavLink to='/images' className={styles.navItem}>Explore</NavLink>
+                <Searchbar></Searchbar>
+                <NavLink to='/upload' className={styles.navItem}>Upload</NavLink>
+                <ProfileButton style={{backgroundColor: 'rgba(0, 0, 0, 0)'}}></ProfileButton>
             </NavUl>
         </NavWrapper>
     )

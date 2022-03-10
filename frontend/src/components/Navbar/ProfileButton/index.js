@@ -6,6 +6,44 @@ import greetings from './greetings/greetings';
 import styles from './ProfileButton.module.css';
 import styled from 'styled-components';
 
+const DropDownBox = styled.div`
+  width: 300px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: left;
+  margin-left: -300px;
+  margin-top: 45px;
+  background-color: green;
+`;
+
+const UserGreetingBox = styled.div`
+  width: 300px;
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: left;
+  padding-top: 10px;
+`;
+
+const GreetingText = styled.p`
+  font-size: 18px;
+  text-align: left;
+  margin-left:10px;
+
+`;
+
+const DataUsageBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 300px;
+  height: 200px;
+  border-top: 1px solid grey;
+  border-bottom: 1px solid grey;
+`;
+
 function ProfileButton({ user }) {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
@@ -42,29 +80,31 @@ function ProfileButton({ user }) {
 
     return (
       <>
-        <button className={styles.userButton} onClick={openMenu}>
-        </button>
+        <div style={{width: '30px', height: '30px', borderRadius: '100%', backgroundColor: 'none', backgroundImage: `url(${sessionUser.profileImageUrl})`}} onClick={openMenu}>
         {showMenu && (
-            <div>
-                <div>
-                   <h2>{greeting["greeting"]}, {sessionUser.username}</h2>
-                    <p>Now you know how to greet people in {greeting["language"]}</p>
-                </div>
-                <div>
-                    <div></div>
+            <DropDownBox>
+                <UserGreetingBox>
+                  <GreetingText>{greeting["greeting"]}, {sessionUser.username}!</GreetingText>
+                  <p>Now you know how to greet people in {greeting["language"]}</p>
+                </UserGreetingBox>
+                <DataUsageBox>
+                    <img src={sessionUser.profileImageUrl} alt='dataUsage' style={{width: '80px', height: '80px', borderRadius: '100%'}}></img>
                     <div>
                         <p>'Insert user image count of' 1,000 items</p>
                         <Link to='/upload'>Upload your images</Link>
                     </div>
-                </div>
+                </DataUsageBox>
 
                 <ul className={styles.profileDropdown}>
-                    <li className={styles.profileItems}>Email:<p className="item-text">{sessionUser.email}</p></li>
-                    <li className={styles.profileItems}>Settings:<a href={`/users/${sessionUser.id}`} className="settings-link">Change</a></li>
+                    <li className={styles.profileItems}>{`Email: ${sessionUser.email}`}</li>
+                    <li className={styles.profileItems}>Settings<a href={`/users/${sessionUser.id}`} className="settings-link" /></li>
+                    <li className={styles.profileItems}>
+                      <button className={styles.logoutButton} onClick={logout}>Log out</button>
+                    </li>
                 </ul>
-            </div>
-
+            </DropDownBox>
         )}
+        </div>
       </>
     );
   }

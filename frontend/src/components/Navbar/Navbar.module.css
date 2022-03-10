@@ -1,5 +1,4 @@
 * {
-    color: white;
     text-decoration: none;
     font-family: sans-serif;
 }
@@ -20,4 +19,14 @@
 .aboutBox {
     width: 50px;
     height: 4vh;
+}
+
+.navItem {
+    text-decoration: none;
+    color: white;
+}
+
+
+.active {
+    color: white;
 }
