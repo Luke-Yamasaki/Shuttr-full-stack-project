@@ -1,6 +1,10 @@
+import React, {useState, useEffect } from 'react';
+import {NavLink} from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Searchbar from '../Searchbar';
 import styles from './Navbar.module.css';
+import ProfileButton from './ProfileButton';
 
 const NavWrapper = styled.div`
     width: 100vw;
@@ -12,7 +16,7 @@ const NavWrapper = styled.div`
     align-items: center;
 `;
 
-const Nav = styled.nav`
+const NavUl = styled.ul`
     height: 4vh;
     width: 90vw;
     display: flex;
@@ -21,11 +25,54 @@ const Nav = styled.nav`
     align-items: center;
 `;
 
-const NavUl = styled.ul`
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+const LogoButton = styled.button`
+    width: 100px;
+    height: 33px;
 `;
 
-const
+const AboutWrapper = styled.div`
+    width: 300px;
+    min-height: 4vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+`;
+
+const AboutPopup = styled.div`
+    width: 300px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    background-color: grey;
+    border-radium: 0.25rem;
+`;
+
+const Navbar = () => {
+    const sessionUser = useSelector((state) => state.session.user);
+    const userUrl = `/users/${sessionUser.id}`;
+    const userImagesUrl = `/users/${sessionUser.id}/items`
+    const [showAbout, setShowAbout] = useState(false);
+
+    return(
+        <NavWrapper>
+            <NavUl>
+                <LogoButton className='logo-btn'>
+                    <NavLink to='/login' className='logo-link' />
+                </LogoButton>
+                <AboutWrapper>
+                   <NavLink to={userUrl} onMouseEnter={()=>setShowAbout(true)} onMouseLeave={() => setShowAbout(false)}>You</NavLink>
+                    {showAbout &&
+                    <AboutPopup>
+                        <NavLink to={userUrl} >About</NavLink>
+                        <NavLink to={userImagesUrl}>Your Images</NavLink>
+                    </AboutPopup>
+                }
+                </AboutWrapper>
+
+            </NavUl>
+        </NavWrapper>
+    )
+}
+
+export default Navbar;

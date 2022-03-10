@@ -1,0 +1,7 @@
+.logo-btn {
+    background: none;
+    border: none;
+    background-image: url('../../../public/brand-assets/Shuttr\ logo\ -\ gradient\ and\ white.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}

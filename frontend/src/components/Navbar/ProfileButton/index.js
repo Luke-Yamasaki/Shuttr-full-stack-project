@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import * as sessionActions from '../../../store/session';
+import greetings from './greetings/greetings';
 import styles from './ProfileButton.module.css';
 import styled from 'styled-components';
 
@@ -8,10 +10,16 @@ function ProfileButton({ user }) {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
     const [showMenu, setShowMenu] = useState(false);
+    const [num, setNum] = useState(3)
+    const [greeting, setGreeting] = useState({"language": "Spanish", "greeting": "Hola"})
 
     const openMenu = () => {
-      if (showMenu) return;
-      setShowMenu(true);
+        if (showMenu) return;
+        const randomNum = Math.floor(Math.random() * 100);
+        setNum(randomNum);
+        const greeting = greetings[num];
+        setGreeting(greeting)
+        setShowMenu(true);
     };
 
     useEffect(() => {
@@ -38,22 +46,21 @@ function ProfileButton({ user }) {
         {showMenu && (
             <div>
                 <div>
-                   <h2>{prop.greeting}, {sessionUser.username}</h2>
-                    <p>Now you know how to greet people in {prop.language}</p>
+                   <h2>{greeting["greeting"]}, {sessionUser.username}</h2>
+                    <p>Now you know how to greet people in {greeting["language"]}</p>
                 </div>
                 <div>
                     <div></div>
                     <div>
-                        <p>{imageCount} of 1,000 items</p>
+                        <p>'Insert user image count of' 1,000 items</p>
                         <Link to='/upload'>Upload your images</Link>
                     </div>
                 </div>
 
                 <ul className="profile-dropdown">
-            <li className="profile-items">Username:<p className="item-text">{sessionUser.username}</p></li>
-            <li className="profile-items">Email:<p className="item-text">{sessionUser.email}</p></li>
-            <li className="profile-items">Settings:<a href={`/users/${sessionUser.id}`} className="settings-link">Change</a></li>
-          </ul>
+                    <li className="profile-items">Email:<p className="item-text">{sessionUser.email}</p></li>
+                    <li className="profile-items">Settings:<a href={`/users/${sessionUser.id}`} className="settings-link">Change</a></li>
+                </ul>
             </div>
 
         )}

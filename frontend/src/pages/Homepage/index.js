@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { Redirect, NavLink } from 'react-router-dom';
 import { logout } from '../../store/session';
+import Navbar from '../../components/Navbar/index';
 import styled from 'styled-components';
 import styles from './Homepage.module.css';
 
@@ -10,7 +11,7 @@ const HomeWrapper = styled.div`
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: space-between;
 `;
 
@@ -51,7 +52,7 @@ const Homepage = () => {
 
     return (
         <HomeWrapper>
-            <nav>
+            {/* <nav>
                 <ul>
                     <li>Logo</li>
                     <li>You</li>
@@ -62,7 +63,8 @@ const Homepage = () => {
                     <li>User Icon</li>
                     <button onClick={handleLogout}>Log out</button>
                 </ul>
-            </nav>
+            </nav> */}
+            <Navbar/>
             <div>
                 <div>
                     <div>

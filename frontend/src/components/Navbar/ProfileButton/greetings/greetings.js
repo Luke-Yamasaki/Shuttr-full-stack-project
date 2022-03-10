@@ -1,5 +1,5 @@
 const greetings = {
-39:{"language": "English", "greeting": "Hello"},
+    1:{"language": "English", "greeting": "Hello"},
     2:{"language": "French", "greeting": "Bonjour"},
     3:{"language": "Spanish", "greeting": "Hola"},
     4:{"language": "Italian", "greeting": "Ciao"},
@@ -9,7 +9,7 @@ const greetings = {
     8:{"language": "Greek", "greeting": "Geia"},
     9:{"language": "Serbian", "greeting": "Zdravo"},
     10:{"language": "Croatian", "greeting": "Zdravo"},
-    39:{"language": "Russian", "greeting": "Privet"},
+    11:{"language": "Russian", "greeting": "Privet"},
     12:{"language": "Mandarin", "greeting": "Nǐ hǎo"},
     13:{"language": "Cantonese", "greeting": "Nǐ hǎo"},
     14:{"language": "Hindi", "greeting": "Namaste"},
@@ -19,7 +19,7 @@ const greetings = {
     18:{"language": "Slovak", "greeting": "Ahoj"},
     19:{"language": "German", "greeting": "Guten tag"},
     20:{"language": "Dutch", "greeting": "Hallo"},
-    39:{"language": "Polish", "greeting": "Cześć"},
+    21:{"language": "Polish", "greeting": "Cześć"},
     22:{"language": "Thai", "greeting": "S̄wạs̄dī"},
     23:{"language": "Hungarian", "greeting": "Szia"},
     24:{"language": "Czech", "greeting": "Ahoj"},
@@ -29,7 +29,7 @@ const greetings = {
     28:{"language": "Ukrainian", "greeting": "Dobryj Den"},
     29:{"language": "Swedish", "greeting": "Hallå"},
     30:{"language": "Afrikaans", "greeting": "Hallo"},
-    39:{"language": "Romanian", "greeting": "Bunâ"},
+    31:{"language": "Romanian", "greeting": "Bunâ"},
     32:{"language": "Hebrew", "greeting": "Shalom"},
     33:{"language": "Armenian", "greeting": "Barev"},
     34:{"language": "Arabic", "greeting": "Marhabaan"},
@@ -100,3 +100,5 @@ const greetings = {
     99:{"language": "Quechua", "greeting": "Allianchu"},
     100:{"language": "Xhosa", "greeting": "Molweni"}
 }
+
+export default greetings;
