@@ -9,6 +9,7 @@ import styled from 'styled-components';
 function ProfileButton({ user }) {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
+    const profilePic = sessionUser.profileImageUrl;
     const [showMenu, setShowMenu] = useState(false);
     const [num, setNum] = useState(3)
     const [greeting, setGreeting] = useState({"language": "Spanish", "greeting": "Hola"})
@@ -41,7 +42,7 @@ function ProfileButton({ user }) {
 
     return (
       <>
-        <button style={{backgroundImage: `${sessionUser.profileImageUrl}`}}className="user-button" onClick={openMenu}>
+        <button className={styles.userButton} onClick={openMenu}>
         </button>
         {showMenu && (
             <div>
@@ -57,9 +58,9 @@ function ProfileButton({ user }) {
                     </div>
                 </div>
 
-                <ul className="profile-dropdown">
-                    <li className="profile-items">Email:<p className="item-text">{sessionUser.email}</p></li>
-                    <li className="profile-items">Settings:<a href={`/users/${sessionUser.id}`} className="settings-link">Change</a></li>
+                <ul className={styles.profileDropdown}>
+                    <li className={styles.profileItems}>Email:<p className="item-text">{sessionUser.email}</p></li>
+                    <li className={styles.profileItems}>Settings:<a href={`/users/${sessionUser.id}`} className="settings-link">Change</a></li>
                 </ul>
             </div>
 

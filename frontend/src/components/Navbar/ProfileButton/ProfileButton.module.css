@@ -1,4 +1,4 @@
-.user-button {
+.userButton {
     background-size: contain;
     background-repeat: no-repeat;
     width: 30px;
@@ -8,7 +8,7 @@
     border-radius: 100%;
 }
 
-.profile-dropdown {
+.profileDropdown {
     width: 125px;
     height: 150px;
     background-color: white;
@@ -23,7 +23,7 @@
     align-items: center;
 }
 
-.profile-items {
+.profileItems {
     width: 160px;
     height: 25px;
     display: flex;

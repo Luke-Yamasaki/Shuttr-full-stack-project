@@ -108,9 +108,9 @@ const LoginForm = () => {
 
   const handleDemo = (e) => {
     e.preventDefault();
-    const credential = "Demo-lition";
-    const password = "password"
-    return dispatch(sessionActions.login({credential, password}))
+    const email = "demo@user.com";
+    const password = "password123!"
+    return dispatch(sessionActions.login({email, password}))
       .catch(async (res) => {
         const data = await res.json();
       })

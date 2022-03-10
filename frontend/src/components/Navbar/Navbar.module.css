@@ -1,7 +1,23 @@
-.logo-btn {
+* {
+    color: white;
+    text-decoration: none;
+    font-family: sans-serif;
+}
+
+.logoBtn {
     background: none;
+    background-color: none;
     border: none;
     background-image: url('../../../public/brand-assets/Shuttr\ logo\ -\ gradient\ and\ white.png');
     background-size: contain;
     background-repeat: no-repeat;
+}
+
+.logoLink {
+
+}
+
+.aboutBox {
+    width: 50px;
+    height: 4vh;
 }

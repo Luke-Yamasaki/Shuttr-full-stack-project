@@ -17,7 +17,7 @@ const NavWrapper = styled.div`
 `;
 
 const NavUl = styled.ul`
-    height: 4vh;
+    min-height: 4vh;
     width: 90vw;
     display: flex;
     flex-direction: row;
@@ -31,7 +31,7 @@ const LogoButton = styled.button`
 `;
 
 const AboutWrapper = styled.div`
-    width: 300px;
+    width: 150px;
     min-height: 4vh;
     display: flex;
     flex-direction: column;
@@ -40,7 +40,8 @@ const AboutWrapper = styled.div`
 `;
 
 const AboutPopup = styled.div`
-    width: 300px;
+    position: absolute;
+    width: 150px;
     height: 200px;
     display: flex;
     flex-direction: column;
@@ -57,11 +58,13 @@ const Navbar = () => {
     return(
         <NavWrapper>
             <NavUl>
-                <LogoButton className='logo-btn'>
-                    <NavLink to='/login' className='logo-link' />
+                <LogoButton className={styles.logoBtn}>
+                    <NavLink to='/login' className={styles.logoLink} />
                 </LogoButton>
                 <AboutWrapper>
-                   <NavLink to={userUrl} onMouseEnter={()=>setShowAbout(true)} onMouseLeave={() => setShowAbout(false)}>You</NavLink>
+                    <div className={styles.aboutBox} onMouseEnter={()=>setShowAbout(true)} onMouseLeave={()=>setShowAbout(false)}>
+                    <NavLink to={userUrl} >You</NavLink>
+                    </div>
                     {showAbout &&
                     <AboutPopup>
                         <NavLink to={userUrl} >About</NavLink>
@@ -69,7 +72,10 @@ const Navbar = () => {
                     </AboutPopup>
                 }
                 </AboutWrapper>
-
+                <div>discover</div>
+                <div>search bar</div>
+                <div>upload</div>
+                <ProfileButton></ProfileButton>
             </NavUl>
         </NavWrapper>
     )
