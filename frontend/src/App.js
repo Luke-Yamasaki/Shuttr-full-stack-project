@@ -8,6 +8,8 @@ import AuthenticationPage from './pages/AuthenticationPage';
 import ImagesPage from './pages/ImagesPage';
 import UsersPage from './pages/UsersPage';
 import TagsPage from './pages/TagsPage';
+import UploadPage from './pages/UploadPage';
+import SettingsPage from './pages/SettingsPage';
 import NotFoundPage from './pages/404Page';
 
 function App() {
@@ -50,6 +52,12 @@ function App() {
       </Route>
       <Route path="/tags/:id">
         <TagsPage />
+      </Route>
+      <Route path="/upload">
+        <UploadPage />
+      </Route>
+      <Route path="/settings">
+        <SettingsPage />
       </Route>
       <Route>
         <NotFoundPage />
