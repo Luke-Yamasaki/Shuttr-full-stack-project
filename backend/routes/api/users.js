@@ -18,7 +18,7 @@ router.get(
 router.get(
     '/:id',
     asyncHandler(async (req, res) => {
-        console.log(req.params)
+        // console.log(req.params)
         const user = await User.listOne(req.params.id);
         return res.json(user)
     })

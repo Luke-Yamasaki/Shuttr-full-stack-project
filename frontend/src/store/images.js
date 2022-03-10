@@ -23,7 +23,6 @@ const addOneImage = image => ({
 export const getImages = () => async (dispatch, getState) => {
   const response = await csrfFetch(`/api/images`);
   if (response.ok) {
-    const dispatch = useDispatch();
     const images = await response.json();
     dispatch(load(images));
   }
