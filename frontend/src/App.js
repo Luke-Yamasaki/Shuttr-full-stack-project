@@ -5,11 +5,15 @@ import * as sessionActions from './store/session';
 import WelcomePage from './pages/WelcomePage';
 import Homepage from './pages/Homepage';
 import AuthenticationPage from './pages/AuthenticationPage';
+import ImagesPage from './pages/ImagesPage';
+import UsersPage from './pages/UsersPage';
+import TagsPage from './pages/TagsPage';
+import NotFoundPage from './pages/404Page';
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
-  
+
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
@@ -27,10 +31,28 @@ function App() {
         <AuthenticationPage mode={'login'} />
       </Route>
       <Route path="/signup">
-      <AuthenticationPage mode={'signup'} />
+        <AuthenticationPage mode={'signup'} />
+      </Route>
+      <Route path="/images">
+        <ImagesPage />
+      </Route>
+      <Route path="/images/:id">
+        <ImagesPage />
+      </Route>
+      <Route path="/users">
+        <UsersPage />
+      </Route>
+      <Route path="/users/:id">
+        <UsersPage />
+      </Route>
+      <Route path="/tags">
+        <TagsPage />
+      </Route>
+      <Route path="/tags/:id">
+        <TagsPage />
       </Route>
       <Route>
-        <p>404 Page Not Found.</p>
+        <NotFoundPage />
       </Route>
     </Switch>
   );
