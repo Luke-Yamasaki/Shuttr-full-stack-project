@@ -34,8 +34,8 @@ router.post(
     validateImage,
     asyncHandler(async (req, res) => {
         const { userId, title, description, imageUrl } = req.body;
-        const image = await Image.upload({ userId, title, description, imageUrl });
-        return res.json(image);
+        const id = await Image.upload({ userId, title, description, imageUrl });
+        return res.redirect(`${req.baseUrl}/${id}`);
     })
 );
 

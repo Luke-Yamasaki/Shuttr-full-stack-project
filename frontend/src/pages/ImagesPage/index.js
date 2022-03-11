@@ -19,7 +19,7 @@ const PageWrapper = styled.div`
 `;
 
 const ImageWrapper = styled.div`
-    width: 80vw;
+    width: 1500px;
     height: auto;
     display: flex;
     flex-direction: row;
@@ -49,7 +49,7 @@ const ImagesPage = () => {
     return isLoaded && (
         <PageWrapper>
             <Navbar />
-            <div style={{width: '100vw', height: '95vh', display: 'flex', flexDirection: 'column'}}>
+            <div style={{width: '100vw', height: '95vh', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                 <h1 style={{marginTop: '50px'}}>Explore</h1>
                 <ImageWrapper>
                     <ImageDetail images={images[0]} />

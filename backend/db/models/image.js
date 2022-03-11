@@ -73,7 +73,7 @@ module.exports = (sequelize, DataTypes) => {
       description,
       imageUrl
     });
-    return await Image.findByPk(image.id)
+    return image.id
   };
 
   Image.update = async function ({ imageId, title, description, imageUrl }) {

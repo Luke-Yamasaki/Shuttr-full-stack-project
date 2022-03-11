@@ -15,9 +15,9 @@ const loadComments = comments => ({
   comments
 })
 
-const addOneImage = image => ({
+const addOneImage = newImage => ({
   type: ADD_ONE,
-  image
+  newImage
 });
 
 export const getImages = () => async (dispatch, getState) => {
@@ -37,11 +37,11 @@ export const getOneImage = (id) => async dispatch => {
   }
 }
 
-export const createImage = ({userId, imageUrl, title, description}) => async (dispatch, getState) => {
+export const createImage = (formData) => async (dispatch, getState) => {
   const response = await csrfFetch('/api/images', {
     method: 'POST',
     headers: {'Content-Type':'application/json'},
-    body: JSON.stringify({userId, imageUrl, title, description})
+    body: JSON.stringify(formData)
   })
   const newImage = await response.json();
   dispatch(addOneImage(newImage))

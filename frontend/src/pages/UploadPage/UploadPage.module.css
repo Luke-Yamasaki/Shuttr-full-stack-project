@@ -1,0 +1,31 @@
+textarea {
+    width: 555px;
+    height: 60px;
+    resize: none;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+input {
+    width: 555px;
+    height: 20px;
+    padding-left: 9px;
+}
+
+label {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: -30px;
+}
+
+.formContents {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 700px;
+    height: 600px;
+    background-color: white;
+    border-radius: 0.35rem;
+
+}
