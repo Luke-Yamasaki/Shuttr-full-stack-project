@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 const LOAD = 'images/LOAD';
 const LOAD_COMMENTS = 'images/LOAD_COMMENTS'
 const ADD_ONE = 'images/ADD_ONE';
+const REMOVE_IMAGE = 'images/REMOVE_IMAGE';
 
 const load = images => ({
   type: LOAD,
@@ -18,6 +19,11 @@ const loadComments = comments => ({
 const addOneImage = newImage => ({
   type: ADD_ONE,
   newImage
+});
+
+const removeImage = imageId => ({
+  type: REMOVE_IMAGE,
+  imageId
 });
 
 export const getImages = () => async (dispatch, getState) => {
@@ -66,7 +72,16 @@ export const editImage = ({imageId, imageUrl, title, description}) => async disp
   const editedImage = await response.json();
   dispatch(addOneImage(editedImage))
   return editedImage
-}
+};
+
+export const deleteImage = (imageId) => async dispatch => {_
+  const response = await csrfFetch(`/api/images/${imageId}/delete`, {
+    method: 'DELETE'
+  });
+
+  dispatch(removeImage(imageId));
+  return response;
+};
 
 
 // const sortImages = (images) => {
@@ -118,6 +133,10 @@ const imagesReducer = (state = initialState, action) => {
       newState = {...state}
       newState.images = {...newState.images, [action.newImage.id]: action.newImage}
       return newState;
+    case REMOVE_IMAGE:
+      newState = {...state};
+      delete newState[action.imageId];
+      return newState
     default:
       return state;
   }
