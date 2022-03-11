@@ -3,6 +3,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {Link, useParams} from 'react-router-dom';
 import { getOneImage } from "../../store/images";
 import Navbar from "../../components/Navbar";
+import Comments from '../../components/Comments';
 import EditFormModal from '../../components/EditFormModal';
 import styled from 'styled-components';
 import styles from './SingleImagePage.module.css';
@@ -21,7 +22,6 @@ const SinglePageWrapper = styled.div`
 const SingleImagePage = () => {
     const dispatch = useDispatch();
     const {id} = useParams();
-
     const [showEditForm, setShowEditForm] = useState(false);
     const [loaded, setLoaded] = useState(false);
 
@@ -35,12 +35,12 @@ const SingleImagePage = () => {
 
     if (!imageObj) {
         return null;
-      }
+    }
+
 
     return loaded && (
         <SinglePageWrapper>
             <Navbar />
-
             <div style={{
                 width: '100vw',
                 height: '100vh',
@@ -51,7 +51,6 @@ const SingleImagePage = () => {
 
             }}>
                 <img src={imageObj.imageUrl} className={styles.image}></img>
-                <EditFormModal imageObj={imageObj}/>
                 <div>
                     <div className={styles.uploaderInfo}>Uploader Info
                         <h2>User Icon</h2>
@@ -63,29 +62,7 @@ const SingleImagePage = () => {
                         <h2>Taken on image create ad date.</h2>
                     </div>
                 </div>
-                <div>
-                    <div>Comments
-                        <div>
-                            <img></img>
-                            <div>
-                                <div>
-                                    <Link to={`/users`} ></Link>
-                                    <h2>created at</h2>
-                                </div>
-                                <div>
-                                    <h2>Comment content</h2>
-                                </div>
-                            </div>
-                        </div>
-                        <div style={{width: '450px', height: '100px', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', background: 'white'}}>
-                            <img src={sessionUser.profileImageUrl} style={{height: '30px', width: '30px', borderRadius: '100%'}}></img>
-                            <form>
-                                <textarea placeholder='Add a comment' style={{width: '385px', height: '85px', padding: 'none'}}>
-                                </textarea>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+                <Comments user={sessionUser}/>
             </div>
         </SinglePageWrapper>
     )
