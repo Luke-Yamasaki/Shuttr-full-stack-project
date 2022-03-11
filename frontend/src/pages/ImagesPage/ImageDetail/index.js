@@ -10,12 +10,13 @@ const ImageDetail = (images) => {
 
     let count = 1;
 
-    while(count < 1000) {
-        imagesArr.push(images.images[count]);
-        count++;
-        // if(count === 998) {
-        //     setIsLoaded(true)
-        // }
+    while(count < 1020) {
+        if(!images.images[count]){
+            break
+        } else {
+            imagesArr.push(images.images[count]);
+            count++;
+        }
     }
 
     return  (
