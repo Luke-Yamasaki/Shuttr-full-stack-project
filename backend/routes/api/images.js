@@ -43,14 +43,15 @@ router.put(
     '/:id',
     validateImage,
     asyncHandler(async (req, res) => {
-        const { imageId, title, description, imageUrl } = req.body;
+        const imageId = req.params.id;
+        const { title, description, imageUrl } = req.body;
         const image = await Image.update({ imageId, title, description, imageUrl });
         return res.json(image);
     })
 )
 
 router.delete(
-    '/:id(\\d+)',
+    '/:id',
     asyncHandler(async (req, res) => {
         const id = await Image.delete(req.params.id);
         return res.json({ id })

@@ -7,30 +7,20 @@ import { deleteImage } from '../../../store/images';
 const ImageDetail = (images) => {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
+    const imagesObj = useSelector(state => state.imagesState.images);
+    let updatedImages;
+    const imagesArr = Object.values(imagesObj)
     // const [isLoaded, setIsLoaded] = useState(false);
     // const [deletedId, setDeletedId] = useState('');
-    const imagesArr = [];
-
-    let count = 1;
-
-    while(count < 1020) {
-        if(!images.images[count]){
-            break
-        } else {
-            imagesArr.push(images.images[count]);
-            count++;
-        }
-    }
 
     // useEffect(() => {
-    //     return dispatch(deleteImage(deletedId))
-
-    // },[deletedId])
+    //     updatedImages = useSelector(state => state.imagesState.images)
+    // },[imagesObj])
 
     const handleDelete = (e) => {
         e.preventDefault();
 
-        return dispatch(deleteImage(Number(e.target.value)))
+        return dispatch(deleteImage(Number(e.target.innerText)))
     }
 
     return  (
@@ -48,7 +38,7 @@ const ImageDetail = (images) => {
                             <div>
                                 <button>Comments</button>
                                 <Link className={styles.editLink} to={`/images/${image.id}`}>Edit</Link>
-                                <button onClick={(e) => handleDelete(e)}>{image.id}</button>
+                                <button name={image.id} onClick={(e) => handleDelete(e)}>{image.id}</button>
                             </div>
                             : <button>Comments</button>
                         }
