@@ -40,7 +40,7 @@ const ImageDetail = (images) => {
                         {image.userId === sessionUser.id ?
                             <div>
                                 <button>Comments</button>
-                                <Link className={styles.editLink} to={`/images/${image.id}`}>Edit</Link>
+                                <Link className={styles.editLink} to={`/images/${image.id}`} >Edit</Link>
                                 <button name={image.id} onClick={(e) => handleDelete(e)}>Delete</button>
                             </div>
                             : <button>Comments</button>

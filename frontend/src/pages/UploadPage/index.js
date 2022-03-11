@@ -3,7 +3,6 @@ import React, {useState, useEffect } from 'react';
 import {useHistory} from 'react-router-dom';
 import styles from './UploadPage.module.css';
 import { createImage } from '../../store/images';
-
 import Navbar from "../../components/Navbar";
 
 const UploadPage = () => {
@@ -14,6 +13,19 @@ const UploadPage = () => {
     const [imageUrl, setImageUrl] = useState('');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
+
+    const reset = () => {
+        setImageUrl('');
+        setTitle('');
+        setDescription('');
+    }
+
+    const handleReset = (e) => {
+        e.preventDefault();
+        setImageUrl('');
+        setTitle('');
+        setDescription('');
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -28,6 +40,7 @@ const UploadPage = () => {
         const createdImage = await dispatch(createImage(formData));
         if(createdImage) {
             history.push(`/images/${createdImage.id}`);
+            reset();
         };
     };
 
@@ -44,7 +57,8 @@ const UploadPage = () => {
                         <input type='text' size='50' value={title} placeholder='Add a title...' onChange={(e) => setTitle(e.target.value)} />
                         <label>Description (Up to 300 characters)</label>
                         <textarea type='text' value={description} placeholder='Add a description...' onChange={(e) => setDescription(e.target.value)} />
-                        <button style={{width: '570px', height: '35px'}}>Submit</button>
+                        <button type='submit' style={{width: '500px', height: '35px'}}>Submit</button>
+                        <button type='button' style={{width: '70px', height: '35px'}} onClick={handleReset}>Reset</button>
                     </form>
                 </div>
 

@@ -6,11 +6,13 @@ import WelcomePage from './pages/WelcomePage';
 import Homepage from './pages/Homepage';
 import AuthenticationPage from './pages/AuthenticationPage';
 import ImagesPage from './pages/ImagesPage';
+import SingleImagePage from './pages/SingleImagePage';
 import UsersPage from './pages/UsersPage';
 import TagsPage from './pages/TagsPage';
 import UploadPage from './pages/UploadPage';
 import SettingsPage from './pages/SettingsPage';
 import NotFoundPage from './pages/404Page';
+
 
 function App() {
   const dispatch = useDispatch();
@@ -35,11 +37,11 @@ function App() {
       <Route path="/signup">
         <AuthenticationPage mode={'signup'} />
       </Route>
-      <Route path="/images">
+      <Route exact path="/images">
         <ImagesPage />
       </Route>
       <Route path="/images/:id">
-        <ImagesPage />
+        <SingleImagePage />
       </Route>
       <Route path="/users">
         <UsersPage />

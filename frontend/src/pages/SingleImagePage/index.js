@@ -1,39 +1,70 @@
+import React, {useState,useEffect} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import {Link, useParams} from 'react-router-dom';
+import { getOneImage } from "../../store/images";
 import Navbar from "../../components/Navbar";
 import styled from 'styled-components';
-import {useSelector, useEffect} from 'react-redux';
-import {Link, useParams} from 'react-router-dom';
 
 const SinglePageWrapper = styled.div`
     width: 100vw;
-    height: auto;
+    height: 100vh;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
     background-color: grey;
-    overflow: scroll;
 `
 
 const SingleImagePage = () => {
-    const id = useParams();
-    const imagesObj = useSelector(state => state.imagesState.images);
-    const image = Object.values(imagesObj);
+    const dispatch = useDispatch();
+    const {id} = useParams();
 
-    return (
+    const [showEditForm, setShowEditForm] = useState(false);
+    const [loaded, setLoaded] = useState(false);
+
+    const imageObj = useSelector(state => state.imagesState.images);
+    const imageArr = Object.values(imageObj);
+
+    useEffect(() => {
+        dispatch(getOneImage(id)).then(() => setLoaded(true));
+    },[id])
+
+    if (!imageObj) {
+        return null;
+      }
+
+    return loaded && (
         <SinglePageWrapper>
             <Navbar />
             <div style={{
                 width: '100vw',
                 height: 'auto',
                 display: 'flex',
-                flexDireciton: 'column'
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                
             }}>
+                <div>Uploader Info
+                    <img src={imageObj.imageUrl}></img>
+                    <h2>User Icon</h2>
+                    <h2>Username</h2>
+                    <h2>First name Last name</h2>
+                </div>
                 <div>
-                    <img src={imageUrl}></img>
-                    <h2></h2>
-                    <
-
+                    <div>Comment
+                        <h2>User Icon</h2>
+                        <h2>Username</h2>
+                        <h2>First name Last name</h2>
+                        <h2>Comment</h2>
+                        <h2>Edit</h2>
+                        <h2>Delete</h2>
+                    </div>
                 </div>
             </div>
 
         </SinglePageWrapper>
     )
 }
+
+export default SingleImagePage;

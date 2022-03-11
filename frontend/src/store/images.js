@@ -2,6 +2,7 @@ import { csrfFetch } from './csrf';
 import { useDispatch } from 'react-redux';
 
 const LOAD = 'images/LOAD';
+const LOAD_ONE = 'images/LOAD_ONE';
 const LOAD_COMMENTS = 'images/LOAD_COMMENTS'
 const ADD_ONE = 'images/ADD_ONE';
 const REMOVE_IMAGE = 'images/REMOVE_IMAGE';
@@ -10,6 +11,11 @@ const load = images => ({
   type: LOAD,
   images
 });
+
+const loadOne = image => ({
+  type: LOAD_ONE,
+  image
+})
 
 const loadComments = comments => ({
   type: LOAD_COMMENTS,
@@ -35,12 +41,13 @@ export const getImages = () => async (dispatch, getState) => {
   return response
 };
 
-export const getOneImage = (id) => async dispatch => {
+export const getOneImage = (id) => async (dispatch, getState) => {
   const response = await csrfFetch(`/api/images/${id}`);
   if (response.ok) {
     const oneImage = await response.json();
-    dispatch(addOneImage(oneImage));
+    dispatch(loadOne(oneImage));
   }
+  return response
 }
 
 export const createImage = (formData) => async (dispatch, getState) => {
@@ -90,24 +97,6 @@ export const deleteImage = (imageId) => async dispatch => {
 //   }).map((image) => image.id);
 // };
 
-// const initialState = { user: null };
-
-// const sessionReducer = (state = initialState, action) => {
-//   let newState;
-//   switch (action.type) {
-//     case SET_USER:
-//       newState = Object.assign({}, state);
-//       newState.user = action.payload;
-//       return newState;
-//     case REMOVE_USER:
-//       newState = Object.assign({}, state);
-//       newState.user = null;
-//       return newState;
-//     default:
-//       return state;
-//   }
-// };
-
 const initialState = {
   images: {}
 };
@@ -121,6 +110,12 @@ const imagesReducer = (state = initialState, action) => {
       action.images.forEach((image) => images[image.id] = image)
       newState.images = images;
       return newState;
+    case LOAD_ONE:
+      newState = {...state}
+      const imageObj = {};
+      imageObj[action.image.id] = action.image;
+      newState.images = action.image;
+      return newState;
     case LOAD_COMMENTS:
       return {
         ...state,
@@ -129,10 +124,12 @@ const imagesReducer = (state = initialState, action) => {
           // comments: action.comments.map(comment => comment.id)
         }
       };
-    case ADD_ONE:
-      newState = {...state}
-      newState.images = {...newState.images, [action.newImage.id]: action.newImage}
-      return newState;
+    // case ADD_ONE:
+    //   newState = {...state}
+    //   const imageObj = {};
+    //   imageObj[action.newImage.id] = action.newImage;
+    //   newState.images = image;
+    //   return newState;
     case REMOVE_IMAGE:
       newState = {...state};
       delete newState[action.imageId];
