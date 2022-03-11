@@ -85,7 +85,7 @@ const SingleImagePage = () => {
                     </div>
                 </div>
                 {commentsArr.map(comment => (
-                    <Comments user={sessionUser} comments={comment}/>
+                    <Comments user={sessionUser} comments={commentsArr}/>
                 ))}
                 <div style={{width: '450px', height: '100px', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', background: 'white'}}>
                     <img src={sessionUser.profileImageUrl} style={{height: '30px', width: '30px', borderRadius: '100%'}}></img>

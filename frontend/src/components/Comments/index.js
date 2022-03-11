@@ -2,8 +2,9 @@ import React, {useState, useEffect} from 'react';
 import {useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom';
 import * as commentActions from '../../store/comments';
+import styles from './Comments.module.css';
 
-const Comments = ({user, comment}) => {
+const Comments = ({user, comments}) => {
     const dispatch = useDispatch();
     const [content, setContent] = useState('');
     const [errors, setErrors] = useState('');
@@ -30,19 +31,21 @@ const Comments = ({user, comment}) => {
     };
 
     return (
-        <div>Comments
-            <div>
-                <img></img>
-                <div>
+        <div className={styles.wrapper}>
+            {comments.map(comment => (
+                <div className={styles.commentBox}>
+                    <img style={{width: '30px', height: '30px', borderRadius: '100%'}}src={user.profileImageUrl}></img>
                     <div>
-                        <Link to={`/users/${user.id}`} ></Link>
-                        <h2>created at</h2>
-                    </div>
-                    <div>
-                        <h2>Comment content</h2>
+                        <div>
+                            <Link to={`/users/${comment.userId}`} >{comment.userId}</Link>
+                            <h2>{comment.createdAt}</h2>
+                        </div>
+                        <div>
+                            <h2>Comment content</h2>
+                        </div>
                     </div>
                 </div>
-            </div>
+            ))}
         </div>
     )
 }
