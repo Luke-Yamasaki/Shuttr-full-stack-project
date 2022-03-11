@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 
 const LOAD = 'images/LOAD';
 const LOAD_ONE = 'images/LOAD_ONE';
-const LOAD_COMMENTS = 'images/LOAD_COMMENTS'
+// const LOAD_COMMENTS = 'images/LOAD_COMMENTS'
 const ADD_ONE = 'images/ADD_ONE';
 const REMOVE_IMAGE = 'images/REMOVE_IMAGE';
 
@@ -17,10 +17,10 @@ const loadOne = image => ({
   image
 })
 
-const loadComments = comments => ({
-  type: LOAD_COMMENTS,
-  comments
-})
+// const loadComments = comments => ({
+//   type: LOAD_COMMENTS,
+//   comments
+// })
 
 const addOneImage = newImage => ({
   type: ADD_ONE,
@@ -61,14 +61,14 @@ export const createImage = (formData) => async (dispatch, getState) => {
   return newImage
 }
 
-export const getImageComments = (imageId) => async dispatch => {
-  const response = await csrfFetch(`/api/images/${imageId}/comments`);
+// export const getImageComments = (imageId) => async dispatch => {
+//   const response = await csrfFetch(`/api/images/${imageId}/comments`);
 
-  if (response.ok) {
-    const comments = await response.json();
-    dispatch(loadComments(comments));
-  }
-};
+//   if (response.ok) {
+//     const comments = await response.json();
+//     dispatch(loadComments(comments));
+//   }
+// };
 
 export const editImage = ({imageId, imageUrl, title, description}) => async dispatch => {
   const response = await csrfFetch(`/api/images/${imageId}`, {
@@ -116,14 +116,14 @@ const imagesReducer = (state = initialState, action) => {
       imageObj[action.image.id] = action.image;
       newState.images = action.image;
       return newState;
-    case LOAD_COMMENTS:
-      return {
-        ...state,
-        [action.imageId]: {
-          ...state[action.imageId],
-          // comments: action.comments.map(comment => comment.id)
-        }
-      };
+    // case LOAD_COMMENTS:
+    //   return {
+    //     ...state,
+    //     [action.imageId]: {
+    //       ...state[action.imageId],
+    //       // comments: action.comments.map(comment => comment.id)
+    //     }
+    //   };
     // case ADD_ONE:
     //   newState = {...state}
     //   const imageObj = {};

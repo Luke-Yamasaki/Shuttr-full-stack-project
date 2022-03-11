@@ -1,84 +1,119 @@
-export const LOAD_COMMENTS = "comments/LOAD_COMMENTS";
-export const UPDATE_COMMENT = "comments/UPDATE_COMMENT";
-export const REMOVE_COMMENT = "comments/REMOVE_COMMENT";
-export const ADD_COMMENT = "comments/ADD_COMMENT";
+import { csrfFetch } from './csrf';
+import { useDispatch } from 'react-redux';
 
-const load = (comments, imageId) => ({
-  type: LOAD_COMMENTS,
-  comments,
-  imageId
+const LOAD = 'comments/LOAD';
+const LOAD_ONE = 'comments/LOAD_ONE';
+const ADD_ONE = 'comments/ADD_ONE';
+const REMOVE_COMMENT = 'comments/REMOVE_COMMENT';
+
+const load = comments => ({
+  type: LOAD,
+  comments
 });
 
-const update = (comment) => ({
-  type: UPDATE_COMMENT,
+const loadOne = comment => ({
+  type: LOAD_ONE,
   comment
-});
+})
 
-const add = (newComment) => ({
-  type: ADD_COMMENT,
+const addOneComment = newComment => ({
+  type: ADD_ONE,
   newComment
 });
 
-const remove = (commentId, imageId) => ({
+const removeComment = commentId => ({
   type: REMOVE_COMMENT,
-  commentId,
-  imageId
+  commentId
 });
 
-export const getComments = (imageId) => async dispatch => {
-  const response = await fetch(`/api/images/${imageId}/comments`, );
-  if(response.ok) {
-    const commentsList = await response.json();
-    dispatch(load(commentsList, imageId))
+export const getComments = () => async (dispatch, getState) => {
+  const response = await csrfFetch(`/api/comments`);
+  if (response.ok) {
+    const comments = await response.json();
+    dispatch(load(comments));
   }
+  return response
+};
+
+export const getOneComment = (id) => async (dispatch, getState) => {
+  const response = await csrfFetch(`/api/comments/${id}`);
+  if (response.ok) {
+    const oneComment = await response.json();
+    dispatch(loadOne(oneComment));
+  }
+  return response
 }
 
-export const addComment = (comment, imageId) => async dispatch => {
-  const response = await fetch(`/api/images/${imageId}/comments`, {
+export const createComment = (commentData) => async (dispatch, getState) => {
+  const response = await csrfFetch('/api/comments', {
     method: 'POST',
     headers: {'Content-Type':'application/json'},
-    body: JSON.stringify(comment)
-  });
-  if(response.ok) {
-    const newComment = await response.json();
-    dispatch(add(newComment))
-  }
+    body: JSON.stringify(commentData)
+  })
+  const newComment = await response.json();
+  dispatch(addOneComment(newComment))
+  return newComment
 }
 
-export const editComment = (comment) => async dispatch => {
-  const response = await fetch(`/api/comments/${comment.id}`, {
+export const editComment = ({commentId, content}) => async dispatch => {
+  const response = await csrfFetch(`/api/comments/${commentId}`, {
     method: 'PUT',
     headers: {'Content-Type':'application/json'},
-    body: JSON.stringify(comment)
-  });
-  if(response.ok) {
-    const editedComment = await response.json();
-    dispatch(update(editedComment))
-  }
-}
+    body: JSON.stringify({commentId, content})
+  })
+  const editedComment = await response.json();
+  dispatch(addOneComment(editedComment))
+  return editedComment
+};
 
-const initialState = {};
+export const deleteComment = (commentId) => async dispatch => {
+  const response = await csrfFetch(`/api/comments/${commentId}`, {
+    method: 'DELETE'
+  });
+
+  dispatch(removeComment(commentId));
+  return response;
+};
+
+
+// const sortcomments = (comments) => {
+//   return comments.sort((commentA, commentB) => {
+//     return commentA.number - commentB.number;
+//   }).map((comment) => comment.id);
+// };
+
+const initialState = {
+  comments: {}
+};
 
 const commentsReducer = (state = initialState, action) => {
-    let newState;
-    switch (action.type) {
-        case LOAD_COMMENTS:
-        return { ...state, comments: [...action.comments]};
-        case REMOVE_COMMENT:
-        newState = { ...state };
-        delete newState[action.commentId];
-        return newState;
-        case ADD_COMMENT:
-            return { ...state, comments: [...state.comments, action.newComment] };
-
-        case UPDATE_COMMENT:
-        return {
-            ...state,
-            [action.comments.id]: action.comments
-        };
-        default:
-        return state;
-    }
-};
+  let newState;
+  switch (action.type) {
+    case LOAD:
+      newState = {...state};
+      const comments = {}
+      action.comments.forEach((comment) => comments[comment.id] = comment)
+      newState.comments = comments;
+      return newState;
+    case LOAD_ONE:
+      newState = {...state}
+      const commentObj = {};
+      commentObj[action.comment.id] = action.comment;
+      newState.comments = action.comment;
+      return newState;
+    case ADD_ONE:
+      newState = {...state}
+      const comment = {};
+      comment[action.newComment.id] = action.newComment;
+      newState.comments = action.newComment;
+      return newState;
+    case REMOVE_COMMENT:
+      newState = {...state};
+      delete newState[action.commentId];
+      return newState
+    default:
+      return state;
+  }
+}
 
 export default commentsReducer;
