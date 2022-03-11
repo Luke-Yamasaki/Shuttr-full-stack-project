@@ -14,13 +14,16 @@ const ImageDetail = (images) => {
     // const [deletedId, setDeletedId] = useState('');
 
     // useEffect(() => {
-    //     updatedImages = useSelector(state => state.imagesState.images)
-    // },[imagesObj])
+    //     const updateList = async () => {
+    //         updatedImages = await useSelector(state => state.imagesState.images)
+    //     }
+    //     updateList()
+    // },[state.imagesState])
 
     const handleDelete = (e) => {
         e.preventDefault();
 
-        return dispatch(deleteImage(Number(e.target.innerText)))
+        return dispatch(deleteImage(Number(e.target.name)))
     }
 
     return  (
@@ -38,7 +41,7 @@ const ImageDetail = (images) => {
                             <div>
                                 <button>Comments</button>
                                 <Link className={styles.editLink} to={`/images/${image.id}`}>Edit</Link>
-                                <button name={image.id} onClick={(e) => handleDelete(e)}>{image.id}</button>
+                                <button name={image.id} onClick={(e) => handleDelete(e)}>Delete</button>
                             </div>
                             : <button>Comments</button>
                         }
