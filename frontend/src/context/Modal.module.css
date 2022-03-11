@@ -1,6 +1,5 @@
-#modal {
+.modal {
     position: absolute;
-    top: -1000px;
     right: 0;
     left: 0;
     bottom: 0;
@@ -8,9 +7,11 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 100vh;
+    width: 100vw;
   }
 
-  #modal-background {
+  .modalBackground {
     position: fixed;
     top: 0;
     right: 0;
@@ -19,7 +20,8 @@
     background-color: rgba(0, 0, 0, 0.7);
   }
 
-  #modal-content {
+ .modalContent {
     position: absolute;
+    top: -500px;
     background-color:white;
   }

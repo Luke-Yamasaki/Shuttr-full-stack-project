@@ -9,9 +9,9 @@ function EditFormModal({imageObj}) {
     <>
       <button onClick={() => setShowModal(true)}>Edit</button>
       {showModal && (
-        <Modal onCloseModal={() => setShowModal(false)}>
-          <EditForm imageObj={imageObj} />
-        </Modal>
+      <Modal onCloseModal={() => setShowModal(false)}>
+        <EditForm imageObj={imageObj} />
+      </Modal>
       )}
     </>
   );

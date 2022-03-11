@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import * as imageActions from "../../../store/images"
 import { useDispatch } from "react-redux";
+import styles from './EditImageForm.module.css';
 
 function EditForm({imageObj}) {
     const imageId = imageObj.id
@@ -29,38 +30,38 @@ function EditForm({imageObj}) {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-        <ul>
-            {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
-            ))}
-        </ul>
-        <label>
-            Image URL
-            <input
-            type="url"
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
-            />
-        </label>
-        <label>
-            Title
-            <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            />
-        </label>
-        <label>
-            Description
-            <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            />
-        </label>
-        <button type="submit">Submit</button>
-        <button type="button" onClick={handleReset}>Reset</button>
-        </form>
+            <form onSubmit={handleSubmit}>
+                <ul>
+                    {errors.map((error, idx) => (
+                    <li key={idx}>{error}</li>
+                    ))}
+                </ul>
+                <label>
+                    Image URL
+                    <input
+                    type="url"
+                    value={imageUrl}
+                    onChange={(e) => setImageUrl(e.target.value)}
+                    />
+                </label>
+                <label>
+                    Title
+                    <input
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    />
+                </label>
+                <label>
+                    Description
+                    <textarea
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    />
+                </label>
+                <button type="submit">Submit</button>
+                <button type="button" onClick={handleReset}>Reset</button>
+            </form>
     );
 }
 
