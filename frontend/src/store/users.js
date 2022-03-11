@@ -1,90 +1,118 @@
 import { csrfFetch } from './csrf';
 
+const LOAD = 'users/LOAD';
+const LOAD_ONE = 'users/LOAD_ONE';
+const ADD_ONE = 'users/ADD_ONE';
+const REMOVE_USER = 'users/REMOVE_USER';
 
-//////////////////////////////////////////// Get all, get one, edit or delete user
-const GET_USERS = 'session/getUsers';
-const GET_USER = 'session/getUser';
-const EDIT_USERS = 'session/editUser';
-const DELETE_USER = 'session/deleteUser';
+const load = users => ({
+  type: LOAD,
+  users
+});
 
-//////////////////////////////////////////// Set or remove action creator
-const setUser = (user) => {
-  return {
-    type: SET_USER,
-    payload: user,
-  };
+const loadOne = user => ({
+  type: LOAD_ONE,
+  user
+})
+
+const addoneUser = newUser => ({
+  type: ADD_ONE,
+  newUser
+});
+
+const removeUser = userId => ({
+  type: REMOVE_USER,
+  userId
+});
+
+export const getusers = () => async (dispatch, getState) => {
+  const response = await csrfFetch(`/api/users`);
+  if (response.ok) {
+    const users = await response.json();
+    dispatch(load(users));
+  }
+  return response
 };
 
-const removeUser = () => {
-  return {
-    type: REMOVE_USER,
-  };
-};
-//////////////////////////////////////////// Thunk action creators
+export const getOneUser = (id) => async (dispatch, getState) => {
+  const response = await csrfFetch(`/api/users/${id}`);
+  if (response.ok) {
+    const oneUser = await response.json();
+    dispatch(loadOne(oneUser));
+  }
+  return response
+}
 
-export const login = (user) => async (dispatch) => {
-  const { email, password } = user;
-  const response = await csrfFetch('/api/session', {
+export const createuser = (userData) => async (dispatch, getState) => {
+  const response = await csrfFetch('/api/users', {
     method: 'POST',
-    body: JSON.stringify({
-      email,
-      password,
-    }),
-  });
-  const data = await response.json();
-  dispatch(setUser(data.user));
-  return response;
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify(userData)
+  })
+  const newUser = await response.json();
+  dispatch(addOneUser(newUser))
+  return newUser
+}
+
+export const editUser = ({userId, content}) => async dispatch => {
+  const response = await csrfFetch(`/api/users/${userId}`, {
+    method: 'PUT',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({userId, content})
+  })
+  const editeduser = await response.json();
+  dispatch(addoneUser(editeduser))
+  return editeduser
 };
 
-export const restoreUser = () => async (dispatch) => {
-  const res = await csrfFetch("/api/session");
-  const data = await res.json();
-  dispatch(setUser(data.user));
-  return res;
-};
-
-export const signup = (user) => async (dispatch) => {
-  const { username, email, password } = user;
-
-  const response = await csrfFetch('/api/session', {
-    method: 'POST',
-    body: JSON.stringify({
-      username,
-      email,
-      password
-    }),
+export const deleteuser = (userId) => async dispatch => {
+  const response = await csrfFetch(`/api/users/${userId}`, {
+    method: 'DELETE'
   });
-  const data = await response.json();
-  dispatch(setUser(data.user));
-  return response;
-};
 
-export const logout = () => async (dispatch) => {
-  const response = await csrfFetch('/api/session', {
-    method: 'DELETE',
-  });
-  dispatch(removeUser());
+  dispatch(removeUser(userId));
   return response;
 };
 
 
-//////////////////////////////////////////// Session reducer
-const initialState = { user: null };
+// const sortusers = (users) => {
+//   return users.sort((userA, userB) => {
+//     return userA.number - userB.number;
+//   }).map((user) => user.id);
+// };
 
-const sessionReducer = (state = initialState, action) => {
+const initialState = {
+  users: {}
+};
+
+const usersReducer = (state = initialState, action) => {
   let newState;
   switch (action.type) {
-    case SET_USER:
-      newState = Object.assign({}, state);
-      newState.user = action.payload;
+    case LOAD:
+      newState = {...state};
+      const users = {}
+      action.users.forEach((user) => users[user.id] = user)
+      newState.users = users;
+      return newState;
+    case LOAD_ONE:
+      newState = {...state}
+      const userObj = {};
+      userObj[action.user.id] = action.user;
+      newState.users = action.user;
+      return newState;
+    case ADD_ONE:
+      newState = {...state}
+      const user = {};
+      user[action.newUser.id] = action.newUser;
+      newState.users = action.newUser;
       return newState;
     case REMOVE_USER:
-      newState = Object.assign({}, state);
-      newState.user = null;
-      return newState;
+      newState = {...state};
+      delete newState[action.userId];
+      return newState
     default:
       return state;
   }
-};
+}
 
-export default sessionReducer;
+export default usersReducer;

@@ -21,11 +21,12 @@ router.get(
     asyncHandler(async (req, res) => {
         const id = req.params.id;
         const image = await Image.listOne(id);
-        // const comments = await Comment.findAll(id);
+        const comments = await Comment.listAll(id)
+        const imageData = {image, comments}
         // const imageTags = await ImageTag.listAllTags(id);
         // const tags = [];
         // imageTags.forEach((imageTag) => tags.push(imageTag[]) )
-        return res.json(image)
+        return res.json(imageData)
     })
 )
 
@@ -38,6 +39,7 @@ router.post(
         return res.redirect(`${req.baseUrl}/${id}`);
     })
 );
+
 
 router.put(
     '/:id',

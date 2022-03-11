@@ -2,6 +2,7 @@ import React, {useState,useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {Link, useParams} from 'react-router-dom';
 import { getOneImage } from "../../store/images";
+import * as commentActions from '../../store/comments'
 import Navbar from "../../components/Navbar";
 import Comments from '../../components/Comments';
 import EditFormModal from '../../components/EditFormModal';
@@ -24,9 +25,13 @@ const SingleImagePage = () => {
     const {id} = useParams();
     const [showEditForm, setShowEditForm] = useState(false);
     const [loaded, setLoaded] = useState(false);
+    const [content, setContent] = useState('');
+    const [errors, setErrors] = useState('');
 
     const sessionUser = useSelector((state) => state.session.user);
     const imageObj = useSelector(state => state.imagesState.images);
+    const commentsObj = useSelector(state => state.imagesState.comments);
+    const commentsArr = Object.values(commentsObj);
     const imageArr = Object.values(imageObj);
 
     useEffect(() => {
@@ -37,10 +42,27 @@ const SingleImagePage = () => {
         return null;
     }
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        const commentData = {
+            userId: sessionUser.id,
+            content
+        };
+
+        return dispatch(commentActions.createComment(commentData)).catch(
+            async (res) => {
+                const data = await res.json();
+                if (data && data.errors) setErrors(data.errors)
+            }
+        );
+    };
+
 
     return loaded && (
         <SinglePageWrapper>
             <Navbar />
+            {console.log(imageObj)}
             <div style={{
                 width: '100vw',
                 height: '100vh',
@@ -62,7 +84,16 @@ const SingleImagePage = () => {
                         <h2>Taken on image create ad date.</h2>
                     </div>
                 </div>
-                <Comments user={sessionUser}/>
+                {commentsArr.map(comment => (
+                    <Comments user={sessionUser} comments={comment}/>
+                ))}
+                <div style={{width: '450px', height: '100px', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', background: 'white'}}>
+                    <img src={sessionUser.profileImageUrl} style={{height: '30px', width: '30px', borderRadius: '100%'}}></img>
+                    <form onSubmit={handleSubmit}>
+                        <textarea placeholder='Add a comment' style={{width: '385px', height: '85px', padding: 'none'}} />
+                        <button type='submit'>Comment</button>
+                    </form>
+                </div>
             </div>
         </SinglePageWrapper>
     )

@@ -1,5 +1,4 @@
 import { csrfFetch } from './csrf';
-import { useDispatch } from 'react-redux';
 
 const LOAD = 'comments/LOAD';
 const LOAD_ONE = 'comments/LOAD_ONE';
@@ -26,8 +25,8 @@ const removeComment = commentId => ({
   commentId
 });
 
-export const getComments = () => async (dispatch, getState) => {
-  const response = await csrfFetch(`/api/comments`);
+export const getComments = (imageId) => async (dispatch, getState) => {
+  const response = await csrfFetch(`/api/images/${imageId}/comments`);
   if (response.ok) {
     const comments = await response.json();
     dispatch(load(comments));

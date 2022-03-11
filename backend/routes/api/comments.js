@@ -7,13 +7,14 @@ const validateComment = require('../../utils/validateComment');
 
 const router = express.Router();
 
-router.get(
-    '/',
-    asyncHandler(async (req, res) => {
-        const comments = await Comment.listAll();
-        return res.json(comments);
-    })
-);
+// router.get(
+//     '/',
+//     asyncHandler(async (req, res) => {
+//         const imageId = req.params.id
+//         const comments = await Comment.listAll(imageId);
+//         return res.json(comments);
+//     })
+// );
 
 router.get(
     '/:id',

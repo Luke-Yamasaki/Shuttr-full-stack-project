@@ -1,5 +1,6 @@
 import { csrfFetch } from './csrf';
 import { useDispatch } from 'react-redux';
+import commentsReducer from './comments';
 
 const LOAD = 'images/LOAD';
 const LOAD_ONE = 'images/LOAD_ONE';
@@ -12,9 +13,10 @@ const load = images => ({
   images
 });
 
-const loadOne = image => ({
+const loadOne = (image, comments) => ({
   type: LOAD_ONE,
-  image
+  image,
+  comments
 })
 
 // const loadComments = comments => ({
@@ -44,8 +46,10 @@ export const getImages = () => async (dispatch, getState) => {
 export const getOneImage = (id) => async (dispatch, getState) => {
   const response = await csrfFetch(`/api/images/${id}`);
   if (response.ok) {
-    const oneImage = await response.json();
-    dispatch(loadOne(oneImage));
+    const imageData = await response.json();
+    const image = imageData.image;
+    const comments = imageData.comments;
+    dispatch(loadOne(image, comments));
   }
   return response
 }
@@ -98,7 +102,8 @@ export const deleteImage = (imageId) => async dispatch => {
 // };
 
 const initialState = {
-  images: {}
+  images: {},
+  comments: {}
 };
 
 const imagesReducer = (state = initialState, action) => {
@@ -115,6 +120,9 @@ const imagesReducer = (state = initialState, action) => {
       const imageObj = {};
       imageObj[action.image.id] = action.image;
       newState.images = action.image;
+      const commentsObj = {};
+      action.comments.forEach(comment => commentsObj[comment.id] = comment)
+      newState.comments = action.comments;
       return newState;
     // case LOAD_COMMENTS:
     //   return {
