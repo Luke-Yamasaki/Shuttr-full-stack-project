@@ -1,7 +1,7 @@
 import Navbar from "../../components/Navbar";
 import styled from 'styled-components';
 import {useSelector, useEffect} from 'react-redux';
-import {Link} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 
 const SinglePageWrapper = styled.div`
     width: 100vw;
@@ -13,10 +13,9 @@ const SinglePageWrapper = styled.div`
 `
 
 const SingleImagePage = () => {
+    const id = useParams();
     const imagesObj = useSelector(state => state.imagesState.images);
     const image = Object.values(imagesObj);
-
-
 
     return (
         <SinglePageWrapper>

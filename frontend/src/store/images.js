@@ -74,8 +74,8 @@ export const editImage = ({imageId, imageUrl, title, description}) => async disp
   return editedImage
 };
 
-export const deleteImage = (imageId) => async dispatch => {_
-  const response = await csrfFetch(`/api/images/${imageId}/delete`, {
+export const deleteImage = (imageId) => async dispatch => {
+  const response = await csrfFetch(`/api/images/${imageId}`, {
     method: 'DELETE'
   });
 

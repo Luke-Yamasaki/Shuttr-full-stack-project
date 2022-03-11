@@ -1,11 +1,14 @@
 import {useState, useEffect} from 'react';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom';
 import styles from './ImageDetail.module.css';
+import { deleteImage } from '../../../store/images';
 
 const ImageDetail = (images) => {
+    const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
     // const [isLoaded, setIsLoaded] = useState(false);
+    // const [deletedId, setDeletedId] = useState('');
     const imagesArr = [];
 
     let count = 1;
@@ -17,6 +20,17 @@ const ImageDetail = (images) => {
             imagesArr.push(images.images[count]);
             count++;
         }
+    }
+
+    // useEffect(() => {
+    //     return dispatch(deleteImage(deletedId))
+
+    // },[deletedId])
+
+    const handleDelete = (e) => {
+        e.preventDefault();
+
+        return dispatch(deleteImage(Number(e.target.value)))
     }
 
     return  (
@@ -33,8 +47,8 @@ const ImageDetail = (images) => {
                         {image.userId === sessionUser.id ?
                             <div>
                                 <button>Comments</button>
-                                <button>Edit</button>
-                                <button>Delete</button>
+                                <Link className={styles.editLink} to={`/images/${image.id}`}>Edit</Link>
+                                <button onClick={(e) => handleDelete(e)}>{image.id}</button>
                             </div>
                             : <button>Comments</button>
                         }

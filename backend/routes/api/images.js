@@ -50,7 +50,7 @@ router.put(
 )
 
 router.delete(
-    '/:id',
+    '/:id(\\d+)',
     asyncHandler(async (req, res) => {
         const id = await Image.delete(req.params.id);
         return res.json({ id })
