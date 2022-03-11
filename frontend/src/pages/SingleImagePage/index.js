@@ -3,6 +3,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {Link, useParams} from 'react-router-dom';
 import { getOneImage } from "../../store/images";
 import Navbar from "../../components/Navbar";
+import EditFormModal from '../../components/EditFormModal';
 import styled from 'styled-components';
 
 const SinglePageWrapper = styled.div`
@@ -36,6 +37,7 @@ const SingleImagePage = () => {
     return loaded && (
         <SinglePageWrapper>
             <Navbar />
+            <EditFormModal imageObj={imageObj}/>
             <div style={{
                 width: '100vw',
                 height: 'auto',
@@ -43,8 +45,9 @@ const SingleImagePage = () => {
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                
+
             }}>
+
                 <div>Uploader Info
                     <img src={imageObj.imageUrl}></img>
                     <h2>User Icon</h2>
