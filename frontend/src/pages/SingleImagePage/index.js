@@ -33,9 +33,10 @@ const SingleImagePage = () => {
     const commentsObj = useSelector(state => state.imagesState.comments);
     const commentsArr = Object.values(commentsObj);
     const imageArr = Object.values(imageObj);
+    let date;
 
     useEffect(() => {
-        dispatch(getOneImage(id)).then(() => setLoaded(true));
+        dispatch(getOneImage(id)).then(() =>setLoaded(true));
     },[id])
 
     if (!imageObj) {
@@ -62,7 +63,6 @@ const SingleImagePage = () => {
     return loaded && (
         <SinglePageWrapper>
             <Navbar />
-            {console.log(imageObj)}
             <div style={{
                 width: '100vw',
                 height: '100vh',
@@ -73,6 +73,7 @@ const SingleImagePage = () => {
 
             }}>
                 <img src={imageObj.imageUrl} className={styles.image}></img>
+                {date = new Date(imageObj.createdAt).toLocaleDateString()}
                 <div>
                     <div className={styles.uploaderInfo}>Uploader Info
                         <h2>User Icon</h2>
@@ -80,12 +81,13 @@ const SingleImagePage = () => {
                         <h2>First name Last name</h2>
                     </div>
                     <div>
-                        <h2>Comments count</h2>
-                        <h2>Taken on image create ad date.</h2>
+                        <h2>{+commentsArr.length}</h2>
+                        <p>comments</p>
+                        <h2>Uploaded on {date} </h2>
                     </div>
                 </div>
                 {commentsArr.map(comment => (
-                    <Comments user={sessionUser} comments={commentsArr}/>
+                    <Comments key={comment.id} user={sessionUser} comments={commentsArr}/>
                 ))}
                 <div style={{width: '450px', height: '100px', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', background: 'white'}}>
                     <img src={sessionUser.profileImageUrl} style={{height: '30px', width: '30px', borderRadius: '100%'}}></img>

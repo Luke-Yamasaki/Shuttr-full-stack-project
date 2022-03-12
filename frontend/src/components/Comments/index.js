@@ -8,11 +8,14 @@ const Comments = ({user, comments}) => {
     const dispatch = useDispatch();
     const [content, setContent] = useState('');
     const [errors, setErrors] = useState('');
-
-    useEffect(() => {
-
-
-    },[content])
+    const [date, setDate] = useState('');
+    // const [year, setYear] = useState(new Date().getUTCFullYear());
+    // const [month, setMonth] = useState(new Date().getUTMonth() + 1);
+    // const [day, setDay] = useState(new Date().getUTCDay())
+    // let commentYear;
+    // let commentMonth;
+    // let commentDay;
+    // let dateInfo;
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -33,16 +36,16 @@ const Comments = ({user, comments}) => {
     return (
         <div className={styles.wrapper}>
             {comments.map(comment => (
-                <div className={styles.commentBox}>
+                <div key={comment.id} className={styles.commentBox}>
                     <img style={{width: '30px', height: '30px', borderRadius: '100%'}}src={user.profileImageUrl}></img>
                     <div>
-                        <div>
+                        <div className={styles.userInfo}>
                             <Link to={`/users/${comment.userId}`} >{comment.userId}</Link>
-                            <h2>{comment.createdAt}</h2>
+                            <h6>Submitted on: {new Date(comment.createdAt).toLocaleDateString()}</h6>
                         </div>
-                        <div>
-                            <h2>Comment content</h2>
-                        </div>
+                    </div>
+                    <div>
+                        <h2>{comment.content}</h2>
                     </div>
                 </div>
             ))}
