@@ -5,17 +5,18 @@ import './Searchbar.css';
 
 const SearchbarWrapper = styled.div`
     height: 3vh;
-    width: 40vw;
+    width: 20vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: rgba(255, 255, 255, 0.75);
     border-radius: 2px;
+    margin-left: 300px
 `;
 
 const SearchForm = styled.form`
-    width: 40vw;
+    width: 20vw;
     height: 3vh;
     display: flex;
     flex-direction: row;
@@ -30,7 +31,7 @@ const SearchButton = styled.button`
 `
 
 const SearchInput = styled.input`
-    width: 38vw;
+    width: 18vw;
     height: 3vh;
     padding: 0px;
     margin: 0px;
@@ -40,7 +41,7 @@ const SearchInput = styled.input`
 
 `;
 
-const Searchbar = () => {
+const SmallSearch = () => {
     const [searchWord, setSearchWord] = useState('');
 
     const handleSearch = (e) => {
@@ -71,4 +72,4 @@ const Searchbar = () => {
     )
 }
 
-export default Searchbar;
+export default SmallSearch;

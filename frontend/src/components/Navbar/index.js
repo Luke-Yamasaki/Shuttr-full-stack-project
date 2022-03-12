@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../store/session';
 import styled from 'styled-components';
 import Searchbar from '../Searchbar';
+import SmallSearch from '../Searchbar/SmallSearch';
 import styles from './Navbar.module.css';
 import ProfileButton from './ProfileButton';
 import * as sessionAction from '../../store/session';
@@ -20,7 +21,7 @@ const NavWrapper = styled.div`
 
 const NavUl = styled.ul`
     min-height: 4vh;
-    width: 90vw;
+    width: 60vw;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -72,7 +73,7 @@ const Navbar = () => {
 
     useEffect(() => {
         dispatch(sessionAction.restoreUser()).then(() => setIsLoaded(true))
-    })
+    },[dispatch])
 
     const handleClick = (e) => {
         e.preventDefault();
@@ -97,21 +98,24 @@ const Navbar = () => {
                     </div>
                     <NavLink to={`/users/{sessionUser.id}`} className={styles.navItem} >You</NavLink>
                     <NavLink to='/images' className={styles.navItem}>Explore</NavLink>
-                    <Searchbar></Searchbar>
-                    <NavLink to='/upload' className={styles.navItem}>Upload</NavLink>
-                    <ProfileButton style={{backgroundColor: 'rgba(0, 0, 0, 0)'}} user={sessionUser}></ProfileButton>
+                    <SmallSearch />
+                    <NavLink to='/upload' className={styles.navCloud}></NavLink>
+                    <ProfileButton user={sessionUser}></ProfileButton>
                 </NavUl>
             </NavWrapper>
         )
     } else {
         sessionLinks = (
             <WelcomeNav>
-                <LogoButton className='wlc-logo-btn'>
-                    <NavLink to='/login' className='wlc-logo-link' />
-                </LogoButton>
-                <Searchbar />
-                <NavLink className='wlc-login-btn' to='/login'>Log In</NavLink>
-                <NavLink className='wlc-signup-btn'to='/signup'>Sign Up</NavLink>
+                <div style={{width: '80vw', height: '4vh', display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center'}}>
+                    <LogoButton className='wlc-logo-btn'>
+                        <NavLink to='/login' className='wlc-logo-link' />
+                    </LogoButton>
+                    <Searchbar />
+                    <NavLink className='wlc-login-btn' to='/login'>Log In</NavLink>
+                    <NavLink className='wlc-signup-btn'to='/signup'>Sign Up</NavLink>
+                </div>
+
             </WelcomeNav>
         )
     }

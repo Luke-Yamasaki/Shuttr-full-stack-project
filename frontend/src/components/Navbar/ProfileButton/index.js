@@ -86,8 +86,8 @@ function ProfileButton({user}) {
 
     return loaded && (
       <>
-        <button className={styles.userButton} style={{backgroundImage: `url(${user.profileImageUrl})`}} onClick={openMenu}>
-        </button>
+        <div className={styles.userButton} style={{backgroundImage: `url(${user.profileImageUrl})`}} onClick={openMenu}>
+        </div>
         {showMenu && (
           <DropDownBox>
             <UserGreetingBox>

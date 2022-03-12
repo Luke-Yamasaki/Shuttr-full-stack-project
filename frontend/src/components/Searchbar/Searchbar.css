@@ -24,3 +24,15 @@ searchInput:focus {
     border: none;
     background-color: rgba(255, 255, 255, 0)
 }
+
+.searchBtn {
+    background: none;
+    border: none;
+    background-image: url(../../../public/images/magnify-icon.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+    filter: invert();
+    margin-left: 10px;
+}
