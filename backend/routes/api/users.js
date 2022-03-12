@@ -3,14 +3,14 @@ const asyncHandler = require('express-async-handler');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const validateSignup = require('../../utils/validateSignup');
 const validateUpdate = require('../../utils/validateUpdate');
-const { User } = require('../../db/models/user.js');
+const {User} = require('../../db/models')
 
 const router = express.Router();
 
 router.get(
     '/',
     asyncHandler(async (req, res) => {
-        const users = await User.listAll();
+        const users = await User.scope('currentUser').findAll();
         return res.json(users);
     })
 )

@@ -2,7 +2,8 @@ import React, {useState,useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {Link, useParams} from 'react-router-dom';
 import { getOneImage } from "../../store/images";
-import * as commentActions from '../../store/comments'
+import * as commentActions from '../../store/comments';
+import * as usersActions from '../../store/users';
 import Navbar from "../../components/Navbar";
 import Comments from '../../components/Comments';
 import EditFormModal from '../../components/EditFormModal';
@@ -30,12 +31,15 @@ const SingleImagePage = () => {
 
     const sessionUser = useSelector((state) => state.session.user);
     const imageObj = useSelector(state => state.imagesState.images);
+    const imageArr = Object.values(imageObj);
+    const usersObj = useSelector(state => state.usersState.users);
+    const usersArr = Object.values(usersObj);
     const commentsObj = useSelector(state => state.imagesState.comments);
     const commentsArr = Object.values(commentsObj);
-    const imageArr = Object.values(imageObj);
 
     useEffect(() => {
-        dispatch(getOneImage(id)).then(() =>setLoaded(true));
+        dispatch(getOneImage(id))
+        .then(() => dispatch(usersActions.getUsers()).then(() =>setLoaded(true)));
     },[id])
 
     if (!imageObj) {
@@ -84,8 +88,12 @@ const SingleImagePage = () => {
                         <h2>Uploaded on {new Date(imageObj.createdAt).toLocaleDateString()} </h2>
                     </div>
                 </div>
+                {console.log(usersObj)}
                 {commentsArr.map(comment => (
-                    <Comments key={comment.id} user={sessionUser} comments={commentsArr}/>
+                    <Comments key={comment.id} user={sessionUser} comments={commentsArr} users={usersObj}/>
+                ))}
+                {usersArr.map(user => (
+                    <img src={user.profileImageUrl}></img>
                 ))}
                 <div style={{width: '450px', height: '100px', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', background: 'white'}}>
                     <img src={sessionUser.profileImageUrl} style={{height: '30px', width: '30px', borderRadius: '100%'}}></img>

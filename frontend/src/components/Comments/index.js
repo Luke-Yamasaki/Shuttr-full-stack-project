@@ -4,11 +4,11 @@ import {Link} from 'react-router-dom';
 import * as commentActions from '../../store/comments';
 import styles from './Comments.module.css';
 
-const Comments = ({user, comments}) => {
+const Comments = ({user, users, comments}) => {
     const dispatch = useDispatch();
     const [content, setContent] = useState('');
     const [errors, setErrors] = useState('');
-    const [date, setDate] = useState('');
+    // const [date, setDate] = useState('');
     // const [year, setYear] = useState(new Date().getUTCFullYear());
     // const [month, setMonth] = useState(new Date().getUTMonth() + 1);
     // const [day, setDay] = useState(new Date().getUTCDay())
@@ -16,6 +16,17 @@ const Comments = ({user, comments}) => {
     // let commentMonth;
     // let commentDay;
     // let dateInfo;
+
+
+    const sortData = () => {
+        const userCommentsArr = [];
+        comments.map((comment) => {
+            const info = {user: users[comment.userId], comment: comment}
+            userCommentsArr.push(info)
+        })
+        return userCommentsArr;
+    }
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -35,6 +46,7 @@ const Comments = ({user, comments}) => {
 
     return (
         <div className={styles.wrapper}>
+            {console.log(sortData())}
             {comments.map(comment => (
                 <div key={comment.id} className={styles.commentBox}>
                     <img style={{width: '30px', height: '30px', borderRadius: '100%'}}src={user.profileImageUrl}></img>

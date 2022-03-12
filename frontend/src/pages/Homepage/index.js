@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Redirect, NavLink, Link } from 'react-router-dom';
 import { logout } from '../../store/session';
 import Navbar from '../../components/Navbar/index';
+import { getUsers } from '../../store/users';
 import styled from 'styled-components';
 import styles from './Homepage.module.css';
 
@@ -47,15 +48,16 @@ const ImageSection = styled.section`
 const Homepage = () => {
     const sessionUser = useSelector(state => state.session.user);
     const dispatch = useDispatch();
-    const [activity, setActivity] = useState('All Activity')
+    const [activity, setActivity] = useState('All Activity');
+    const [loaded, setLoaded] = useState(false);
 
     if (!sessionUser) return (
       <Redirect to="/welcome" />
     );
 
-    // useEffect(() => {
-    //     console.log('hello')
-    // })
+    useEffect(() => {
+        dispatch(getUsers()).then(() => setLoaded(true));
+    },[dispatch])
 
     const handleLogout = () => {
         if (sessionUser) {
@@ -65,7 +67,7 @@ const Homepage = () => {
         }
     };
 
-    return (
+    return loaded && (
         <HomeWrapper>
             <Navbar/>
             <HomeFeed>

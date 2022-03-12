@@ -120,7 +120,7 @@ module.exports = (sequelize, DataTypes) => {
    };
 
   User.listAll = async function () {
-    return await User.findAll();
+    return await User.scope('currentUser').findAll();
   }
 
   User.listOne = async function (id) {
@@ -164,7 +164,7 @@ module.exports = (sequelize, DataTypes) => {
 
   User.editInfo = async function ({ userId, firstName, lastName, username, email, profileImageUrl, password }) {
     const user = await User.scope('loginUser').findByPk(userId);
-    
+
     if(user && user.validatePassword(password)) {
       await user.update({
       firstName,
