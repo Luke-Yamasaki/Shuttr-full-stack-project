@@ -113,12 +113,13 @@ const WelcomePage = () => {
             <Navbar/>
             <WelcomeSection>
                 <WelcomeContent className='animationImg'>
-                    <h1 style={{fontSize: '50px', color: 'white'}}>Find your inspiration.</h1>
-                    <h3 style={{fontSize: '18px', color: 'white'}}>Join the Shuttr community, home to hndreds of high resolution photos.</h3>
+                    <div style={{height: '300px'}} />
+                    <h1 style={{fontSize: '50px', color: 'white', textShadow: '1px 1px 5px black'}}>Find your inspiration.</h1>
+                    <h3 style={{fontSize: '18px', color: 'white', marginBottom: '50px', textShadow: '1px 1px 5px black'}}>Join the Shuttr community, home to hndreds of high resolution photos.</h3>
                     <Link className='wlc-start-btn' to='/signup'>
                         Start for free
                     </Link>
-                    <div style={{display: 'flex', flexDirection: 'column', height: '400px', backgroundColor: 'white' }}>
+                    <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'center', marginTop: '300px' }}>
                         <h5 className='wlc-photo-title'>{imagesObj[Math.floor(Math.random() * 100)].title}</h5>
                         <h5 className='wlc-user-info'>by {usersObj[Math.floor(Math.random() * 100)].firstName} {usersObj[Math.floor(Math.random() * 100)].lastName}</h5>
                     </div>

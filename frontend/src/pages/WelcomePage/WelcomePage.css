@@ -14,7 +14,7 @@ body {
     background-repeat: no-repeat;
     filter: brightness(80%);
     overflow: hidden;
-    animation: dropinImg 1s linear;
+    animation: dropinImg 0.75s ease-out;
     animation-iteration-count: 1;
 }
 
@@ -74,11 +74,13 @@ body {
 .wlc-photo-title {
     font-family: sans-serif;
     color: white;
+    text-shadow: 1px 1px 5px black;
 }
 
 .wlc-user-info {
     font-family: sans-serif;
     color: white;
+    text-shadow: 1px 1px 5px black;
 }
 
 @keyframes dropinImg {
