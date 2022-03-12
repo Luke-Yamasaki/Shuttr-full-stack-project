@@ -54,11 +54,13 @@ const AboutPopup = styled.div`
 const WelcomeNav = styled.nav`
     width: 100vw;
     height: 5vh;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: black;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    position: sticky;
+    zindex: 1;
 `;
 
 const Navbar = () => {

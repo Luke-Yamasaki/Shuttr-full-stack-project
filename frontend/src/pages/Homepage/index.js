@@ -57,12 +57,6 @@ const Homepage = () => {
     const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
-        if (!sessionUser)  {
-            return <Redirect to="/welcome" />
-        }
-    },[])
-
-    useEffect(() => {
         dispatch(getUsers()).then(() => dispatch(getImages()).then(() => setLoaded(true)));
     },[dispatch])
 
@@ -73,6 +67,10 @@ const Homepage = () => {
           <Redirect to='/' />
         }
     };
+
+    if (!sessionUser)  {
+        return <Redirect to="/welcome" />
+    }
 
     return loaded && (
         <HomeWrapper>
