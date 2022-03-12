@@ -38,8 +38,7 @@ const SingleImagePage = () => {
     const commentsArr = Object.values(commentsObj);
 
     useEffect(() => {
-        dispatch(getOneImage(id))
-        .then(() => dispatch(usersActions.getUsers()).then(() =>setLoaded(true)));
+        dispatch(getOneImage(id)).then(() =>setLoaded(true));
     },[id])
 
     if (!imageObj) {
@@ -88,7 +87,6 @@ const SingleImagePage = () => {
                         <h2>Uploaded on {new Date(imageObj.createdAt).toLocaleDateString()} </h2>
                     </div>
                 </div>
-                {console.log(usersObj)}
                 {commentsArr.map(comment => (
                     <Comments key={comment.id} user={sessionUser} comments={commentsArr} users={usersObj}/>
                 ))}

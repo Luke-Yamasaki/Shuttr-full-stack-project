@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import * as sessionActions from '../../../store/session';
+import * as imagesActions from '../../../store/images';
 import greetings from './greetings/greetings';
 import styles from './ProfileButton.module.css';
 import styled from 'styled-components';
@@ -44,22 +45,27 @@ const DataUsageBox = styled.div`
   border-bottom: 1px solid grey;
 `;
 
-function ProfileButton({ user }) {
+function ProfileButton({user}) {
     const dispatch = useDispatch();
-    const sessionUser = useSelector(state => state.session.user);
-    const profilePic = sessionUser.profileImageUrl;
+    const imagesObj = useSelector(state => state.imagesState.images);
+    const imagesArr = Object.values(imagesObj);
+    const imagesCount = imagesArr.map(image => image.userId === user.id).length;
     const [showMenu, setShowMenu] = useState(false);
     const [num, setNum] = useState(3)
     const [greeting, setGreeting] = useState({"language": "Spanish", "greeting": "Hola"})
+    const [loaded, setLoaded] = useState(false);
 
     const openMenu = () => {
         if (showMenu) return;
         const randomNum = Math.floor(Math.random() * 100);
         setNum(randomNum);
-        const greeting = greetings[num];
-        setGreeting(greeting)
+        setGreeting(greetings[randomNum])
         setShowMenu(true);
     };
+
+    useEffect(() => {
+      dispatch(imagesActions.getImages()).then(() => setLoaded(true));
+    },[])
 
     useEffect(() => {
       if (!showMenu) return;
@@ -78,33 +84,33 @@ function ProfileButton({ user }) {
       dispatch(sessionActions.logout());
     };
 
-    return (
+    return loaded && (
       <>
-        <div style={{width: '30px', height: '30px', borderRadius: '100%', backgroundColor: 'none', backgroundImage: `url(${sessionUser.profileImageUrl})`}} onClick={openMenu}>
+        <button className={styles.userButton} style={{backgroundImage: `url(${user.profileImageUrl})`}} onClick={openMenu}>
+        </button>
         {showMenu && (
-            <DropDownBox>
-                <UserGreetingBox>
-                  <GreetingText>{greeting["greeting"]}, {sessionUser.username}!</GreetingText>
-                  <p>Now you know how to greet people in {greeting["language"]}</p>
-                </UserGreetingBox>
-                <DataUsageBox>
-                    <img src={sessionUser.profileImageUrl} alt='dataUsage' style={{width: '80px', height: '80px', borderRadius: '100%'}}></img>
-                    <div>
-                        <p>'Insert user image count of' 1,000 items</p>
-                        <Link to='/upload'>Upload your images</Link>
-                    </div>
-                </DataUsageBox>
-
-                <ul className={styles.profileDropdown}>
-                    <li className={styles.profileItems}>{`Email: ${sessionUser.email}`}</li>
-                    <li className={styles.profileItems}>Settings<a href={`/users/${sessionUser.id}`} className="settings-link" /></li>
-                    <li className={styles.profileItems}>
-                      <button className={styles.logoutButton} onClick={logout}>Log out</button>
-                    </li>
-                </ul>
-            </DropDownBox>
+          <DropDownBox>
+            <UserGreetingBox>
+              <GreetingText>{greeting["greeting"]}, {user.username}!</GreetingText>
+              <p>Now you know how to greet people in {greeting["language"]}</p>
+            </UserGreetingBox>
+            <DataUsageBox>
+                <img src={user.profileImageUrl} alt='dataUsage' style={{width: '80px', height: '80px', borderRadius: '100%'}}></img>
+                <div>
+                    <p>'Insert user image count of' 1,000 items</p>
+                    <Link to='/upload'>Upload your images</Link>
+                </div>
+            </DataUsageBox>
+            <ul className={styles.profileDropdown}>
+              <li className={styles.profileItems}>Username:<p className={styles.itemText}>{user.username}</p></li>
+              <li className={styles.profileItems}>Email:<p className={styles.itemText}>{user.email}</p></li>
+              <li className={styles.profileItems}>Settings:<a href={`/users/${user.id}`} className={styles.settingsLink}>Change</a></li>
+              <li className={styles.profileItems}>
+                <button className={styles.logoutBtn} onClick={logout}>Log out</button>
+              </li>
+            </ul>
+          </DropDownBox>
         )}
-        </div>
       </>
     );
   }

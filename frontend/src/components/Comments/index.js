@@ -46,7 +46,6 @@ const Comments = ({user, users, comments}) => {
 
     return (
         <div className={styles.wrapper}>
-            {console.log(sortData())}
             {comments.map(comment => (
                 <div key={comment.id} className={styles.commentBox}>
                     <img style={{width: '30px', height: '30px', borderRadius: '100%'}}src={user.profileImageUrl}></img>

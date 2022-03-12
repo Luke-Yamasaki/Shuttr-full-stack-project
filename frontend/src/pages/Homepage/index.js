@@ -4,6 +4,7 @@ import { Redirect, NavLink, Link } from 'react-router-dom';
 import { logout } from '../../store/session';
 import Navbar from '../../components/Navbar/index';
 import { getUsers } from '../../store/users';
+import { getImages } from '../../store/images';
 import styled from 'styled-components';
 import styles from './Homepage.module.css';
 
@@ -46,17 +47,23 @@ const ImageSection = styled.section`
 
 
 const Homepage = () => {
-    const sessionUser = useSelector(state => state.session.user);
     const dispatch = useDispatch();
+    const sessionUser = useSelector(state => state.session.user);
+    const usersObj = useSelector(state => state.usersState.users);
+    const usersArr = Object.values(usersObj);
+    const imagesObj = useSelector(state => state.imagesState.images);
+    const imagesArr = Object.values(imagesObj);
     const [activity, setActivity] = useState('All Activity');
     const [loaded, setLoaded] = useState(false);
 
-    if (!sessionUser) return (
-      <Redirect to="/welcome" />
-    );
+    useEffect(() => {
+        if (!sessionUser)  {
+            return <Redirect to="/welcome" />
+        }
+    },[])
 
     useEffect(() => {
-        dispatch(getUsers()).then(() => setLoaded(true));
+        dispatch(getUsers()).then(() => dispatch(getImages()).then(() => setLoaded(true)));
     },[dispatch])
 
     const handleLogout = () => {

@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect, Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import Navbar from '../../components/Navbar';
 import LoginForm from '../../components/Forms/UserForms/LoginForm';
 import SignupForm from '../../components/Forms/UserForms/SignupForm';
 import Searchbar from '../../components/Searchbar';
@@ -56,24 +57,36 @@ const Footer = styled.footer`
 
 const WelcomePage = () => {
     const sessionUser = useSelector(state => state.session.user);
+    const imagesObj = useSelector(state => state.imagesState.images);
+    const imagesArr = Object.values(imagesObj);
+    const usersObj = useSelector(state => state.usersState.users);
+    const usersArr = Object.values(usersObj);
+
+    const [randomImages, setRandomImages] = useState('');
+
+    const imagesUsers = () => {
+        const randomImagesArr = [];
+
+        let count = 0;
+
+        while(count < 100) {
+            randomImagesArr.push(imagesArr[Math.floor(Math.random()) * 100])
+        };
+
+        setRandomImages(randomImagesArr);
+    }
+
 
     if (sessionUser) return (
       <Redirect to="/" />
     );
 
     return (
-        <WelcomeWrapper className='wlc-background'>
-            <WelcomeNav>
-                <LogoButton className='wlc-logo-btn'>
-                    <NavLink to='/login' className='wlc-logo-link' />
-                </LogoButton>
-                <Searchbar />
-                <NavLink className='wlc-login-btn' to='/login'>Log In</NavLink>
-                <NavLink className='wlc-signup-btn'to='/signup'>Sign Up</NavLink>
-            </WelcomeNav>
+        <WelcomeWrapper className='wlc-background' style={{backgroundImage: `url({sessionUser.profileImageUrl})`}}>
+            <Navbar />
             <WelcomeSection>
                 <h1 style={{fontSize: '50px'}}>Find your inspiration.</h1>
-                <h3>Join the Shuttr community, home to high resolution photos and countless groups.</h3>
+                <h3>Join the Shuttr community, home to hndreds of high resolution photos.</h3>
                 <Link className='wlc-start-btn' to='/signup'>
                     Start for free
                 </Link>
@@ -89,8 +102,6 @@ const WelcomePage = () => {
                 <a href='https://www.behance.net/lukeyamasac140' className='wlc-footer-text'>Behance</a>
             </Footer>
         </WelcomeWrapper>
-
-
     );
 }
 

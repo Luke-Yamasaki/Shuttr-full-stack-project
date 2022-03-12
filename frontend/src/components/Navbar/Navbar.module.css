@@ -13,7 +13,6 @@
     background-repeat: no-repeat;
 }
 
-
 .aboutBox {
     width: 50px;
     height: 4vh;
@@ -24,7 +23,38 @@
     color: white;
 }
 
-
 .active {
     color: white;
+}
+
+.wlc-logo-btn {
+    background: none;
+    border: none;
+    background-image: url('../../../public/brand-assets/Shuttr\ logo\ -\ gradient\ and\ white.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.wlc-logo-link {
+    width: 100px;
+    height: 33px;
+    cursor: pointer;
+}
+
+.wlc-login-btn {
+    text-decoration: none;
+    color: white;
+    font-family: sans-serif;
+}
+
+.wlc-signup-btn {
+    width: 100px;
+    height: 26px;
+    background-color: white;
+    border-radius: 2px;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    font-family: sans-serif;
+    padding-top: 7px;
 }
