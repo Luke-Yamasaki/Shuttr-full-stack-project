@@ -15,7 +15,7 @@ const loadOne = user => ({
   user
 })
 
-const addoneUser = newUser => ({
+const addOneUser = newUser => ({
   type: ADD_ONE,
   newUser
 });
@@ -25,7 +25,7 @@ const removeUser = userId => ({
   userId
 });
 
-export const getusers = () => async (dispatch, getState) => {
+export const getUsers = () => async (dispatch, getState) => {
   const response = await csrfFetch(`/api/users`);
   if (response.ok) {
     const users = await response.json();
@@ -43,26 +43,26 @@ export const getOneUser = (id) => async (dispatch, getState) => {
   return response
 }
 
-export const createuser = (userData) => async (dispatch, getState) => {
-  const response = await csrfFetch('/api/users', {
-    method: 'POST',
-    headers: {'Content-Type':'application/json'},
-    body: JSON.stringify(userData)
-  })
-  const newUser = await response.json();
-  dispatch(addOneUser(newUser))
-  return newUser
-}
+// export const createUser = (userData) => async (dispatch, getState) => {
+//   const response = await csrfFetch('/api/users', {
+//     method: 'POST',
+//     headers: {'Content-Type':'application/json'},
+//     body: JSON.stringify(userData)
+//   })
+//   const newUser = await response.json();
+//   dispatch(addOneUser(newUser))
+//   return newUser
+// }
 
-export const editUser = ({userId, content}) => async dispatch => {
+export const editUser = ({userId, firstName, lastName, username, email, profileImageUrl, password}) => async dispatch => {
   const response = await csrfFetch(`/api/users/${userId}`, {
     method: 'PUT',
     headers: {'Content-Type':'application/json'},
-    body: JSON.stringify({userId, content})
+    body: JSON.stringify({firstName, lastName, username, email, profileImageUrl, password})
   })
-  const editeduser = await response.json();
-  dispatch(addoneUser(editeduser))
-  return editeduser
+  const editedUser = await response.json();
+  dispatch(addOneUser(editedUser))
+  return editedUser
 };
 
 export const deleteuser = (userId) => async dispatch => {
@@ -102,9 +102,7 @@ const usersReducer = (state = initialState, action) => {
       return newState;
     case ADD_ONE:
       newState = {...state}
-      const user = {};
-      user[action.newUser.id] = action.newUser;
-      newState.users = action.newUser;
+      newState.users[action.newUser.id] = action.newUser;
       return newState;
     case REMOVE_USER:
       newState = {...state};

@@ -33,7 +33,6 @@ const SingleImagePage = () => {
     const commentsObj = useSelector(state => state.imagesState.comments);
     const commentsArr = Object.values(commentsObj);
     const imageArr = Object.values(imageObj);
-    let date;
 
     useEffect(() => {
         dispatch(getOneImage(id)).then(() =>setLoaded(true));
@@ -73,7 +72,6 @@ const SingleImagePage = () => {
 
             }}>
                 <img src={imageObj.imageUrl} className={styles.image}></img>
-                {date = new Date(imageObj.createdAt).toLocaleDateString()}
                 <div>
                     <div className={styles.uploaderInfo}>Uploader Info
                         <h2>User Icon</h2>
@@ -83,7 +81,7 @@ const SingleImagePage = () => {
                     <div>
                         <h2>{+commentsArr.length}</h2>
                         <p>comments</p>
-                        <h2>Uploaded on {date} </h2>
+                        <h2>Uploaded on {new Date(imageObj.createdAt).toLocaleDateString()} </h2>
                     </div>
                 </div>
                 {commentsArr.map(comment => (
