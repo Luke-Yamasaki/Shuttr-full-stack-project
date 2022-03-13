@@ -63,7 +63,7 @@ const LoginForm = () => {
   const sessionUser = useSelector(state => state.session.user);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [age, setAge] = useState('Must be older than 12');
+  const [age, setAge] = useState(12);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -332,8 +332,8 @@ const LoginForm = () => {
                 <FormInput
                   className='sc-eCImPb bdKjVM user-input-field'
                   type='number'
-                  min='12'
-                  max='130'
+                  min={12}
+                  max={130}
                   value={age}
                   onChange={(e) => setAge(e.target.value)}
                   onClick={ageInputClick}

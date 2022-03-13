@@ -27,13 +27,12 @@ const validateSignup = [
         .exists( {checkFalsy: true })
         .withMessage('Please enter your age.')
         .bail()
-        .custom((value, {req}) => {
-            if(req.body.age > 130) {
-                throw new Error('Invalid age range.')
-            } else if(req.body.age < 12) {
-                throw new Error('You must be 12 years or older to register.')
-            }
-        }),
+        .isInt()
+        .withMessage('Must be a number.')
+        .bail()
+        .isLength({min: 2})
+        .withMessage("Invalid age range")
+        .bail(),
     check('email')
         .exists({ checkFalsy: true })
         .withMessage('Please provide an email.')
