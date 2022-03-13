@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Modal } from '../../context/Modal';
-import EditForm from '../Forms/EditImageForm';
+import EditForm from '../Forms/ImageForms/EditImageForm';
 
 function EditFormModal({imageObj}) {
   const [showModal, setShowModal] = useState(false);

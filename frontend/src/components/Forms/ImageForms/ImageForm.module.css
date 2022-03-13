@@ -1,0 +1,40 @@
+textarea {
+    width: 400px;
+    height: 60px;
+    resize: none;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+input {
+    width: 400px;
+    height: 20px;
+    padding-left: 9px;
+}
+
+label {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: -30px;
+}
+
+.formWrapper {
+    width: '100vw';
+    height: '95vh';
+    display: 'flex';
+    flex-direction: 'column';
+    justify-content: 'center';
+    align-items: 'center';
+    background-color: 'grey';
+}
+
+.formContents {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    height: 900px;
+    background-color: white;
+    border-radius: 0.35rem;
+}

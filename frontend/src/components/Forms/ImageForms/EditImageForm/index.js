@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import * as imageActions from "../../../store/images"
+import * as imageActions from "../../../../store/images"
 import { useDispatch } from "react-redux";
 import styles from './EditImageForm.module.css';
 
