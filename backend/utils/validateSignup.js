@@ -1,6 +1,6 @@
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('./validation');
-const { User } = require('../db/models/user');
+const { User } = require('../db/models');
 
 const validateSignup = [
     check('firstName')
@@ -27,9 +27,6 @@ const validateSignup = [
         .exists( {checkFalsy: true })
         .withMessage('Please enter your age.')
         .bail()
-        .isInt()
-        .withMessage('Please provide a valid age.')
-        .bail()
         .custom((value, {req}) => {
             if(req.body.age > 130) {
                 throw new Error('Invalid age range.')
@@ -43,6 +40,7 @@ const validateSignup = [
         .bail()
         .isEmail()
         .withMessage('Please provide a valid email.')
+        .bail()
         .custom((value, { req }) => {
             return new Promise((resolve, reject) => {
                 User.findOne({ where: { email: req.body.email } })
@@ -53,12 +51,8 @@ const validateSignup = [
                             resolve();
                         }
                     })
-                    .catch((err) => {
-                    reject("Database error: ", err.message);
-                });
             });
-        })
-        .withMessage("Email already taken"),
+        }),
     check('password')
       .exists({ checkFalsy: true })
       .withMessage('Please provide a password.')

@@ -3,7 +3,7 @@ const asyncHandler = require('express-async-handler');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const validateSignup = require('../../utils/validateSignup');
 const validateUpdate = require('../../utils/validateUpdate');
-const {User} = require('../../db/models')
+const { User } = require('../../db/models')
 
 const router = express.Router();
 
@@ -18,7 +18,6 @@ router.get(
 router.get(
     '/:id',
     asyncHandler(async (req, res) => {
-        // console.log(req.params)
         const user = await User.listOne(req.params.id);
         return res.json(user)
     })
@@ -28,12 +27,17 @@ router.post(
     '/',
     validateSignup,
     asyncHandler(async (req, res) => {
-        const { firstName, lastName, age, email, password } = req.body;
-        const user = await User.signup({ firstName, lastName, age, email, password });
-        await setTokenCookie(res, user);
-        return res.json({ user });
+      const { firstName, lastName, age, email, password } = req.body;
+
+      const user = await User.signup({ firstName, lastName, age, email, password });
+
+      setTokenCookie(res, user);
+
+      return res.json({
+        user
+      });
     })
-);
+  );
 
 router.put(
     '/:id',

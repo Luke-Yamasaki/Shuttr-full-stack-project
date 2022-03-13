@@ -11,11 +11,16 @@ const router = express.Router();
 const validateLogin = [
   check('email')
     .exists({ checkFalsy: true })
+    .withMessage('Please enter your email.')
+    .bail()
     .isEmail()
-    .withMessage('Please provide a valid email.'),
+    .withMessage('Please enter a valid email address.'),
   check('password')
     .exists({ checkFalsy: true })
-    .withMessage('Please provide a password.'),
+    .withMessage('Please enter a password.')
+    .bail()
+    .isLength({min: 6})
+    .withMessage('Invalid password'),
   handleValidationErrors
 ];
 
@@ -44,30 +49,6 @@ router.post(
       const err = new Error('Login failed');
       err.status = 401;
       err.title = 'Login failed';
-      err.errors = ['The provided credentials were invalid.'];
-      return next(err);
-    }
-
-    await setTokenCookie(res, user);
-
-    return res.json({
-      user
-    });
-  })
-);
-
-router.post(
-  '/signup',
-  validateSignup,
-  asyncHandler(async (req, res, next) => {
-    const { firstName, lastName, age, email, password, confirmPassword } = req.body;
-
-    const user = await User.signup({ firstName, lastName, age, email, password });
-
-    if (!user) {
-      const err = new Error('Signup failed');
-      err.status = 401;
-      err.title = 'Signup failed';
       err.errors = ['The provided credentials were invalid.'];
       return next(err);
     }

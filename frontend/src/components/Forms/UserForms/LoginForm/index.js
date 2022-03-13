@@ -17,9 +17,8 @@ const FormInput = styled.input`
   border-color: rgba(0, 0, 0, 0);
   color: #212124;
   cursor: text;
-  width: 291px;
+  width: 290px;
   padding-left: 10px;
-  margin-left: -1px;
 `;
 
 const ErrorUl = styled.ul`

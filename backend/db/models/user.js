@@ -159,7 +159,9 @@ module.exports = (sequelize, DataTypes) => {
       profileImageUrl,
       hashedPassword
     });
+
     return await User.scope('currentUser').findByPk(user.id);
+
   };
 
   User.editInfo = async function ({ userId, firstName, lastName, username, email, profileImageUrl, password }) {

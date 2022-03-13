@@ -116,16 +116,16 @@ const LoginForm = () => {
               }
               else if(error.toLowerCase().includes("confirm") || error.toLowerCase().includes("match")) {
                 return confirmPasswordErrorArr.push(error)
-              }
-              else return null;
-        })
-        }
-        setfirstNameErrors(firstErrorArr);
-        setLastNameErrors(lastErrorArr);
-        setAgeErrors(ageErrorArr);
-        setEmailErrors(emailErrorArr)
-        setPwrdErrors(passwordErrorArr);
-        setConfirmPwrdErrors(confirmPasswordErrorArr);
+              } else return
+            })
+          }
+
+          setfirstNameErrors(firstErrorArr);
+          setLastNameErrors(lastErrorArr);
+          setAgeErrors(ageErrorArr);
+          setEmailErrors(emailErrorArr)
+          setPwrdErrors(passwordErrorArr);
+          setConfirmPwrdErrors(confirmPasswordErrorArr);
         });
   }
 
@@ -400,7 +400,7 @@ const LoginForm = () => {
             </div>
             <div className='user-button-wrapper'>
               <DemoButton className='submit-btn' onClick={handleDemo}>Demo user</DemoButton>
-              <FormButton className='submit-btn'>Sign up</FormButton>
+              <FormButton type='submit' className='submit-btn'>Sign up</FormButton>
             </div>
           </Form>
           <div className='question-text'>
