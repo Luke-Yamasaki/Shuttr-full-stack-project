@@ -17,18 +17,9 @@ const HomeFeed = styled.div`
     justify-content: space-around;
 `;
 
-const ActivityBox = styled.div`
-    width: 47vw;
-    height: 100vh;
-    background-color: grey;
-    display: flex;
-    flex-direction: column;
-`;
-
 const ImageSection = styled.section`
     width: 47vw;
     height: 100vh;
-    background-color: green;
     border-radius: 0.01rem;
     display:flex;
     flex-direction: column;
@@ -49,6 +40,7 @@ const Homepage = () => {
     const [loaded, setLoaded] = useState(false);
     const [showButton, setShowButton] = useState(true)
     const [more, setMore] = useState('hidden');
+    const [height, setHeight] = useState('100vh');
 
     useEffect(() => {
         setActivity('All Activity');
@@ -74,11 +66,10 @@ const Homepage = () => {
 
     const handleMore = (e) => {
         e.preventDefault();
-        let div = document.getElementsByClassName('wrapper')[0];
         if(more === 'hidden') {
             setShowButton(false);
             setMore('scroll');
-            div.style.overflowY = more;
+            setHeight('10000vh');
         }
     }
 
@@ -101,18 +92,19 @@ const Homepage = () => {
     // }
 
     return loaded && (
-        <div className={styles.wrapper} style={{overflowY: `${more}`}}>
+        <div className={styles.wrapper} style={{overflowY: `${more}`, backgroundColor: 'rgba(0, 0, 0, 0.1)'}}>
             <Navbar/>
             <HomeFeed>
-                <ActivityBox>
-                    <select onChange={handleSorting} name='sorting' className={styles.selectActivity} onBlur={(e) => e.target.style.border = 'none'}>
-                        <option value=''>--  Activity  --</option>
-                        <option value='Oldest'>Oldest</option>
-                        <option value='Newest'>Newest</option>
-                    </select>
+                <div className={styles.activityContainer} style={{height: `${height}`}}>
+                    <div className={styles.selectContainer}>
+                       <select onChange={handleSorting} name='sorting' className={styles.selectActivity} onBlur={(e) => e.target.style.border = 'none'}>
+                            <option value=''>--  Activity  --</option>
+                            <option value='Oldest'>Oldest</option>
+                            <option value='Newest'>Newest</option>
+                        </select>
+                    </div>
                     <ImageSection>
                         <h5>People to follow</h5>
-
                         <div className={styles.imageCardWrapper}>
                             {activity === "Oldest" || activity === "All Activity" ? imagesArr.map(image =>
                                 <div key={image.id} className={styles.imageCardBox}>
@@ -144,7 +136,7 @@ const Homepage = () => {
 
                         {showButton && <div className={styles.moreDiv} onClick={(e) => handleMore(e)}><button type='button' onClick={handleMore} className={styles.moreBtn}>View more</button></div>}
                     </ImageSection>
-                </ActivityBox>
+                </div>
                 {/* <aside>
                         <div>
                             <p>All-time views</p>
