@@ -10,6 +10,7 @@ const ImageForm = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const [imageUrl, setImageUrl] = useState('');
+    const [previewImg, setPreviewImg] = useState('https://icons-for-free.com/iconfiles/png/512/gallery+image+landscape+mobile+museum+open+line+icon-1320183049020185924.png')
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
 
@@ -23,6 +24,12 @@ const ImageForm = () => {
         setImageUrl('');
         setTitle('');
         setDescription('');
+    }
+
+    const handleChange = (e) => {
+        e.preventDefault();
+        setPreviewImg(e.target.value);
+        setImageUrl(e.target.value);
     }
 
     const handleReset = (e) => {
@@ -53,17 +60,17 @@ const ImageForm = () => {
         <div className={styles.formWrapper}>
             <h1 style={{ color: 'white' }}>Upload your image!</h1>
             <div className={styles.formContents}>
-                <img src={imageUrl} className={styles.preview}></img>
+                <div style={{backgroundImage: `url(${previewImg})`}} className={styles.preview}></div>
                 <form onSubmit={handleSubmit} style={{ width: '400px', height: '500px', display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}>
                     <label>Image URL</label>
-                    <input type='url' value={imageUrl} placeholder='Add an image URL...' onChange={(e) => setImageUrl(e.target.value)} name='url' required/>
+                    <input type='url' value={imageUrl} placeholder='Add an image URL...' onChange={handleChange} name='url' required/>
                     <label>Title (Up to 50 characters)</label>
                     <input type='text' size='50' value={title} placeholder='Add a title...' onChange={(e) => setTitle(e.target.value)} />
                     <label>Description (Up to 300 characters)</label>
                     <textarea type='text' value={description} placeholder='Add a description...' onChange={(e) => setDescription(e.target.value)} />
-                    <div>
-                        <button type='button' style={{width: '70px', height: '35px'}} onClick={handleReset}>Reset</button>
-                        <button type='submit' style={{width: '300px', height: '35px'}}>Submit</button>
+                    <div className={styles.buttonWrapper}>
+                        <button type='button' className={styles.fomrButtons} style={{width: '100px', height: '35px', backgroundColor: '#d65fab', border: 'none', borderRadius: '0.25rem', color: 'white'}} onClick={handleReset}>Reset</button>
+                        <button type='submit' className={styles.fomrButtons} style={{width: '300px', height: '35px', backgroundColor: '#128fdc', border: 'none', borderRadius: '0.25rem', color: 'white'}}>Submit</button>
                     </div>
                 </form>
             </div>

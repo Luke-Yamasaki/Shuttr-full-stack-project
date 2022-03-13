@@ -15,14 +15,16 @@ const HomeFeed = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    background-color: rgba(255, 255, 255, 0.05);
 `;
 
 const ImageSection = styled.section`
     width: 47vw;
     height: 100vh;
-    border-radius: 0.01rem;
+    border-radius: 0.5rem;
     display:flex;
     flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.05);
 `;
 
 
@@ -92,7 +94,7 @@ const Homepage = () => {
     // }
 
     return loaded && (
-        <div className={styles.wrapper} style={{overflowY: `${more}`, backgroundColor: 'rgba(0, 0, 0, 0.1)'}}>
+        <div className={styles.wrapper} style={{overflowY: `${more}`}}>
             <Navbar/>
             <HomeFeed>
                 <div className={styles.activityContainer} style={{height: `${height}`}}>
@@ -104,7 +106,7 @@ const Homepage = () => {
                         </select>
                     </div>
                     <ImageSection>
-                        <h5>People to follow</h5>
+                        <h5 style={{color: 'white', fontFamily: 'sans-serif', fontSize: '16px', width: '1195px', borderBottom: '1px solid rgba(255, 255, 255, 0.05)', paddingBottom: '25px', paddingLeft: '10px', textAlign: 'left' }}>People to follow</h5>
                         <div className={styles.imageCardWrapper}>
                             {activity === "Oldest" || activity === "All Activity" ? imagesArr.map(image =>
                                 <div key={image.id} className={styles.imageCardBox}>

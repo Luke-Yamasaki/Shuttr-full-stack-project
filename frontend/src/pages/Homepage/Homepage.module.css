@@ -1,16 +1,19 @@
 body {
     margin: 0px;
     padding: 0px;
+    background: rgba(0, 0, 0, 0.8);
 }
 
 .selectActivity {
     width: 100px;
-    height: 100px;
+    height: 30px;
     background: none;
-    border: none;
+    border: 1px solid rgba(255, 255, 255, 0.05 );
     font-family: sans-serif;
-    color: black;
-    margin-left: 5px;
+    color: white;
+    margin-left: -600px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .selectContainer {
@@ -28,7 +31,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    background-color: white;
+    border-radius: 0.25rem;
 }
 
 .imageCardWrapper {
@@ -93,32 +96,31 @@ body {
 }
 
 .moreBtn {
-    position: absolute;
-    width: 48vw;
-    height: 5.1vh;
+    background: none;
+    width: inherit;
+    height: 75px;
     border: none;
-    color: black;
-    font-size: 16px;
-    font-weight: bold;
-    background: white;
-    box-shadow: 1px 0px 100px black;
+    color: whitesmoke;
+    font-size: 18px;
+    letter-spacing: 0.025vw;
+    box-shadow: 0px 0px 100px black;
     overflow-x: hidden;
     overflow-y: visible;
 }
 
 .moreDiv {
     position: absolute;
-    margin-top: 1099px;
-    margin-left: -12px;
-    width: 47.9vw;
-    height: 5.1vh;
+    margin-top: 1100px;
+    width: 47vw;
+    height: 75px;
     border: none;
     color: white;
     font-size: 16px;
     font-weight: bold;
-    background-color: white;
-
-    border-top: 3px solid rgba(0, 0, 0, 0,2);
+    border-top: 30px solid rgba(0, 0, 0, 0,2);
+    box-shadow: 0px 0px 10px grey;
+    background-color: rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(20px);
 }
 
 .wrapper {
@@ -129,10 +131,4 @@ body {
     justify-content: space-between;
     align-items: center;
     overflow-x: hidden;
-}
-
-select {
-    height: 100px;
-    width: 300px;
-
 }
