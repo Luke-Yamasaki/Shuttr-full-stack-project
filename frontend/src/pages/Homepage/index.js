@@ -10,8 +10,7 @@ import styled from 'styled-components';
 import styles from './Homepage.module.css';
 
 const HomeFeed = styled.div`
-    width: 100vw;
-    height: 95vh;
+    width: auto;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -20,7 +19,7 @@ const HomeFeed = styled.div`
 
 const ImageSection = styled.section`
     width: 47vw;
-    height: 100vh;
+    height: auto;
     border-radius: 0.5rem;
     display:flex;
     flex-direction: column;
@@ -42,7 +41,7 @@ const Homepage = () => {
     const [loaded, setLoaded] = useState(false);
     const [showButton, setShowButton] = useState(true)
     const [more, setMore] = useState('hidden');
-    const [height, setHeight] = useState('100vh');
+    const [height, setHeight] = useState('95vh');
 
     useEffect(() => {
         setActivity('All Activity');
@@ -71,7 +70,7 @@ const Homepage = () => {
         if(more === 'hidden') {
             setShowButton(false);
             setMore('scroll');
-            setHeight('10000vh');
+            setHeight('auto');
         }
     }
 
@@ -96,8 +95,8 @@ const Homepage = () => {
     return loaded && (
         <div className={styles.wrapper} style={{overflowY: `${more}`}}>
             <Navbar/>
-            <HomeFeed>
-                <div className={styles.activityContainer} style={{height: `${height}`}}>
+            <HomeFeed style={{height: `${height}`}}>
+                <div className={styles.activityContainer}>
                     <div className={styles.selectContainer}>
                        <select onChange={handleSorting} name='sorting' className={styles.selectActivity} onBlur={(e) => e.target.style.border = 'none'}>
                             <option value=''>--  Activity  --</option>
