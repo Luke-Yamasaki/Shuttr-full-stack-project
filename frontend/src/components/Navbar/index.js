@@ -80,13 +80,13 @@ const Navbar = () => {
         return history.push('/')
     };
 
-    const handleLogout = () => {
-        if (sessionUser) {
-          dispatch(logout());
-        } else {
-          history.push("/");
-        }
-    };
+    // const handleLogout = () => {
+    //     if (sessionUser) {
+    //       dispatch(logout());
+    //     } else {
+    //      <Redirect to='/'/>
+    //     }
+    // };
 
     let sessionLinks;
 

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Redirect, NavLink, Link } from 'react-router-dom';
 import { logout } from '../../store/session';
 import Navbar from '../../components/Navbar/index';
+import { restoreUser } from '../../store/session';
 import { getUsers } from '../../store/users';
 import { getImages } from '../../store/images';
 import styled from 'styled-components';
@@ -57,7 +58,7 @@ const Homepage = () => {
     const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
-        dispatch(getUsers()).then(() => dispatch(getImages()).then(() => setLoaded(true)));
+        dispatch(restoreUser()).then(() => dispatch(getUsers()).then(() => dispatch(getImages()).then(() => setLoaded(true))));
     },[dispatch])
 
     const handleLogout = () => {

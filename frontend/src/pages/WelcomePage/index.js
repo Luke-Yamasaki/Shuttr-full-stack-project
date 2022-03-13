@@ -98,7 +98,7 @@ const WelcomePage = () => {
 
     useEffect(() => {
         dispatch(getImages()).then(() => dispatch(getUsers())).then(() => setLoaded(true));
-    }, [])
+    }, [dispatch])
 
     const newImage = () => {
         return "https://picsum.photos/400/600"
@@ -115,7 +115,7 @@ const WelcomePage = () => {
                 <WelcomeContent className='animationImg'>
                     <div style={{height: '300px'}} />
                     <h1 style={{fontSize: '50px', color: 'white', textShadow: '1px 1px 5px black'}}>Find your inspiration.</h1>
-                    <h3 style={{fontSize: '18px', color: 'white', marginBottom: '50px', textShadow: '1px 1px 5px black'}}>Join the Shuttr community, home to hndreds of high resolution photos.</h3>
+                    <h3 style={{fontSize: '18px', color: 'white', marginBottom: '50px', textShadow: '1px 1px 5px black'}}>Join the Shuttr community, home to hundreds of high resolution photos.</h3>
                     <Link className='wlc-start-btn' to='/signup'>
                         Start for free
                     </Link>

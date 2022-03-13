@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, NavLink } from 'react-router-dom';
-import * as sessionActions from '../../../store/session';
+import { Link, NavLink, Redirect } from 'react-router-dom';
+import {logout} from '../../../store/session';
 import * as imagesActions from '../../../store/images';
 import greetings from './greetings/greetings';
 import styles from './ProfileButton.module.css';
@@ -79,10 +79,14 @@ function ProfileButton({user}) {
       return () => document.removeEventListener("click", closeMenu);
     }, [showMenu]);
 
-    const logout = (e) => {
+    const handleLogout = (e) => {
       e.preventDefault();
-      dispatch(sessionActions.logout());
-    };
+      if (user) {
+        dispatch(logout());
+      } else {
+        return <Redirect to='/' />
+      }
+  };
 
     return loaded && (
       <>
@@ -106,7 +110,7 @@ function ProfileButton({user}) {
               <li className={styles.profileItems}>Email:<p className={styles.itemText}>{user.email}</p></li>
               <li className={styles.profileItems}>Settings:<a href={`/users/${user.id}`} className={styles.settingsLink}>Change</a></li>
               <li className={styles.profileItems}>
-                <button className={styles.logoutBtn} onClick={logout}>Log out</button>
+                <div className={styles.logoutBtn} onClick={handleLogout}>Log out</div>
               </li>
             </ul>
           </DropDownBox>

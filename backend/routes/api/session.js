@@ -1,7 +1,7 @@
 const express = require('express');
 const { check } = require('express-validator');
 const asyncHandler = require('express-async-handler');
-
+const validateSignup = require('../../utils/validateSignup');
 const { User } = require('../../db/models');
 const { setTokenCookie, restoreUser } = require('../../utils/auth');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -44,6 +44,30 @@ router.post(
       const err = new Error('Login failed');
       err.status = 401;
       err.title = 'Login failed';
+      err.errors = ['The provided credentials were invalid.'];
+      return next(err);
+    }
+
+    await setTokenCookie(res, user);
+
+    return res.json({
+      user
+    });
+  })
+);
+
+router.post(
+  '/signup',
+  validateSignup,
+  asyncHandler(async (req, res, next) => {
+    const { firstName, lastName, age, email, password, confirmPassword } = req.body;
+
+    const user = await User.signup({ firstName, lastName, age, email, password });
+
+    if (!user) {
+      const err = new Error('Signup failed');
+      err.status = 401;
+      err.title = 'Signup failed';
       err.errors = ['The provided credentials were invalid.'];
       return next(err);
     }

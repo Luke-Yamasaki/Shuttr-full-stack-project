@@ -17,7 +17,7 @@ const FormInput = styled.input`
   border: none;
   color: #212124;
   cursor: text;
-  width: 302px;
+  width: 295px;
 `;
 
 const ErrorUl = styled.ul`
@@ -61,12 +61,16 @@ const DemoButton = styled.button`
 const LoginForm = () => {
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
-  const [username, setUsername] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [age, setAge] = useState('Must be older than 12');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [usernameErrors, setUsernameErrors] = useState([]);
+  const [firstNameErrors, setfirstNameErrors] = useState([]);
+  const [lastNameErrors, setLastNameErrors] = useState([]);
   const [emailErrors, setEmailErrors] = useState([]);
+  const [ageErrors, setAgeErrors] = useState([]);
   const [pwrdErrors, setPwrdErrors] = useState([]);
   const [confirmPwrdErrors, setConfirmPwrdErrors] = useState([]);
 
@@ -76,33 +80,52 @@ const LoginForm = () => {
 
   const handleSubmit = (e) => {
       e.preventDefault();
-      if(password !== confirmPassword) return setConfirmPwrdErrors('Passwords do not match.')
-
-      setUsernameErrors([]);
+      setfirstNameErrors([]);
+      setLastNameErrors([]);
       setEmailErrors([]);
+      setAgeErrors([]);
       setPwrdErrors([]);
+      setConfirmPwrdErrors([]);
 
-      return dispatch(sessionActions.signup({ username, email, password }))
+      return dispatch(sessionActions.signup({ firstName, lastName, age, email, password, confirmPassword }))
         .catch(async (res) => {
           const data = await res.json();
-          const userErrors = [];
-          const emailErrors = [];
-          const userPwrdErrors = [];
+          const firstErrorArr = [];
+          const lastErrorArr = [];
+          const ageErrorArr = []
+          const emailErrorArr = [];
+          const passwordErrorArr = [];
+          const confirmPasswordErrorArr = [];
+
           if (data && data.errors) {
             data.errors.map((error) => {
-              if(error.toLowerCase().includes("username")) {
-                return userErrors.push(error)
-              } else if(error.toLowerCase().includes("email")) {
-                return emailErrors.push(error)
+              if(error.toLowerCase().includes("first name")) {
+                return firstErrorArr.push(error)
               }
-              else if(error.toLowerCase().includes("password")) {
-                return userPwrdErrors.push(error)
-              } else return null;
+              else if(error.toLowerCase().includes("last name")) {
+                return lastErrorArr.push(error)
+              }
+              else if(error.toLowerCase().includes("valid age")) {
+                return ageErrorArr.push(error)
+              }
+              else if(error.toLowerCase().includes("email")) {
+                return emailErrorArr.push(error)
+              }
+              else if(error.toLowerCase().includes("provide a password")) {
+                return passwordErrorArr.push(error)
+              }
+              else if(error.toLowerCase().includes("confirm") || error.toLowerCase().includes("match")) {
+                return confirmPasswordErrorArr.push(error)
+              }
+              else return null;
         })
         }
-        setUsernameErrors(userErrors);
-        setEmailErrors(emailErrors)
-        setPwrdErrors(userPwrdErrors);
+        setfirstNameErrors(firstErrorArr);
+        setLastNameErrors(lastErrorArr);
+        setAgeErrors(ageErrorArr);
+        setEmailErrors(emailErrorArr)
+        setPwrdErrors(passwordErrorArr);
+        setConfirmPwrdErrors(confirmPasswordErrorArr);
         });
   }
 
@@ -117,7 +140,7 @@ const LoginForm = () => {
   }
 
 
-  const userInputClick = (e) => {
+  const firstInputClick = (e) => {
     const inputDiv = document.getElementsByClassName('input-container')[0];
     const inputLabel = document.getElementsByTagName('label')[0];
     const inputField = document.getElementsByClassName('sc-eCImPb bdKjVM')[0];
@@ -128,7 +151,7 @@ const LoginForm = () => {
     inputLabel.style.borderColor = '#128fdc';
   }
 
-  const userInputBlur = (e) => {
+  const firstInputBlur = (e) => {
     const inputDiv = document.getElementsByClassName('input-container')[0];
     const inputLabel = document.getElementsByTagName('label')[0];
     const inputField = document.getElementsByClassName('sc-eCImPb bdKjVM')[0];
@@ -138,7 +161,8 @@ const LoginForm = () => {
     inputLabel.style.color = '#212124';
     inputLabel.style.borderColor = 'grey';
   }
-  const pwrdInputClick = (e) => {
+
+  const lastInputClick = (e) => {
     const inputDiv = document.getElementsByClassName('input-container')[1];
     const inputLabel = document.getElementsByTagName('label')[1];
     const inputField = document.getElementsByClassName('sc-eCImPb bdKjVM')[1];
@@ -149,10 +173,98 @@ const LoginForm = () => {
     inputLabel.style.borderColor = '#128fdc';
   }
 
-  const pwrdInputBlur = (e) => {
+  const lastInputBlur = (e) => {
     const inputDiv = document.getElementsByClassName('input-container')[1];
     const inputLabel = document.getElementsByTagName('label')[1];
     const inputField = document.getElementsByClassName('sc-eCImPb bdKjVM')[1];
+    inputDiv.style.border = '1px solid grey'
+    inputField.style.height = '15px';
+    inputLabel.style.fontSize = '16px';
+    inputLabel.style.color = '#212124';
+    inputLabel.style.borderColor = 'grey';
+  }
+
+  const ageInputClick = (e) => {
+    const inputDiv = document.getElementsByClassName('input-container')[2];
+    const inputLabel = document.getElementsByTagName('label')[2];
+    const inputField = document.getElementsByClassName('sc-eCImPb bdKjVM')[2];
+    inputDiv.style.border = '1px solid #128fdc'
+    inputField.style.height = '30px';
+    inputLabel.style.fontSize = '12px';
+    inputLabel.style.color = '#128fdc';
+    inputLabel.style.borderColor = '#128fdc';
+  }
+
+  const ageInputBlur = (e) => {
+    const inputDiv = document.getElementsByClassName('input-container')[2];
+    const inputLabel = document.getElementsByTagName('label')[2];
+    const inputField = document.getElementsByClassName('sc-eCImPb bdKjVM')[2];
+    inputDiv.style.border = '1px solid grey'
+    inputField.style.height = '15px';
+    inputLabel.style.fontSize = '16px';
+    inputLabel.style.color = '#212124';
+    inputLabel.style.borderColor = 'grey';
+  }
+
+  const emailInputClick = (e) => {
+    const inputDiv = document.getElementsByClassName('input-container')[3];
+    const inputLabel = document.getElementsByTagName('label')[3];
+    const inputField = document.getElementsByClassName('sc-eCImPb bdKjVM')[3];
+    inputDiv.style.border = '1px solid #128fdc'
+    inputField.style.height = '30px';
+    inputLabel.style.fontSize = '12px';
+    inputLabel.style.color = '#128fdc';
+    inputLabel.style.borderColor = '#128fdc';
+  }
+
+  const emailInputBlur = (e) => {
+    const inputDiv = document.getElementsByClassName('input-container')[3];
+    const inputLabel = document.getElementsByTagName('label')[3];
+    const inputField = document.getElementsByClassName('sc-eCImPb bdKjVM')[3];
+    inputDiv.style.border = '1px solid grey'
+    inputField.style.height = '15px';
+    inputLabel.style.fontSize = '16px';
+    inputLabel.style.color = '#212124';
+    inputLabel.style.borderColor = 'grey';
+  }
+
+  const passwordInputClick = (e) => {
+    const inputDiv = document.getElementsByClassName('input-container')[4];
+    const inputLabel = document.getElementsByTagName('label')[4];
+    const inputField = document.getElementsByClassName('sc-eCImPb bdKjVM')[4];
+    inputDiv.style.border = '1px solid #128fdc'
+    inputField.style.height = '30px';
+    inputLabel.style.fontSize = '12px';
+    inputLabel.style.color = '#128fdc';
+    inputLabel.style.borderColor = '#128fdc';
+  }
+
+  const passwordInputBlur = (e) => {
+    const inputDiv = document.getElementsByClassName('input-container')[4];
+    const inputLabel = document.getElementsByTagName('label')[4];
+    const inputField = document.getElementsByClassName('sc-eCImPb bdKjVM')[4];
+    inputDiv.style.border = '1px solid grey'
+    inputField.style.height = '15px';
+    inputLabel.style.fontSize = '16px';
+    inputLabel.style.color = '#212124';
+    inputLabel.style.borderColor = 'grey';
+  }
+
+  const confirmPasswordInputClick = (e) => {
+    const inputDiv = document.getElementsByClassName('input-container')[5];
+    const inputLabel = document.getElementsByTagName('label')[5];
+    const inputField = document.getElementsByClassName('sc-eCImPb bdKjVM')[5];
+    inputDiv.style.border = '1px solid #128fdc'
+    inputField.style.height = '30px';
+    inputLabel.style.fontSize = '12px';
+    inputLabel.style.color = '#128fdc';
+    inputLabel.style.borderColor = '#128fdc';
+  }
+
+  const confirmPasswordInputBlur = (e) => {
+    const inputDiv = document.getElementsByClassName('input-container')[5];
+    const inputLabel = document.getElementsByTagName('label')[5];
+    const inputField = document.getElementsByClassName('sc-eCImPb bdKjVM')[5];
     inputDiv.style.border = '1px solid grey'
     inputField.style.height = '15px';
     inputLabel.style.fontSize = '16px';
@@ -169,23 +281,63 @@ const LoginForm = () => {
           <h6 className='sgn-text'>Sign up for Shuttr</h6>
           <Form onSubmit={handleSubmit}>
             <div className='input-wrapper'>
-              {usernameErrors && (
+              {firstNameErrors && (
                 <ErrorUl>
-                  {usernameErrors.map(error =>
+                  {firstNameErrors.map(error =>
                   <ErrorLi key={error} style={{listStyle: 'none', color: 'red'}}>{error}</ErrorLi>)
                   }
                 </ErrorUl>
               )
               }
               <div className='input-container'>
-                <label className='input-label'>Username</label>
+                <label className='input-label'>First name</label>
                 <FormInput
                   className='sc-eCImPb bdKjVM user-input-field'
                   type='text'
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  onClick={userInputClick}
-                  onBlur={userInputBlur}
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  onClick={firstInputClick}
+                  onBlur={firstInputBlur}
+                ></FormInput>
+              </div>
+              {lastNameErrors && (
+                <ErrorUl>
+                  {lastNameErrors.map(error =>
+                  <ErrorLi key={error} style={{listStyle: 'none', color: 'red'}}>{error}</ErrorLi>)
+                  }
+                </ErrorUl>
+              )
+              }
+              <div className='input-container'>
+                <label className='input-label'>Last name</label>
+                <FormInput
+                  className='sc-eCImPb bdKjVM user-input-field'
+                  type='text'
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  onClick={lastInputClick}
+                  onBlur={lastInputBlur}
+                ></FormInput>
+              </div>
+              {ageErrors && (
+                <ErrorUl>
+                  {ageErrors.map(error =>
+                  <ErrorLi key={error} style={{listStyle: 'none', color: 'red'}}>{error}</ErrorLi>)
+                  }
+                </ErrorUl>
+              )
+              }
+              <div className='input-container'>
+                <label className='input-label'>Your age</label>
+                <FormInput
+                  className='sc-eCImPb bdKjVM user-input-field'
+                  type='number'
+                  min='12'
+                  max='130'
+                  value={age}
+                  onChange={(e) => setAge(e.target.value)}
+                  onClick={ageInputClick}
+                  onBlur={ageInputBlur}
                 ></FormInput>
               </div>
               {emailErrors && (
@@ -200,11 +352,11 @@ const LoginForm = () => {
                 <label className='input-label'>Email</label>
                 <FormInput
                   className='sc-eCImPb bdKjVM user-input-field'
-                  type='text'
+                  type='email'
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  onClick={userInputClick}
-                  onBlur={userInputBlur}
+                  onClick={emailInputClick}
+                  onBlur={emailInputBlur}
                 ></FormInput>
               </div>
               {pwrdErrors && (
@@ -222,8 +374,8 @@ const LoginForm = () => {
                   type='password'
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  onClick={pwrdInputClick}
-                  onBlur={pwrdInputBlur}
+                  onClick={passwordInputClick}
+                  onBlur={passwordInputBlur}
                 ></FormInput>
               </div>
               {confirmPwrdErrors && (
@@ -241,8 +393,8 @@ const LoginForm = () => {
                   type='password'
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  onClick={pwrdInputClick}
-                  onBlur={pwrdInputBlur}
+                  onClick={confirmPasswordInputClick}
+                  onBlur={confirmPasswordInputBlur}
                 ></FormInput>
               </div>
             </div>

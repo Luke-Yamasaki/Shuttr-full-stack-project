@@ -1,18 +1,22 @@
 import { useDispatch, useSelector } from 'react-redux';
 import React, {useState, useEffect } from 'react';
-import {useHistory} from 'react-router-dom';
+import {useHistory, Redirect} from 'react-router-dom';
 import styles from './UploadPage.module.css';
 import { createImage } from '../../store/images';
 import Navbar from "../../components/Navbar";
 
 const UploadPage = () => {
     const sessionUser = useSelector((state) => state.session.user);
-    const userId = sessionUser.id;
     const dispatch = useDispatch();
     const history = useHistory();
     const [imageUrl, setImageUrl] = useState('');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
+
+    if(!sessionUser.id) {
+        return history.push('/')
+    }
+    const userId = sessionUser.id;
 
     const reset = () => {
         setImageUrl('');

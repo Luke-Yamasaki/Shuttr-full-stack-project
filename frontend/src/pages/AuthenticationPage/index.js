@@ -46,7 +46,6 @@ const AuthenticationPage = ({mode}) => {
             <FormSection>
                 {mode === 'login' ? <LoginForm /> : <SignupForm />}
             </FormSection>
-
         </AuthWrapper>
     )
 }
