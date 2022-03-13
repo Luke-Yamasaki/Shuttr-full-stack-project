@@ -7,53 +7,52 @@ import greetings from './greetings/greetings';
 import styles from './ProfileButton.module.css';
 import styled from 'styled-components';
 
-const DropDownBox = styled.div`
-  width: 300px;
-  height: 500px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: left;
-  margin-left: -300px;
-  margin-top: 45px;
-  background-color: green;
-`;
+// const div = styled.div`
+//   width: 300px;
+//   height: 500px;
+//   display: flex;
+//   flex-direction: column;
+//   margin-left: -300px;
+//   margin-top: 5vh;
+// `;
 
 const UserGreetingBox = styled.div`
-  width: 300px;
-  height: 50px;
+  width: 200px;
+  height: auto;
   display: flex;
+  padding: 10px;
   flex-direction: column;
-  align-items: left;
-  justify-content: left;
-  padding-top: 10px;
+  align-items: flex-start;
+  justify-content: flex-start;
 `;
 
 const GreetingText = styled.p`
+  color: white;
   font-size: 18px;
+  font-weight: bold;
   text-align: left;
-  margin-left:10px;
-
+  margin-bottom: 0px;
 `;
 
-const DataUsageBox = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 300px;
-  height: 200px;
-  border-top: 1px solid grey;
-  border-bottom: 1px solid grey;
-`;
+// const DataUsageBox = styled.div`
+//   display: flex;
+//   flex-direction: row;
+//   width: 200px;
+//   height: 100px;
+//   border-top: 1px solid grey;
+//   border-bottom: 1px solid grey;
+// `;
 
 function ProfileButton({user}) {
     const dispatch = useDispatch();
     const imagesObj = useSelector(state => state.imagesState.images);
     const imagesArr = Object.values(imagesObj);
-    const imagesCount = imagesArr.map(image => image.userId === user.id).length;
     const [showMenu, setShowMenu] = useState(false);
     const [num, setNum] = useState(3)
     const [greeting, setGreeting] = useState({"language": "Spanish", "greeting": "Hola"})
     const [loaded, setLoaded] = useState(false);
+    // const imagesCount = imagesArr.map(image => image.userId === user.id);
+    // const imageNum = imagesCount.length
 
     const openMenu = () => {
         if (showMenu) return;
@@ -89,33 +88,28 @@ function ProfileButton({user}) {
   };
 
     return loaded && (
-      <>
+      <div>
         <div className={styles.userButton} style={{backgroundImage: `url(${user.profileImageUrl})`}} onClick={openMenu}>
         </div>
         {showMenu && (
-          <DropDownBox>
-            <UserGreetingBox>
-              <GreetingText>{greeting["greeting"]}, {user.username}!</GreetingText>
-              <p>Now you know how to greet people in {greeting["language"]}</p>
-            </UserGreetingBox>
-            <DataUsageBox>
-                <img src={user.profileImageUrl} alt='dataUsage' style={{width: '80px', height: '80px', borderRadius: '100%'}}></img>
-                <div>
-                    <p>'Insert user image count of' 1,000 items</p>
-                    <Link to='/upload'>Upload your images</Link>
-                </div>
-            </DataUsageBox>
-            <ul className={styles.profileDropdown}>
-              <li className={styles.profileItems}>Username:<p className={styles.itemText}>{user.username}</p></li>
-              <li className={styles.profileItems}>Email:<p className={styles.itemText}>{user.email}</p></li>
-              <li className={styles.profileItems}>Settings:<a href={`/users/${user.id}`} className={styles.settingsLink}>Change</a></li>
-              <li className={styles.profileItems}>
-                <div className={styles.logoutBtn} onClick={handleLogout}>Log out</div>
-              </li>
-            </ul>
-          </DropDownBox>
+          <div className={styles.menuWrapper}>
+            <div className={styles.profileDiv}>
+              <UserGreetingBox>
+                <GreetingText>{greeting["greeting"]}, {user.username}!</GreetingText>
+                <p style={{fontSize: '14px', color: 'rgba(255, 255, 255, 0.25)'}}>Now you know how to greet people in {greeting["language"]}.</p>
+              </UserGreetingBox>
+              <div style={{width: '220px', height: '1px', backgroundColor: 'white', marginLeft: '-25px', marginTop: '-10px'}}></div>
+              <div className={styles.profileDropdown}>
+                <p className={styles.itemText}>Username: {user.username}</p>
+                <p className={styles.itemText}>Email: {user.email}</p>
+                <p className={styles.itemText}>Settings:<a href={`/users/${user.id}`} className={styles.settingsLink}>Change</a></p>
+                <button type="button" className={styles.logoutBtn} onClick={handleLogout}>Log out</button>
+              </div>
+            </div>
+          </div>
+
         )}
-      </>
+      </div>
     );
   }
 

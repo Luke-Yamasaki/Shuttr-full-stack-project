@@ -10,7 +10,7 @@ import styled from 'styled-components';
 import styles from './Homepage.module.css';
 
 const HomeFeed = styled.div`
-    width: auto;
+    width: 48vw;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -25,8 +25,6 @@ const ImageSection = styled.section`
     flex-direction: column;
     background-color: rgba(255, 255, 255, 0.05);
 `;
-
-
 
 const Homepage = () => {
     const dispatch = useDispatch();
@@ -108,8 +106,8 @@ const Homepage = () => {
                         <h5 style={{color: 'white', fontFamily: 'sans-serif', fontSize: '16px', width: '1195px', borderBottom: '1px solid rgba(255, 255, 255, 0.05)', paddingBottom: '25px', paddingLeft: '10px', textAlign: 'left' }}>People to follow</h5>
                         <div className={styles.imageCardWrapper}>
                             {activity === "Oldest" || activity === "All Activity" ? imagesArr.map(image =>
-                                <div key={image.id} className={styles.imageCardBox}>
-                                    <div className={styles.imageDiv} style={{backgroundImage: `url(${image.imageUrl})`}}></div>
+                                <div key={image.id} className={styles.imageCardBox} style={{backgroundImage: `url(${image.imageUrl})`}}>
+                                    <div className={styles.imageDiv} ></div>
                                     <div className={styles.userInfoBox}>
                                         <img className={styles.userIcon} src={sessionUser.profileImageUrl}></img>
                                         <div className={styles.userDetails}>

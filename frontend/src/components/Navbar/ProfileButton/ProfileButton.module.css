@@ -7,19 +7,23 @@
     background-position: center;
 }
 
-.profileDropdown {
-    width: 125px;
-    height: 150px;
-    background-color: white;
-    border: 1px solid rgba(120, 60, 220, 1);
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-    position: absolute;
-    margin-top: 195px;
+.profileDiv {
+    width: 200px;
+    height: auto;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
+    padding-left: 25px;
+}
+
+.profileDropdown {
+    width: 200px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: space-around;
+    justify-content: space-around;
 }
 
 .profileItems {
@@ -29,11 +33,10 @@
     flex-direction: row;
     justify-content: left;
     align-items: baseline;
-    font-family: antarctican-headline, sans-serif;
     font-weight: 500;
     font-style: normal;
     font-size: 18px;
-    color: rgba(0, 0, 0, 1);
+    color: white;
     list-style: none;
     letter-spacing: 0.2px;
     margin-left: -20px;
@@ -41,26 +44,59 @@
 }
 
 .logoutBtn {
-    background: none;
-    border: none;
-    width: 50px;
-    font-family: antarctican-headline;
-    font-weight: 500;
+    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    width: 75px;
+    height: 30px;
+    font-family: sans-serif;
     font-size: 14px;
+    color: white;
+    border-radius: 0.25rem;
+    margin: 10px 0px 10px 85px;
+}
+
+.logoutBtn:hover {
+    color: grey;
+    border: none;
+    width: 75px;
+    height: 30px;
+    font-family: sans-serif;
+    font-size: 14px;
+    background: white;
 }
 
 .itemText {
-    padding-left: 5px;
     font-size: 14px;
     letter-spacing: 0.5px;
-    color: black;
+    color: white;
 
 }
 
 .settingsLink {
-    padding-left: 5px;
+    padding-left: 45px;
     font-size: 14px;
     font-weight: 400;
     letter-spacing: 1px;
-    color: black;
+    color: rgba(255, 255, 255, 0.25);
+    text-decoration: underline;
+}
+
+.settingsLink:hover {
+    color : white;
+}
+
+.menuWrapper {
+    width: 220px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    position: absolute;
+    padding: none;
+    margin-top: 15px;
 }

@@ -36,7 +36,7 @@ body {
 }
 
 .imageCardWrapper {
-    width: 50vw;
+    width: 48vw;
     height: auto;
     display: flex;
     flex-direction: row;
@@ -46,11 +46,16 @@ body {
 }
 
 .imageCardBox {
-    width: 25vw;
-    height: 400px;
+    width: 24vw;
+    height: 300px;
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    backgrtound-repeat: no-repeat;
+    margin-right: 1px;
+    margin-bottom: 1px;
 }
 
 .userIcon {
@@ -131,4 +136,5 @@ body {
     justify-content: space-between;
     align-items: center;
     overflow-x: hidden;
+
 }
