@@ -72,3 +72,37 @@ body {
     background-repeat: no-repeat;
 }
 
+.moreBtn {
+    position: absolute;
+    width: 47vw;
+    height: 5.1vh;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    background: linear-gradient(#ff0084, #0063dc);
+    box-shadow: 1px 0px 50px black;
+}
+
+.moreDiv {
+    position: absolute;
+    margin-top: 88.6vh;
+    width: 47vw;
+    height: 5.1vh;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    background: linear-gradient(#ff0084, #0063dc);
+    overflow-x: hidden;
+}
+
+.wrapper {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    overflow-x: hidden;
+}
