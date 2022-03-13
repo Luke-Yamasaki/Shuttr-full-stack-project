@@ -16,6 +16,8 @@ const HomeWrapper = styled.div`
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    overflow-y: scroll;
+    overflow-x: hidden;
 `;
 
 const HomeFeed = styled.div`
@@ -29,15 +31,15 @@ const HomeFeed = styled.div`
 
 const ActivityBox = styled.div`
     width: 47vw;
-    height: 70vh;
+    height: 100vh;
     background-color: grey;
     display: flex;
     flex-direction: column;
 `;
 
 const ImageSection = styled.section`
-    width: 45vw;
-    height: 60vh;
+    width: 47vw;
+    height: 100vh;
     background-color: white;
     border: 1px solid grey;
     border-radius: 0.01rem;
@@ -84,50 +86,21 @@ const Homepage = () => {
                         <option>Images</option>
                     </select>
                     <ImageSection>
-
                         <h5>People to follow</h5>
 
                         <div className={styles.imageCardWrapper}>
-                            <div className={styles.imageCardBox}>
-                                <img className={styles.image} src={sessionUser.profileImageUrl}></img>
-                                <div className={styles.userInfoBox}>
-                                    <img className={styles.userIcon} src={sessionUser.profileImageUrl}></img>
-                                    <div className={styles.userDetails}>
-                                        <Link to={`/users/${sessionUser.id}`} className={styles.userLink}>{`${sessionUser.firstName} ${sessionUser.lastName}`}</Link>
-                                        <p className={styles.userInfoText}>{sessionUser.username}</p>
+                            {imagesArr.map(image =>
+                                <div key={image.id} className={styles.imageCardBox}>
+                                    <div className={styles.imageDiv} style={{backgroundImage: `url(${image.imageUrl})`}}></div>
+                                    <div className={styles.userInfoBox}>
+                                        <img className={styles.userIcon} src={sessionUser.profileImageUrl}></img>
+                                        <div className={styles.userDetails}>
+                                            <Link to={`/users/${image.userId}`} className={styles.userLink}>{usersObj[image.userId].firstName} {usersObj[image.userId].lastName}</Link>
+                                            <p className={styles.userInfoText}>{usersObj[image.userId].username}</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className={styles.imageCardBox}>
-                                <img className={styles.image} src={sessionUser.profileImageUrl}></img>
-                                <div className={styles.userInfoBox}>
-                                    <img className={styles.userIcon} src={sessionUser.profileImageUrl}></img>
-                                    <div className={styles.userDetails}>
-                                        <Link to={`/users/${sessionUser.id}`} className={styles.userLink}>{`${sessionUser.firstName} ${sessionUser.lastName}`}</Link>
-                                        <p className={styles.userInfoText}>{sessionUser.username}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className={styles.imageCardBox}>
-                                <img className={styles.image} src={sessionUser.profileImageUrl}></img>
-                                <div className={styles.userInfoBox}>
-                                    <img className={styles.userIcon} src={sessionUser.profileImageUrl}></img>
-                                    <div className={styles.userDetails}>
-                                        <Link to={`/users/${sessionUser.id}`} className={styles.userLink}>{`${sessionUser.firstName} ${sessionUser.lastName}`}</Link>
-                                        <p className={styles.userInfoText}>{sessionUser.username}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className={styles.imageCardBox}>
-                                <img className={styles.image} src={sessionUser.profileImageUrl}></img>
-                                <div className={styles.userInfoBox}>
-                                    <img className={styles.userIcon} src={sessionUser.profileImageUrl}></img>
-                                    <div className={styles.userDetails}>
-                                        <Link to={`/users/${sessionUser.id}`} className={styles.userLink}>{`${sessionUser.firstName} ${sessionUser.lastName}`}</Link>
-                                        <p className={styles.userInfoText}>{sessionUser.username}</p>
-                                    </div>
-                                </div>
-                            </div>
+                            )}
                         </div>
 
 

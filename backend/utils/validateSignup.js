@@ -29,9 +29,6 @@ const validateSignup = [
         .bail()
         .isInt()
         .withMessage('Must be a number.')
-        .bail()
-        .isLength({min: 2})
-        .withMessage("Invalid age range")
         .bail(),
     check('email')
         .exists({ checkFalsy: true })
