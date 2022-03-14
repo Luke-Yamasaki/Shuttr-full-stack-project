@@ -2,9 +2,9 @@ import {useState, useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom';
 import styles from './ImageDetail.module.css';
-import { deleteImage } from '../../../store/images';
+import { deleteImage, getImages } from '../../../store/images';
 
-const ImageDetail = (images) => {
+const ImageDetail = ({images, users}) => {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
     const imagesObj = useSelector(state => state.imagesState.images);
@@ -14,34 +14,41 @@ const ImageDetail = (images) => {
     // const [deletedId, setDeletedId] = useState('');
 
     // useEffect(() => {
-    //     const updateList = async () => {
-    //         updatedImages = await useSelector(state => state.imagesState.images)
-    //     }
-    //     updateList()
-    // },[state.imagesState])
+    //     dispatch(getImages())
+    // },[dispatch])
 
     const handleDelete = (e) => {
         e.preventDefault();
 
-        return dispatch(deleteImage(Number(e.target.name)))
+        dispatch(deleteImage(Number(e.target.name))).then(() => dispatch(getImages()))
     }
 
     return  (
         <>
-            {imagesArr.map(image => (
-                <div key={image.id} style={{width: '500px', height: '400px'}}>
-                    <img src={image.imageUrl} className={styles.image}></img>
-                    <div>
-                        <div>
-                            <Link to={`/images/${image.id}`} key={image.id}>{image.title}</Link>
-                            <Link to={`/users/${image.userId}`}>- by userId: {image.userId} </Link>
+            {images.map(image => (
+                <div key={image.id} style={{width: '500px', height: '300px', backgroundColor: 'rgba(0, 0, 0, 0.75', margin: '1px 1px 1px 1px'}}>
+                    <div style={{backgroundImage: `url(${image.imageUrl})`}} className={styles.image}>
+                        <div className={styles.infoDiv} onMouseOver={(e) => e.target.style.opacity = '100%' } onMouseLeave={(e) => e.target.style.opacity = '0%' }>
+                            <Link className={styles.imageInfo} to={`/images/${image.id}`} key={image.id}>Title: {image.title}</Link>
+                            <Link className={styles.imageInfo} to={`/users/${image.userId}`}>By: {users[image.userId].firstName} {users[image.userId].lastName} </Link>
+                            <div>
+                                <button>Comments</button>
+                                {image.userId === sessionUser.id &&
+                                    <>
+                                        <Link className={styles.editLink} to={`/images/${image.id}`} >Edit</Link>
+                                        <button name={image.id} onClick={(e) => handleDelete(e)}>Delete</button>
+                                    </>
+                                }
+                            </div>
+
                         </div>
 
+                    </div>
+                    <div>
                         {image.userId === sessionUser.id ?
                             <div>
                                 <button>Comments</button>
-                                <Link className={styles.editLink} to={`/images/${image.id}`} >Edit</Link>
-                                <button name={image.id} onClick={(e) => handleDelete(e)}>Delete</button>
+
                             </div>
                             : <button>Comments</button>
                         }

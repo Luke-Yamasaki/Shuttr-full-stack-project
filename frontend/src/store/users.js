@@ -25,23 +25,23 @@ const removeUser = userId => ({
   userId
 });
 
-export const getUsers = () => async (dispatch, getState) => {
+export const getUsers = () => async (dispatch) => {
   const response = await csrfFetch(`/api/users`);
   if (response.ok) {
-    const users = await response.json();
+    const users = await response.json()
     dispatch(load(users));
   }
   return response
 };
 
-export const getOneUser = (id) => async (dispatch, getState) => {
+export const getOneUser = (id) => async (dispatch) => {
   const response = await csrfFetch(`/api/users/${id}`);
   if (response.ok) {
     const oneUser = await response.json();
     dispatch(loadOne(oneUser));
   }
   return response
-}
+};
 
 // export const createUser = (userData) => async (dispatch, getState) => {
 //   const response = await csrfFetch('/api/users', {

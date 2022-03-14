@@ -5,6 +5,7 @@ const validateImage = [
     check('title')
         .exists({ checkFalsy: true })
         .withMessage('A title is required.')
+        .bail()
         .isLength({min: 1, max: 100 })
         .withMessage('Titles cannot be longer than 100 characters.'),
     check('description')
@@ -13,6 +14,7 @@ const validateImage = [
     check('imageUrl')
         .isURL()
         .withMessage('Please provide a valid image URL.')
+        .bail()
         .isLength({max: 2048})
         .withMessage('Image URLs cannot be longer than 2048 chracters.'),
         handleValidationErrors
