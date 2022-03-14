@@ -116,9 +116,20 @@
     margin-left: 10px;
     font-size: 16px;
     transition: font-size 0.2s ease-in;
-    margin-bottom: 0px;
+    margin-bottom: -10px;
     font-weight: 400;
+    color: #212124;
 }
+
+.age {
+    margin-bottom: -5px;
+}
+
+.ageInput {
+    font-size: 16px;
+    color: black;
+}
+
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

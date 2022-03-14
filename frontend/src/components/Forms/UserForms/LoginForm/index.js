@@ -114,6 +114,7 @@ const LoginForm = () => {
     inputLabel.style.fontSize = '12px';
     inputLabel.style.color = '#128fdc';
     inputLabel.style.borderColor = '#128fdc';
+    inputLabel.style.marginBottom = '0px';
   }
 
   const userInputBlur = (e) => {
@@ -126,6 +127,7 @@ const LoginForm = () => {
     inputLabel.style.fontSize = '16px';
     inputLabel.style.color = '#212124';
     inputLabel.style.borderColor = 'grey';
+    inputLabel.style.marginBottom = '-5px';
     }
   }
   const pwrdInputClick = (e) => {
@@ -137,6 +139,7 @@ const LoginForm = () => {
     inputLabel.style.fontSize = '12px';
     inputLabel.style.color = '#128fdc';
     inputLabel.style.borderColor = '#128fdc';
+    inputLabel.style.marginBottom = '0px';
   }
 
   const pwrdInputBlur = (e) => {
@@ -149,6 +152,7 @@ const LoginForm = () => {
       inputLabel.style.fontSize = '16px';
       inputLabel.style.color = '#212124';
       inputLabel.style.borderColor = 'grey';
+      inputLabel.style.marginBottom = '-5px';
     }
   }
 
@@ -170,7 +174,7 @@ const LoginForm = () => {
               )
               }
               <div className='input-container'>
-                <label className='input-label'>Email</label>
+                <label className='inputLabel'>Email</label>
                 <FormInput
                   className='sc-eCImPb bdKjVM user-input-field'
                   type='text'
@@ -189,7 +193,7 @@ const LoginForm = () => {
               )
               }
               <div className='input-container'>
-                <label className='input-label'>Password</label>
+                <label className='inputLabel'>Password</label>
                 <FormInput
                   className='sc-eCImPb bdKjVM user-input-field'
                   type='password'

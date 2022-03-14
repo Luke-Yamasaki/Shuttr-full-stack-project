@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import {FormWrapper, FormContent, Form} from '../index';
-import './SignupForm.css';
+import  './SignupForm.css';
 
 const FormLogo = styled.div`
   width: 50px;
@@ -149,6 +149,7 @@ const LoginForm = () => {
     inputLabel.style.fontSize = '12px';
     inputLabel.style.color = '#128fdc';
     inputLabel.style.borderColor = '#128fdc';
+    inputLabel.style.marginBottom = '0px';
   }
 
   const firstInputBlur = (e) => {
@@ -160,6 +161,7 @@ const LoginForm = () => {
     inputLabel.style.fontSize = '16px';
     inputLabel.style.color = '#212124';
     inputLabel.style.borderColor = 'grey';
+
   }
 
   const lastInputClick = (e) => {
@@ -171,6 +173,7 @@ const LoginForm = () => {
     inputLabel.style.fontSize = '12px';
     inputLabel.style.color = '#128fdc';
     inputLabel.style.borderColor = '#128fdc';
+    inputLabel.style.marginBottom = '0px';
   }
 
   const lastInputBlur = (e) => {
@@ -193,6 +196,7 @@ const LoginForm = () => {
     inputLabel.style.fontSize = '12px';
     inputLabel.style.color = '#128fdc';
     inputLabel.style.borderColor = '#128fdc';
+    inputLabel.style.marginBottom = '0px';
   }
 
   const ageInputBlur = (e) => {
@@ -215,6 +219,7 @@ const LoginForm = () => {
     inputLabel.style.fontSize = '12px';
     inputLabel.style.color = '#128fdc';
     inputLabel.style.borderColor = '#128fdc';
+    inputLabel.style.marginBottom = '0px';
   }
 
   const emailInputBlur = (e) => {
@@ -237,6 +242,7 @@ const LoginForm = () => {
     inputLabel.style.fontSize = '12px';
     inputLabel.style.color = '#128fdc';
     inputLabel.style.borderColor = '#128fdc';
+    inputLabel.style.marginBottom = '0px';
   }
 
   const passwordInputBlur = (e) => {
@@ -259,6 +265,7 @@ const LoginForm = () => {
     inputLabel.style.fontSize = '12px';
     inputLabel.style.color = '#128fdc';
     inputLabel.style.borderColor = '#128fdc';
+    inputLabel.style.marginBottom = '0px';
   }
 
   const confirmPasswordInputBlur = (e) => {
@@ -328,9 +335,9 @@ const LoginForm = () => {
               )
               }
               <div className='input-container'>
-                <label className='input-label'>Your age</label>
+                <label className='input-label age'>Your age</label>
                 <FormInput
-                  className='sc-eCImPb bdKjVM user-input-field'
+                  className='sc-eCImPb bdKjVM user-input-field ageInput'
                   type='number'
                   min={12}
                   max={130}
