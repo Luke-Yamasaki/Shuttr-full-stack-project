@@ -262,5 +262,13 @@
     gap: 5px;
     display: flex;
     flex-direction: row;
-    
+
+}
+
+.commentUserInfo {
+    display: flex;
+    flex-direction: row;
+    width: 190px;
+    margin-left: 5px;
+    gap: 10px;
 }

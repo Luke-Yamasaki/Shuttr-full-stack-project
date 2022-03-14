@@ -81,7 +81,7 @@ const ImagesPage = () => {
                     </select>
                 </div>
                 <ImageWrapper>
-                    { activity === 'Newest' ? <ImageDetail images={reversedImagesArr} users={usersObj} /> : <ImageDetail images={imagesArr} users={usersObj} />}
+                    <ImageDetail filter={activity} />
                 </ImageWrapper>
             </div>
         </PageWrapper>

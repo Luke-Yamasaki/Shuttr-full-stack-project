@@ -4,21 +4,24 @@ import {Link, useHistory, Redirect} from 'react-router-dom';
 import styles from './ImageDetail.module.css';
 import { deleteImage, getImages  } from '../../../store/images';
 import { createComment, deleteComment, editComment, getComments} from '../../../store/comments';
+import { getUsers } from '../../../store/users';
 import Comments from '../../../components/Comments';
 
-const ImageDetail = ({images, users}) => {
+const ImageDetail = ({filter}) => {
     // const usersObj = users;
     // const imagesArr = images;
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
     const imagesObj = useSelector(state => state.imagesState.images);
     const imagesArr = Object.values(imagesObj)
+    const imagesCopy = [...imagesArr];
+    const reversedArr = imagesCopy.reverse();
     const commentsObj = useSelector(state => state.commentsState.comments);
     const commentsArr = Object.values(commentsObj);
     const imageComment = useSelector(state => state.imagesState.comments);
     const imageCommentArr = Object.values(imageComment)
-    // const usersObj = useSelector(state => state.commentsState.comments);
-    // const usersArr = Object.values(commentsObj);
+    const usersObj = useSelector(state => state.usersState.users);
+    const usersArr = Object.values(commentsObj);
     // const [isLoaded, setIsLoaded] = useState(false);
     // const [deletedId, setDeletedId] = useState('');
     const [selected, setSelected] = useState(null);
@@ -30,11 +33,12 @@ const ImageDetail = ({images, users}) => {
     const [editItem, setEditItem] = useState(null);
     const [editVal, setEditVal] = useState('')
     const [editErr, setEditErr] = useState([]);
+    const [sorting, setSorting] = useState(filter);
     const history = useHistory();
 
-    // useEffect(() => {
-    //     dispatch(getImages());
-    // }, [])
+    useEffect(() => {
+        dispatch(getUsers());
+    }, [])
 
     // useEffect(() => {
     //     if(selected) {
@@ -95,7 +99,7 @@ const ImageDetail = ({images, users}) => {
                 setCommentErr(errArr)
             })
 
-            if(response.ok) {
+            if(response) {
                 dispatch(getComments(+selected))
             }
     }
@@ -106,8 +110,11 @@ const ImageDetail = ({images, users}) => {
         const body = await document.querySelector('body');
         body.style.height = 'auto';
         body.style.overflowY = 'scroll';
-        setSelected(null);
-        dispatch(deleteComment(+e.target.name)).then(() => dispatch(getComments(+e.target.name)))
+        // setSelected(null);
+        const response = await dispatch(deleteComment(+e.target.name));
+        if(response) {
+            dispatch(getComments(+selected))
+        }
     }
 
     const handleEditComment = async (e) => {
@@ -152,13 +159,13 @@ const ImageDetail = ({images, users}) => {
 
     return  (
         <>
-            {imagesArr.map(image => (
+            {filter === 'All Activity' || filter === 'Oldest' ? imagesArr.map(image => (
                 <div key={image.id} style={{zIndex: `${2000 - image.id}`}}className={styles.commentWrapper}>
                     <div key={image.id} style={{width: '500px', height: '300px', backgroundColor: 'rgba(0, 0, 0, 0.75)', borderRadius: '0.25rem', marginBottom: '5px'}}>
                         <div style={{backgroundImage: `url(${image.imageUrl})`}} className={styles.image}>
                             <div className={styles.infoDiv} onMouseOver={(e) => e.target.style.opacity = '100%' } onMouseLeave={(e) => e.target.style.opacity = '0%' }>
                                 <Link className={styles.imageInfo} to={`/images/${image.id}`} key={image.id}>Title: {image.title}</Link>
-                                <Link className={styles.imageInfo} to={`/users/${image.userId}`}>By: {users[image.userId].firstName} {users[image.userId].lastName} </Link>
+                                <Link className={styles.imageInfo} to={`/users/${image.userId}`}>By: {usersObj[image.userId].firstName} {usersObj[image.userId].lastName} </Link>
                                 {image.userId === sessionUser.id ?
                                     <div className={styles.buttonWrapper}>
                                         <button type='button' className={styles.comments} name={image.imageId} onClick={handleComments}>Comments</button>
@@ -188,13 +195,13 @@ const ImageDetail = ({images, users}) => {
                                                 </div>
                                             </form>
                                             :
-                                            <>
-                                                <img src={users[comment.userId].profileImageUrl} style={{width: '40px', height: '40px', borderRadius: '100%'}}></img>
+                                            <div className={styles.commentUserInfo}>
+                                                <img src={usersObj[comment.userId].profileImageUrl} style={{width: '40px', height: '40px', borderRadius: '100%'}}></img>
                                                 <div className={styles.contentBox}>
-                                                    <Link style={{color: '#006dac'}}to={`/users/${comment.userId}`}>{users[comment.userId].firstName} {users[comment.userId].lastName}</Link>
+                                                    <Link style={{color: '#006dac'}}to={`/users/${comment.userId}`}>{usersObj[comment.userId].firstName} {usersObj[comment.userId].lastName}</Link>
                                                     <p className={styles.commentContent}>{comment.content}</p>
                                                 </div>
-                                            </>
+                                            </div>
                                             }
                                         {comment.userId === sessionUser.id &&
                                             <div className={styles.btnWrap}>
@@ -216,7 +223,73 @@ const ImageDetail = ({images, users}) => {
                         </div>
                     }
                </div>
-            ))}
+            ))
+        :
+        reversedArr.map(image => (
+            <div key={image.id} style={{zIndex: `${image.id}`}}className={styles.commentWrapper}>
+                <div key={image.id} style={{width: '500px', height: '300px', backgroundColor: 'rgba(0, 0, 0, 0.75)', borderRadius: '0.25rem', marginBottom: '5px'}}>
+                    <div style={{backgroundImage: `url(${image.imageUrl})`}} className={styles.image}>
+                        <div className={styles.infoDiv} onMouseOver={(e) => e.target.style.opacity = '100%' } onMouseLeave={(e) => e.target.style.opacity = '0%' }>
+                            <Link className={styles.imageInfo} to={`/images/${image.id}`} key={image.id}>Title: {image.title}</Link>
+                            <Link className={styles.imageInfo} to={`/users/${image.userId}`}>By: {usersObj[image.userId].firstName} {usersObj[image.userId].lastName} </Link>
+                            {image.userId === sessionUser.id ?
+                                <div className={styles.buttonWrapper}>
+                                    <button type='button' className={styles.comments} name={image.imageId} onClick={handleComments}>Comments</button>
+                                    <div className={styles.btnDiv}>
+                                        <Link className={styles.editLink} to={`/images/${image.id}`} >Edit</Link>
+                                        <button className={styles.delBtn} name={image.id} onClick={(e) => handleDelete(e)}>Delete</button>
+                                    </div>
+                                </div>
+                                :
+                                <button type='button' className={styles.comments} name={image.id} onClick={handleComments}>Comments</button>
+                            }
+                        </div>
+                    </div>
+                </div>
+                {selected && image.id === selected &&
+                    <div className={styles.commentsPopup}>
+                        <div className={styles.commentsBox}>
+                            {commentsArr.map(comment =>
+                                <div key={comment.id} className={styles.commentContainer}>
+                                     {comment.id === editItem && comment.userId === sessionUser.id ?
+                                        <form onSubmit={handleSubmitEdit} className={styles.form}>
+                                            {editErr.length >= 1 && editErr.map(error => <div className={styles.err}>{error}</div>)}
+                                            <textarea maxLength={300} placeholder='Edit comment...' value={editVal} className={styles.textArea} onChange={(e) => setEditVal(e.target.value)}></textarea>
+                                            <div className={styles.btnWrapper}>
+                                                <button type='button' className={styles.cancelBtn} onClick={handleEditCancel}>Cancel</button>
+                                                <button name={comment.id} type='submit' className={styles.submitBtn} onClick={handleSubmitEdit}>Add comment</button>
+                                            </div>
+                                        </form>
+                                        :
+                                        <div className={styles.commentUserInfo}>
+                                            <img src={usersObj[comment.userId].profileImageUrl} style={{width: '40px', height: '40px', borderRadius: '100%'}}></img>
+                                            <div className={styles.contentBox}>
+                                                <Link style={{color: '#006dac'}}to={`/users/${comment.userId}`}>{usersObj[comment.userId].firstName} {usersObj[comment.userId].lastName}</Link>
+                                                <p className={styles.commentContent}>{comment.content}</p>
+                                            </div>
+                                        </div>
+                                        }
+                                    {comment.userId === sessionUser.id &&
+                                        <div className={styles.btnWrap}>
+                                            <button className={`${styles.delBtn} ${styles.commentEdit}`} type='button' name={comment.id} onClick={handleEditComment}>Edit</button>
+                                            <button className={`${styles.delBtn} ${styles.commentDel}`} type='button' name={comment.id} onClick={handleDeleteComment}>Delete</button>
+                                        </div>
+                                    }
+                                </div>
+                            )}
+                        </div>
+                        <form onSubmit={handleSubmit} className={styles.form}>
+                            {commentErr.length >= 1 && commentErr.map(error => <div className={styles.err}>{error}</div>)}
+                            <textarea maxLength={300} placeholder='Post a comment...' value={commentVal} className={styles.textArea} onChange={(e) => setCommentVal(e.target.value)}></textarea>
+                            <div className={styles.btnWrapper}>
+                                <button type='button' className={styles.cancelBtn} onClick={closeComments}>Cancel</button>
+                                <button name={image.id} type='submit' className={styles.submitBtn}>Add comment</button>
+                            </div>
+                        </form>
+                    </div>
+                }
+           </div>
+        ))}
         </>
     )
 }
