@@ -47,9 +47,9 @@ router.put(
     '/:id',
     validateComment,
     asyncHandler(async (req, res) => {
-        const { userId, imageId, content } = req.body;
-        const comment = await Comment.edit({ userId, imageId, content });
-        return res.json(comment);
+        const { userId, imageId, commentId, content } = req.body;
+        const comment = await Comment.edit({ userId, imageId, commentId, content });
+        return res.json({comment});
     })
 );
 

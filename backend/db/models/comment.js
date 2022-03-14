@@ -47,19 +47,14 @@ module.exports = (sequelize, DataTypes) => {
     return await Comment.findByPk(comment.id);
   };
 
-  Comment.edit = async function ({ userId, imageId, content }) {
-    const { Op } = require('sequelize');
-
-    // const commentId = id;
-    // delete id;
+  Comment.edit = async function ({ userId, imageId, commentId, content }) {
     const comment = await Comment.update(
-      content,
-      {
+        {userId,
+        imageId,
+        content},
+        {
         where: {
-          [Op.and]: {
-            userId: userId,
-            imageId: imageId
-          }
+          id: commentId
         }
       }
     );

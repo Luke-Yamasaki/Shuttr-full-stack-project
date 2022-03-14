@@ -256,3 +256,11 @@
 .commentEdit {
 
 }
+
+.btnWrap {
+    width: 110px;
+    gap: 5px;
+    display: flex;
+    flex-direction: row;
+    
+}
