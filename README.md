@@ -2,9 +2,10 @@
 
 ## Shuttr
 
-### Shuttr is a Flickr clone that allows users to post images, comment on images, and select tags for images.
-The goal of this project is to create a pixel-perfect clone that mimics the functionality, event handlers
-and transitions/animations of Flickr as closely as possible without employing CSS frameworks.
+### Shuttr is a Flickr clone that allows users to post images and comments.
+The goal of this project is to create a pixel-perfect clone that mimics the 
+functionality, event handlers and transitions/animations of Flickr as closely 
+as possible without employing CSS frameworks.
 
 ## Features:
 
