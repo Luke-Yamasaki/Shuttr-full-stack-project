@@ -39,7 +39,7 @@ router.post(
     asyncHandler(async (req, res) => {
         const { userId, imageId, content } = req.body;
         const comment = await Comment.post({ userId, imageId, content });
-        return res.json(comment);
+        return res.json({comment});
     })
 );
 

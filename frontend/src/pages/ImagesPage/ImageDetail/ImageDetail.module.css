@@ -225,11 +225,11 @@
 }
 
 .textArea {
-    padding: 0px;
+    padding-top: 10px;
     margin: 0px;
     border: none;
     border-bottom: 1px solid grey;
-    width: 350px;
+    width: 338px;
     max-height: 200px;
 }
 
@@ -242,9 +242,17 @@
 }
 
 .err {
-    height: 50px;
+    height: 20px;
     width: 350px;
     color: red;
     font-size: 14px;
+    border-bottom: 1px solid grey;
+}
+
+.commentDel {
+ gap: 10px;
+}
+
+.commentEdit {
 
 }

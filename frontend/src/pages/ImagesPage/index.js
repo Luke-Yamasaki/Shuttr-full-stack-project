@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import React, {useEffect, useState } from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import styles from './ImagesPage.module.css';
 import Navbar from '../../components/Navbar/index';
 import ImageDetail from './ImageDetail';
@@ -64,6 +64,8 @@ const ImagesPage = () => {
 
     if(!imagesArr) {
         return null;
+    } else if(!sessionUser) {
+        return <Redirect to='/' />
     }
 
     return isLoaded && (
