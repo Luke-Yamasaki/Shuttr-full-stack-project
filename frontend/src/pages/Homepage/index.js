@@ -51,7 +51,7 @@ const Homepage = () => {
 
     useEffect(() => {
         if(activity === 'Newest') {
-            dispatch(getImages()).then((res) => console.log(res))
+            dispatch(getImages())
         }
     },[activity])
 
@@ -109,11 +109,14 @@ const Homepage = () => {
                                 <div key={image.id} className={styles.imageCardBox} style={{backgroundImage: `url(${image.imageUrl})`}}>
                                     <div className={styles.imageDiv} ></div>
                                     <div className={styles.userInfoBox}>
-                                        <img className={styles.userIcon} src={sessionUser.profileImageUrl}></img>
-                                        <div className={styles.userDetails}>
-                                            <Link to={`/users/${image.userId}`} className={styles.userLink}>{usersObj[image.userId].firstName} {usersObj[image.userId].lastName}</Link>
-                                            <p className={styles.userInfoText}>{usersObj[image.userId].username}</p>
+                                        <div style={{display: 'flex', flexDirection: 'row', width: '200px', height: '75px', justifyContent: 'flex-start', gap: '15px' }}>
+                                            <a href={`/users/${image.userId}`} className={styles.userIcon} style={{backgroundImage: `url(${usersObj[image.userId].profileImageUrl})`}}></a>
+                                            <div className={styles.userDetails}>
+                                                <Link to={`/users/${image.userId}`} className={styles.userLink}>{usersObj[image.userId].firstName} {usersObj[image.userId].lastName}</Link>
+                                                <p className={styles.userInfoText}>@{usersObj[image.userId].username}</p>
+                                            </div>
                                         </div>
+                                        <div className={styles.userCount}>Posted: {imagesArr.filter(filterImage => filterImage.userId === image.userId).length} images</div>
                                     </div>
                                 </div>
                             )

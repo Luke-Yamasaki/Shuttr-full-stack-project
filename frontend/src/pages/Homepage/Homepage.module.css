@@ -36,64 +36,83 @@ body {
 }
 
 .imageCardWrapper {
-    width: 48vw;
+    width: 1200px;
     height: auto;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    align-items: center;
+    align-items: flex-start;
     flex-wrap: wrap;
 }
 
 .imageCardBox {
-    width: 24vw;
+    width: 575px;
     height: 300px;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    background-color: black;
-    backgrtound-repeat: no-repeat;
-    margin-right: 1px;
-    margin-bottom: 1px;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: space-between;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 0.25rem;
+    box-shadow: 0px 0px 1px grey;
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
 .userIcon {
     width: 35px;
     height: 35px;
     border-radius: 100%;
+    background-position: center;
+    margin-top: 15px;
 }
 
 .userInfoBox {
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: space-around;
     gap: 15px;
-    width: 25vw;
-    height: 50px;
+    width: 575px;
+    height: 100px;
     margin-top: 20px;
+    background-color: rgba(0, 0, 0, 0.05);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
 }
 
 .userDetails {
     display: flex;
     flex-direction: column;
+    margin-top: 15px;
 }
 
 .userLink {
-    color: black;
+    color: white;
+    text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.75);
     font-size: 16px;
     font-weight: bold;
     margin-bottom: -15px;
 }
 
-.userInfoText {
-    color: rgba(0, 0, 0, 0.5);
+.userCount {
+    color: white;
+    text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.75);
     font-size: 16px;
     font-weight: bold;
+    margin-top: 25px;
+    margin-left: 150px;
+}
+
+.userInfoText {
+    color: white;
+    text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.75);
+    font-size: 14px;
+    letter-spacing: 1px;
 }
 
 .imageDiv {
-    width: 600px;
+    width: 575px;
     height: 300px;
     background-size: contain;
     background-position: center;
