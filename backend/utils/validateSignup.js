@@ -26,10 +26,7 @@ const validateSignup = [
     check('age')
         .exists( {checkFalsy: true })
         .withMessage('Please enter your age.')
-        .bail()
-        .isInt()
-        .withMessage('Must be a number.')
-        .bail(),
+        ,
     check('email')
         .exists({ checkFalsy: true })
         .withMessage('Please provide an email.')

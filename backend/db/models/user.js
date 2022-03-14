@@ -57,13 +57,14 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         min: 12,
-        max: 130,
-        isInt(value) {
-          if(Validator.isInt(value) === false) {
-            throw new Error('Age must be a number.')
-          }
-        }
+        max: 130
       }
+        // isInt(value) {
+        //   if(Validator.isInt(value) === false) {
+        //     throw new Error('Age must be a number.')
+        //   }
+        // }
+      // }
     },
     profileImageUrl: {
       type: DataTypes.STRING,
