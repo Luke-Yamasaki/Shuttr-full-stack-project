@@ -1,9 +1,9 @@
 import {useState, useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import styles from './ImageDetail.module.css';
 import { deleteImage, getImages } from '../../../store/images';
-import { getComments } from '../../../store/comments';
+import { getComments, createComment } from '../../../store/comments';
 import Comments from '../../../components/Comments';
 
 const ImageDetail = ({images, users}) => {
@@ -15,13 +15,16 @@ const ImageDetail = ({images, users}) => {
     const commentsArr = Object.values(commentsObj);
     // const [isLoaded, setIsLoaded] = useState(false);
     // const [deletedId, setDeletedId] = useState('');
-    const [showComments, setShowComments] = useState(false);
+    const [selected, setSelected] = useState(null);
     const [x, setX] = useState(null);
     const [y, setY] = useState(null)
+    const [commentVal, setCommentVal] = useState('');
+    const [commentErr, setCommentErr] = useState([]);
+    const history = useHistory();
 
-    // useEffect(() => {
-    //     dispatch(getImages())
-    // },[dispatch])
+    useEffect(() => {
+        dispatch(getImages())
+    },[dispatch])
 
     const handleDelete = (e) => {
         e.preventDefault();
@@ -39,22 +42,47 @@ const ImageDetail = ({images, users}) => {
             body.style.width = '100vw';
             body.style.height = '100vh';
             body.style.overflowY = 'hidden';
-            setShowComments(true)
+            setSelected(+e.target.name)
         }
     }
 
     const closeComments = async (e) => {
         e.preventDefault();
+        setCommentVal('');
         const body = await document.querySelector('body');
         body.style.height = 'auto';
         body.style.overflowY = 'scroll';
-        setShowComments(false);
+        setSelected(null);
+    }
+
+    const handleSubmit = async(e) => {
+        e.preventDefault();
+        setCommentErr([]);
+
+        const commentData = {
+            userId: sessionUser.id,
+            imageId: selected,
+            content: commentVal
+        }
+
+        return  dispatch(createComment(commentData))
+            .catch(async (res) => {
+                const data = await res.json();
+                const errArr = [];
+
+                if(data && data.errors) {
+                    data.errors.map((error) => {
+                        errArr.push(error)
+                    })
+                }
+            setCommentErr(errArr)
+        })
     }
 
     return  (
         <>
             {images.map(image => (
-                <div key={image.id} className={styles.commentWrapper}>
+                <div key={image.id} style={{zIndex: `${2000 - image.id}`}}className={styles.commentWrapper}>
                     <div key={image.id} style={{width: '500px', height: '300px', backgroundColor: 'rgba(0, 0, 0, 0.75)', borderRadius: '0.25rem', marginBottom: '5px'}}>
                         <div style={{backgroundImage: `url(${image.imageUrl})`}} className={styles.image}>
                             <div className={styles.infoDiv} onMouseOver={(e) => e.target.style.opacity = '100%' } onMouseLeave={(e) => e.target.style.opacity = '0%' }>
@@ -74,25 +102,29 @@ const ImageDetail = ({images, users}) => {
                             </div>
                         </div>
                     </div>
-                    {showComments && (
-                        <div className={styles.commentsPopup} onClick={closeComments}>
-                                <div className={styles.commentsBox}>
-                                    {commentsArr.map(comment =>
-                                        <div key={comment.id} className={styles.commentContainer}>
-                                            <img src={users[comment.userId].profileImageUrl} style={{width: '30px', height: '30px', borderRadius: '100%'}}></img>
-                                            <div>
-                                                <Link style={{color: 'blue'}}to={`/users/${comment.userId}`}>{users[comment.userId].firstName}{users[comment.userId].lastName}</Link>
-                                                <p>{comment.content}</p>
-                                            </div>
+                    {image.id === selected &&
+                        <div className={styles.commentsPopup}>
+                            <div className={styles.commentsBox}>
+                                {commentsArr.map(comment =>
+                                    <div key={comment.id} className={styles.commentContainer}>
+                                        <img src={users[comment.userId].profileImageUrl} style={{width: '40px', height: '40px', borderRadius: '100%'}}></img>
+                                        <div className={styles.contentBox}>
+                                            <Link style={{color: '#006dac'}}to={`/users/${comment.userId}`}>{users[comment.userId].firstName} {users[comment.userId].lastName}</Link>
+                                            <p className={styles.commentContent}>{comment.content}</p>
                                         </div>
-                                    )}
+                                    </div>
+                                )}
+                            </div>
+                            <form onSubmit={handleSubmit} className={styles.form}>
+                                {commentErr.length >= 1 && commentErr.map(error => <div className={styles.err}>{error}</div>)}
+                                <textarea value={commentVal} className={styles.textArea} onChange={(e) => setCommentVal(e.target.value)}></textarea>
+                                <div className={styles.btnWrapper}>
+                                    <button type='button' className={styles.cancelBtn} onClick={closeComments}>Cancel</button>
+                                    <button type='submit' className={styles.submitBtn}>Add comment</button>
                                 </div>
-                            <form>
-                                <textarea></textarea>
-                                <button type='submit'></button>
                             </form>
                         </div>
-                )}
+                    }
                </div>
             ))}
         </>

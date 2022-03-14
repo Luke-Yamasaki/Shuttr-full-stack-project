@@ -42,8 +42,9 @@ router.get(
 router.use('/session', sessionRouter);
 router.use('/users', usersRouter);
 router.use('/images', imagesRouter);
-router.use('/images/:id/comments', commentsRouter);
+router.use('/comments', commentsRouter);
 router.use('/tags', tagsRouter);
+
 
 
 module.exports = router;

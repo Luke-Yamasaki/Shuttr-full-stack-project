@@ -116,17 +116,16 @@
 }
 
 .commentsPopup {
-    width: 300px;
+    width: 350px;
     height: auto;
-    max-height: 500px;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    box-shadow: 0px 0px 100px black;
 }
 
-.commentBg {
+/* .commentBg {
     position: absolute;
     width: 100vw;
     height: 100vh;
@@ -136,29 +135,116 @@
     justify-content: center;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.05);
-}
+} */
 
 
 .commentsBox {
-    width: 500px;
-    height: 400px;
+    width: 350px;
+    height: auto;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
+    align-items: left;
     background-color: white;
     border-radius: 0.25rem;
-
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .commentContainer {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    width: 500px;
-    height: 30px;
+    justify-content: flex-start;
+    gap: 20px;
+    align-items: center;
+    width: 350px;
+    min-height: 60px;
+    border-bottom: 1px solid grey;
 }
 
 .commentWrapper {
     width: 500px;
-    height: auto;
+    height: 305px;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contentBox {
+    display: flex;
+    flex-direction: column;
+    height: 45px;
+}
+
+.commentContent {
+    padding: none;
+    margin-top: 5px;
+    color: rgba(0, 0, 0, 0.6)
+}
+
+.submitBtn {
+    background: none;
+    border: none;
+    border-radius: 0.25rem;
+    width: 100px;
+    height: 30px;
+    background-color: lightskyblue;
+    color: white;
+}
+
+.submitBtn:hover {
+    color: white;
+    background-color: blue
+}
+
+.cancelBtn {
+    background: none;
+    border: none;
+    border-radius: 0.25rem;
+    width: 75px;
+    height: 30px;
+    border: 1px solid white;
+    background-color: lightcoral;
+    color: white;
+}
+
+.cancelBtn:hover {
+    color: white;
+    background-color: red;
+}
+
+.form {
+    width: 350px;
+    max-height: 450px;
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    align-items: flex-end;
+    background-color: white;
+}
+
+.textArea {
+    padding: 0px;
+    margin: 0px;
+    border: none;
+    border-bottom: 1px solid grey;
+    width: 350px;
+    max-height: 200px;
+}
+
+.btnWrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
+}
+
+.err {
+    height: 50px;
+    width: 350px;
+    color: red;
+    font-size: 14px;
+
 }
