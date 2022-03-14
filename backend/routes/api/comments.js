@@ -2,19 +2,28 @@ const express = require('express');
 const { check } = require('express-validator');
 const asyncHandler = require('express-async-handler');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { Comment } = require('../../db/models/comment');
+const { Comment } = require('../../db/models');
 const validateComment = require('../../utils/validateComment');
 
 const router = express.Router();
 
-// router.get(
-//     '/',
-//     asyncHandler(async (req, res) => {
-//         const imageId = req.params.id
-//         const comments = await Comment.listAll(imageId);
-//         return res.json(comments);
-//     })
-// );
+router.get(
+    '/',
+    asyncHandler(async (req, res) => {
+        console.log(req.body)
+        const comments = await Comment.listAll(imageId);
+        return res.json(comments);
+    })
+);
+
+router.get(
+    '/all',
+    asyncHandler(async (req, res) => {
+        console.log(req.body)
+        const comments = await Comment.findAll();
+        return res.json(comments);
+    })
+);
 
 router.get(
     '/:id',

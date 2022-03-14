@@ -7,6 +7,7 @@ import ImageDetail from './ImageDetail';
 import styled from 'styled-components';
 import { getImages } from '../../store/images';
 import { getUsers } from '../../store/users';
+import { getAllComments } from '../../store/comments';
 
 const PageWrapper = styled.div`
     width: 100vw;
@@ -20,14 +21,14 @@ const PageWrapper = styled.div`
     `;
 
 const ImageWrapper = styled.div`
-    width: 1510px;
+    width: 1520px;
     height: auto;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     flex-wrap: wrap;
-    background-color: grey;
-    padding-top: 2px;
+    background-color: rgb(50, 50, 50);
+    padding-top: 5px;
     margin-top: 25px;
     border-radius: 0.25rem;
 `;
@@ -40,7 +41,8 @@ const ImagesPage = () => {
     const imagesArr = Object.values(imagesObj);
     const imagesArrCopy = [...imagesArr];
     const reversedImagesArr = imagesArrCopy.reverse();
-
+    // const commentsObj = useSelector((state) => state.commentsState.comments);
+    // const commentsArr = Object.values(commentsObj);
     const usersObj = useSelector((state) => state.usersState.users);
     const usersArr = Object.values(usersObj);
     // const imagesList = images[0];
@@ -50,11 +52,7 @@ const ImagesPage = () => {
     // const [loggedIn, setLoggedIn] = useState(false);
 
     useEffect(() => {
-        dispatch(getUsers())
-    },[])
-
-    useEffect(() => {
-        dispatch(getImages()).then(() => setIsLoaded(true))
+        dispatch(getImages()).then(() => dispatch(getUsers())).then(() => setIsLoaded(true))
     },[dispatch]);
 
     const handleSorting = (e) => {
@@ -81,7 +79,7 @@ const ImagesPage = () => {
                     </select>
                 </div>
                 <ImageWrapper>
-                    { activity === 'Newest' ? <ImageDetail images={reversedImagesArr} users={usersObj}/> : <ImageDetail images={imagesArr} users={usersObj}/>}
+                    { activity === 'Newest' ? <ImageDetail images={reversedImagesArr} users={usersObj} /> : <ImageDetail images={imagesArr} users={usersObj} />}
                 </ImageWrapper>
             </div>
         </PageWrapper>

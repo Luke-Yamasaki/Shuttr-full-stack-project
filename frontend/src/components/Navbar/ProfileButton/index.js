@@ -89,8 +89,7 @@ function ProfileButton({user}) {
 
     return loaded && (
       <div>
-        <div className={styles.userButton} style={{backgroundImage: `url(${user.profileImageUrl})`}} onClick={openMenu}>
-        </div>
+        <div className={styles.userButton} style={{backgroundImage: `url(${user.profileImageUrl})`}} onClick={openMenu}></div>
         {showMenu && (
           <div className={styles.menuWrapper}>
             <div className={styles.profileDiv}>
@@ -107,7 +106,6 @@ function ProfileButton({user}) {
               </div>
             </div>
           </div>
-
         )}
       </div>
     );

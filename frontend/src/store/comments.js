@@ -1,6 +1,7 @@
 import { csrfFetch } from './csrf';
 
 const LOAD = 'comments/LOAD';
+const LOAD_ALL = 'comments/LOAD_ALL';
 const LOAD_ONE = 'comments/LOAD_ONE';
 const ADD_ONE = 'comments/ADD_ONE';
 const REMOVE_COMMENT = 'comments/REMOVE_COMMENT';
@@ -9,6 +10,11 @@ const load = comments => ({
   type: LOAD,
   comments
 });
+
+const loadAll = comments => ({
+  type: LOAD_ALL,
+  comments
+})
 
 const loadOne = comment => ({
   type: LOAD_ONE,
@@ -26,10 +32,19 @@ const removeComment = commentId => ({
 });
 
 export const getComments = (imageId) => async (dispatch, getState) => {
-  const response = await csrfFetch(`/api/images/${imageId}/comments`);
+  const response = await csrfFetch(`/api/images/${imageId}`);
+  if (response.ok) {
+    const imageData = await response.json();
+    dispatch(load(imageData.comments));
+  }
+  return response
+};
+
+export const getAllComments = () => async (dispatch, getState) => {
+  const response = await csrfFetch(`/api/images/:id/comments/all`);
   if (response.ok) {
     const comments = await response.json();
-    dispatch(load(comments));
+    dispatch(loadAll(comments));
   }
   return response
 };
@@ -92,6 +107,12 @@ const commentsReducer = (state = initialState, action) => {
       newState = {...state};
       const comments = {}
       action.comments.forEach((comment) => comments[comment.id] = comment)
+      newState.comments = comments;
+      return newState;
+    case LOAD_ALL:
+      newState = {...state};
+      const commentsObj = {}
+      action.comments.forEach((comment) => commentsObj[comment.id] = comment)
       newState.comments = comments;
       return newState;
     case LOAD_ONE:

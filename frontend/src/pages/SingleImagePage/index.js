@@ -5,7 +5,7 @@ import { getOneImage } from "../../store/images";
 import * as commentActions from '../../store/comments';
 import * as usersActions from '../../store/users';
 import Navbar from "../../components/Navbar";
-import Comments from '../../components/Comments';
+import CommentsModal from '../../components/CommentsModal';
 import EditFormModal from '../../components/EditFormModal';
 import styled from 'styled-components';
 import styles from './SingleImagePage.module.css';
@@ -90,7 +90,8 @@ const SingleImagePage = () => {
                         <h2>Uploaded on {new Date(imageObj.createdAt).toLocaleDateString()} </h2>
                     </div>
                 </div>
-                {commentsArr.map(comment => (
+                <CommentsModal imageId={id}/>
+                {/* {commentsArr.map(comment => (
                     <Comments key={comment.id} user={sessionUser} comments={commentsArr} users={usersObj}/>
                 ))}
                 <div style={{width: '450px', height: '100px', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', background: 'white'}}>
@@ -99,7 +100,7 @@ const SingleImagePage = () => {
                         <textarea placeholder='Add a comment' style={{width: '385px', height: '85px', padding: 'none'}} />
                         <button type='submit'>Comment</button>
                     </form>
-                </div>
+                </div> */}
             </div>
         </SinglePageWrapper>
     )

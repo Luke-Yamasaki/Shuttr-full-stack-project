@@ -17,7 +17,6 @@
     text-shadow: none;
     font-family: sans-serif;
     font-size: 14px;
-    text-align: center;
     padding-top: 6px;
     display: inline-block;
     text-align: center;
@@ -38,17 +37,13 @@
 }
 
 .delBtn {
+    background: none;
     color: lightcoral;
     text-transform: none;
     text-indent: 0px;
     text-shadow: none;
     font-family: sans-serif;
     font-size: 14px;
-    text-align: center;
-    padding-top: 6px;
-    display: inline-block;
-    text-align: center;
-    align-items: flex-start;
     cursor: default;
     box-sizing: border-box;
     background-color: none;
@@ -57,6 +52,8 @@
     border-radius: 1px;
     width: 50px;
     height: 30px;
+    text-align: center;
+    padding: 0px;
 }
 
 .delBtn:hover {
@@ -91,7 +88,7 @@
     width: 480px;
     justify-content: flex-end;
     align-items: center;
-    margin-top: 15px;
+    margin-top: -20px;
 }
 
 .btnDiv {
@@ -103,17 +100,65 @@
 }
 
 .comments {
+    background: none;
     width: 150px;
     height: 25px;
     border-radius: 0.25rem;
     color: white;
     border: 1px solid white;
-    text-align: center;
-    padding-top: 7px;
     margin-top: 10px;
+    background-color: none;
 }
 
 .comments:hover {
     color: grey;
     background-color: white;
+}
+
+.commentsPopup {
+    width: 300px;
+    height: auto;
+    max-height: 500px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.commentBg {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    margin-top: -120px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+
+.commentsBox {
+    width: 500px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: white;
+    border-radius: 0.25rem;
+
+}
+
+.commentContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 500px;
+    height: 30px;
+}
+
+.commentWrapper {
+    width: 500px;
+    height: auto;
 }
