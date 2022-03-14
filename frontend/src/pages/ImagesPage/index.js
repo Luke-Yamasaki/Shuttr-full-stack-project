@@ -20,13 +20,16 @@ const PageWrapper = styled.div`
     `;
 
 const ImageWrapper = styled.div`
-    width: 1500px;
+    width: 1510px;
     height: auto;
     display: flex;
     flex-direction: row;
+    justify-content: space-evenly;
     flex-wrap: wrap;
     background-color: grey;
-
+    padding-top: 2px;
+    margin-top: 25px;
+    border-radius: 0.25rem;
 `;
 
 const ImagesPage = () => {
