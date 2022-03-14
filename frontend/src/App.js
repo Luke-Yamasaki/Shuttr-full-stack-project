@@ -6,12 +6,13 @@ import WelcomePage from './pages/WelcomePage';
 import Homepage from './pages/Homepage';
 import AuthenticationPage from './pages/AuthenticationPage';
 import ImagesPage from './pages/ImagesPage';
-import SingleImagePage from './pages/SingleImagePage';
+// import SingleImagePage from './pages/SingleImagePage';
 import UsersPage from './pages/UsersPage';
 import TagsPage from './pages/TagsPage';
 import UploadPage from './pages/UploadPage';
 import SettingsPage from './pages/SettingsPage';
 import NotFoundPage from './pages/404Page';
+import EditForm from '../src/components/Forms/ImageForms/EditImageForm';
 
 
 function App() {
@@ -41,26 +42,26 @@ function App() {
         <ImagesPage />
       </Route>
       <Route path="/images/:id">
-        <SingleImagePage />
+        <EditForm />
       </Route>
-      <Route path="/users">
+      {/* <Route path="/users">
         <UsersPage />
       </Route>
       <Route path="/users/:id">
         <UsersPage />
-      </Route>
-      <Route path="/tags">
+      </Route> */}
+      {/* <Route path="/tags">
         <TagsPage />
       </Route>
       <Route path="/tags/:id">
         <TagsPage />
-      </Route>
+      </Route> */}
       <Route path="/upload">
         <UploadPage />
       </Route>
-      <Route path="/settings">
+      {/* <Route path="/settings">
         <SettingsPage />
-      </Route>
+      </Route> */}
       <Route>
         <NotFoundPage />
       </Route>

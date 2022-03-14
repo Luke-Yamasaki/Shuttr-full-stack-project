@@ -1,21 +1,35 @@
 import {useSelector, useDispatch} from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import {useState, useEffect} from 'react';
-import { createImage } from '../../../store/images';
+import { editImage, getOneImage, getImages } from '../../../../store/images';
 
-import styles from './ImageForm.module.css';
+import styles from './EditForm.module.css';
 
-const ImageForm = () => {
+const EditForm = () => {
+    const {id} = useParams();
+    const imagesObj = useSelector(state => state.imagesState.images);
     const sessionUser = useSelector((state) => state.session.user);
     const dispatch = useDispatch();
     const history = useHistory();
     const [imageUrl, setImageUrl] = useState('');
-    const [previewImg, setPreviewImg] = useState('https://icons-for-free.com/iconfiles/png/512/gallery+image+landscape+mobile+museum+open+line+icon-1320183049020185924.png')
+    const [previewImg, setPreviewImg] = useState('')
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [urlError, setUrlError] = useState([]);
     const [titleError, setTitleError] = useState([]);
     const [descriptionError, setDescriptionError] = useState([]);
+    const [loaded, setLoaded] = useState(false);
+
+    let image;
+
+    useEffect(() => {
+        dispatch(getImages()).then(() => setLoaded(true));
+    },[])
+
+    // useEffect(() => {
+    //     console.log(imagesObj)
+    // },[dispatch, id])
+
 
     if(!sessionUser) {
         return history.push('/')
@@ -50,13 +64,14 @@ const ImageForm = () => {
         setDescriptionError([]);
 
         const formData = {
-            userId,
+            userId: sessionUser.id,
+            imageId: id,
             imageUrl,
             title,
             description
         };
 
-        const newImage = await dispatch(createImage(formData))
+        const newImage = await dispatch(editImage(formData))
             .catch(async (res) => {
                 const data = await res.json();
                 const urlErr = [];
@@ -84,11 +99,11 @@ const ImageForm = () => {
         }
     };
 
-    return (
+    return loaded && (
         <div className={styles.formWrapper}>
-            <h1 style={{ color: 'white' }}>Upload your image!</h1>
+            <h1 style={{ color: 'white' }}>Edit your image!</h1>
             <div className={styles.formContents}>
-                <div style={{backgroundImage: `url(${previewImg})`}} className={styles.preview}></div>
+                <div style={{backgroundImage: `url(${imagesObj[id].imageUrl})`}} className={styles.preview}></div>
                 <form onSubmit={handleSubmit} style={{ width: '400px', height: '500px', display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}>
                     {urlError && (
                         urlError.map(error =>
@@ -96,21 +111,21 @@ const ImageForm = () => {
                         )
                     )}
                     <label>Image URL</label>
-                    <input type='url' value={imageUrl} placeholder='Add an image URL...' onChange={handleChange} name='url' required/>
+                    <input type='url' value={imageUrl} placeholder={imagesObj[id].imageUrl} onChange={handleChange} name='url' required/>
                     {titleError && (
                         titleError.map(error =>
                             <p key={error.id} style={{margin: '-20px 0px -20px 0px', color: 'rgba(200, 0, 0, 1)',  fontFamily: 'sans-serif', padding: 'none'}}>{error}</p>
                         )
                     )}
                     <label>Title (Up to 50 characters)</label>
-                    <input type='text' size='50' value={title} placeholder='Add a title...' onChange={(e) => setTitle(e.target.value)} />
+                    <input type='text' size='50' value={title} placeholder={imagesObj[id].title} onChange={(e) => setTitle(e.target.value)} />
                     {descriptionError && (
                         descriptionError.map(error =>
                             <p key={error.id} style={{color: 'rgba(200, 0, 0, 1)',  fontFamily: 'sans-serif', padding: 'none'}}>{error}</p>
                         )
                     )}
                     <label>Description (Up to 300 characters)</label>
-                    <textarea type='text' value={description} placeholder='Add a description...' onChange={(e) => setDescription(e.target.value)} />
+                    <textarea type='text' value={description} placeholder={imagesObj[id].description} onChange={(e) => setDescription(e.target.value)} />
                     <div className={styles.buttonWrapper}>
                         <button type='button' className={styles.fomrButtons} style={{width: '100px', height: '35px', backgroundColor: '#d65fab', border: 'none', borderRadius: '0.25rem', color: 'white'}} onClick={handleReset}>Reset</button>
                         <button type='submit' className={styles.fomrButtons} style={{width: '300px', height: '35px', backgroundColor: '#128fdc', border: 'none', borderRadius: '0.25rem', color: 'white'}}>Submit</button>
@@ -121,4 +136,4 @@ const ImageForm = () => {
     )
 }
 
-export default ImageForm;
+export default EditForm;

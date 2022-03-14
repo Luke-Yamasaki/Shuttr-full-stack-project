@@ -101,7 +101,7 @@ function ProfileButton({user}) {
               <div className={styles.profileDropdown}>
                 <p className={styles.itemText}>Username: {user.username}</p>
                 <p className={styles.itemText}>Email: {user.email}</p>
-                <p className={styles.itemText}>Settings:<a href={`/users/${user.id}`} className={styles.settingsLink}>Change</a></p>
+                {/* <p className={styles.itemText}>Settings:<a href={`/users/${user.id}`} className={styles.settingsLink}>Change</a></p> */}
                 <button type="button" className={styles.logoutBtn} onClick={handleLogout}>Log out</button>
               </div>
             </div>

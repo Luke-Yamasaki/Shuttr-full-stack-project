@@ -17,8 +17,6 @@ const validateLogin = [
     .withMessage('Please enter a valid email address.'),
   check('password')
     .exists({ checkFalsy: true })
-    .withMessage('Please enter a password.')
-    .bail()
     .isLength({min: 6})
     .withMessage('Invalid password'),
   handleValidationErrors

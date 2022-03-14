@@ -50,18 +50,16 @@ const validateSignup = [
             });
         }),
     check('password')
-      .exists({ checkFalsy: true })
-      .withMessage('Please provide a password.')
-      .bail()
-      .isLength({ min: 6 })
-      .withMessage('Password must be 6 characters or more.'),
+        .exists({ checkFalsy: true })
+        .isLength({ min: 6 })
+        .withMessage('Password must be 6 characters or more.'),
     check('confirmPassword')
         .exists({ checkFalsy: true })
+
         .withMessage('Please confirm your password.')
         .bail()
         .custom((value, { req }) => value === req.body.password)
-        .withMessage('Passwords do not match.')
-        .bail(),
+        .withMessage('Passwords do not match.'),
     handleValidationErrors
 ];
 

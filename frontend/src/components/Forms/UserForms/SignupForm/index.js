@@ -111,7 +111,7 @@ const LoginForm = () => {
               else if(error.toLowerCase().includes("email")) {
                 return emailErrorArr.push(error)
               }
-              else if(error.toLowerCase().includes("provide a password")) {
+              else if(error.toLowerCase().includes('password must be 6 characters or more.')) {
                 return passwordErrorArr.push(error)
               }
               else if(error.toLowerCase().includes("confirm") || error.toLowerCase().includes("match")) {

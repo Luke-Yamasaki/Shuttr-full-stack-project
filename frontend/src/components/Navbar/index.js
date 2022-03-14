@@ -96,7 +96,7 @@ const Navbar = () => {
                 <NavUl>
                     <div className={styles.logoBtn} onClick={handleClick}>
                     </div>
-                    <NavLink to={`/users/{sessionUser.id}`} className={styles.navItem} >You</NavLink>
+                    {/* <NavLink to={`/users/{sessionUser.id}`} className={styles.navItem} >You</NavLink> */}
                     <NavLink to='/images' className={styles.navItem}>Explore</NavLink>
                     <SmallSearch />
                     <NavLink to='/upload' className={styles.navCloud}></NavLink>
